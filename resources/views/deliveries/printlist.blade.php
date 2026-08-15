@@ -190,14 +190,14 @@
                     <td class="text-center">{{ $delivery->dr_no ?? 'N/A' }}</td>
                     <td class="text-center">{{ $delivery->sales_order_number ?? 'N/A' }}</td>
                     <td>
-                        {{-- ✅ Fixed: Use customer_name from deliveries table first --}}
+                        {{-- Fixed: Use customer_name from deliveries table first --}}
                         {{ $delivery->customer_name 
                            ?? $delivery->salesOrder?->customer?->customer_name 
                            ?? $delivery->salesOrder?->client_name 
                            ?? 'N/A' }}
                     </td>
                     <td class="text-center">
-                        {{-- ✅ Fixed: Check delivery table first, then sales order --}}
+                        {{-- Fixed: Check delivery table first, then sales order --}}
                         {{ $delivery->request_delivery_date 
                             ? \Carbon\Carbon::parse($delivery->request_delivery_date)->format('m/d/Y') 
                             : ($delivery->salesOrder?->request_delivery_date 
@@ -207,7 +207,7 @@
                     <td class="text-right">{{ number_format($delivery->quantity ?? 0, 3) }}</td>
                     <td class="text-right">₱{{ number_format($delivery->total_amount ?? 0, 2) }}</td>
                     <td class="text-center">
-                        {{-- ✅ Fixed: Corrected status condition and class name --}}
+                        {{-- Fixed: Corrected status condition and class name --}}
                         @if($delivery->status === 'Pending')
                             <span class="status-pending">Pending</span>
                         @elseif($delivery->status === 'Delivered')

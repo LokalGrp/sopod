@@ -79,7 +79,7 @@
     {{-- Print button (hidden on print) --}}
     <div class="no-print" style="text-align:right; margin-bottom:10px;">
         <button onclick="window.print()" style="background:#8B0000;color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-size:13px;">
-            🖨 Print
+            Print
         </button>
         <button onclick="window.close()" style="background:#555;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;margin-left:8px;">
             Close

@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">PURCHASE REQUISITION FORM</h1>
+            <h1 class="text-2xl font-bold text-white">Purchase Requisition Form</h1>
             <div class="text-right">
                 <label class="font-semibold text-gray-300">PR NO:</label>
                 <span class="ml-2 px-4 py-1 bg-gray-900 border border-gray-700 text-white rounded">{{ $prNo }}</span>
@@ -45,7 +45,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="bg-blue-100 text-blue-700 rounded-full w-10 h-10 flex items-center justify-center">
-                            <span class="text-lg">🐔</span>
+                            <span class="text-lg"></span>
                         </div>
                         <div>
                             <h3 class="font-bold text-blue-800 text-sm">BOM-Linked Purchase Request</h3>

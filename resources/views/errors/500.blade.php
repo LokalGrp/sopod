@@ -34,7 +34,7 @@
                 <!-- Info Box -->
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 mb-8">
                     <div class="flex items-start gap-4">
-                        <div class="text-3xl">💡</div>
+                        <div class="text-3xl"></div>
                         <div class="text-left">
                             <p class="text-sm font-bold text-blue-900 mb-2">What you can do:</p>
                             <ul class="text-sm text-blue-800 space-y-1">
@@ -50,11 +50,11 @@
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button onclick="window.location.reload()" 
                             class="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition shadow-lg font-semibold text-lg">
-                        <span>🔄</span> Refresh Page
+                        <span></span> Refresh Page
                     </button>
                     <a href="{{ route('dashboard') }}" 
                        class="flex items-center justify-center gap-2 px-8 py-4 bg-gray-800 border-2 border-gray-600 text-gray-200 rounded-xl hover:bg-gray-900 hover:border-gray-400 transition shadow-md font-semibold text-lg">
-                        <span>🏠</span> Go to Dashboard
+                        <span></span> Go to Dashboard
                     </a>
                 </div>
 
@@ -64,7 +64,7 @@
                     <a href="http://mtcresolveit.meatplus.ph/public/ticket/index.php?entity=1" 
                        target="_blank" 
                        class="inline-block px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition text-gray-200 font-medium">
-                        📧 Contact IT Support
+                        Contact IT Support
                     </a>
                     <p class="text-sm text-gray-300 mt-4">
                         Error ID: {{ $errorId ?? \Illuminate\Support\Str::random(8) }} • {{ $timestamp ?? now()->format('M d, Y H:i') }}

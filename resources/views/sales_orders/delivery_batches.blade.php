@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Delivery Batches')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-gray-100 p-8">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
         <div>
             <h1 class="text-3xl font-bold text-white mb-2">
-                📦 Delivery Batches
+                Delivery Batches
             </h1>
             <p class="text-gray-300">Sales Order: <span class="text-blue-700 font-semibold">{{ $salesOrder->sales_order_number }}</span></p>
         </div>
@@ -44,7 +46,7 @@
                 <p class="text-xs text-gray-300 mb-1">Status</p>
                 @if($salesOrder->is_closed)
                     <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-600 text-white">
-                        ✅ Closed - Fully Delivered
+                        Closed - Fully Delivered
                     </span>
                 @else
                     <span class="px-3 py-1 rounded-full text-xs font-semibold
@@ -114,7 +116,7 @@
                             <!-- Status Badge -->
                             <span class="px-5 py-2.5 rounded-xl text-sm font-bold shadow-xl
                                 {{ $isDelivered ? 'bg-green-500 text-white' : ($isCancelled ? 'bg-red-100 text-red-700' : 'bg-yellow-500 text-black') }}">
-                                {{ $isDelivered ? '✅ Delivered' : ($isCancelled ? '❌ Cancelled' : '⏳ ' . $delivery->status) }}
+                                {{ $isDelivered ? 'Delivered' : ($isCancelled ? 'Cancelled' : '⏳ ' . $delivery->status) }}
                             </span>
 
                             <!-- View Details Button -->

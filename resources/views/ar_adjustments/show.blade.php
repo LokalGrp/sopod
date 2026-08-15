@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">AR ADJUSTMENT DETAILS</h1>
+            <h1 class="text-2xl font-bold">AR Adjustment Details</h1>
             <div class="flex items-center gap-3">
                 <span class="px-3 py-1 rounded text-sm bg-purple-100 text-purple-700">{{ $adjustment->formatted_type }}</span>
                 <span class="px-3 py-1 rounded text-sm {{ $adjustment->is_decrease ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
@@ -81,7 +81,7 @@
         <!-- Linked Delivery Information -->
         @if($adjustment->delivery)
         <div class="mb-6 p-4 bg-blue-900/30 border border-blue-600 rounded">
-            <h3 class="font-semibold text-blue-300 mb-3">📦 Linked Delivery Information</h3>
+            <h3 class="font-semibold text-blue-300 mb-3">Linked Delivery Information</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
                 <div>
                     <p class="text-gray-400">Delivery Batch</p>
@@ -154,7 +154,7 @@
         <!-- Linked GL Account Information -->
         @if($adjustment->glAccount)
         <div class="mb-6 p-4 bg-amber-900/30 border border-amber-600 rounded">
-            <h3 class="font-semibold text-amber-300 mb-3">📊 GL Account Details</h3>
+            <h3 class="font-semibold text-amber-300 mb-3">GL Account Details</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <div>
                     <p class="text-gray-400">Account Code</p>

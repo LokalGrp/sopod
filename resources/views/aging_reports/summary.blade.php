@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <!-- ✅ NEW: AR Notifications Section -->
+        <!-- NEW: AR Notifications Section -->
         @if($notifications && (count($notifications['due_soon']) > 0 || count($notifications['just_overdue']) > 0 || count($notifications['seriously_overdue']) > 0))
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
             <!-- Due Soon Alert -->
@@ -102,7 +102,7 @@
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-circle text-red-700 text-2xl mr-2"></i>
                         <div>
-                            <h4 class="text-white font-bold">⚠️ Seriously Overdue</h4>
+                            <h4 class="text-white font-bold"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg> Seriously Overdue</h4>
                             <p class="text-red-100 text-sm">61+ days past due</p>
                         </div>
                     </div>

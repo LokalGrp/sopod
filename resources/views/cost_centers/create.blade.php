@@ -4,7 +4,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">CREATE COST CENTER</h1>
+            <h1 class="text-2xl font-bold">Create Cost Center</h1>
             <a href="{{ route('cost_centers.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
                 <i class="fas fa-arrow-left mr-1"></i> Back
             </a>

@@ -9,7 +9,7 @@
         <div class="flex items-center gap-3">
             {{-- Import Button --}}
             <button type="button" id="import_modal_btn"
-                class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
+                class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
                 <i class="fas fa-upload"></i>
                 <span>Import</span>
             </button>
@@ -23,7 +23,7 @@
 
             {{-- Create Button --}}
             <a href="{{ route('gl_accounts.create') }}"
-                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
+                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
                 <i class="fas fa-plus"></i>
                 <span>New GL Account</span>
             </a>
@@ -244,7 +244,7 @@ async function submitImport() {
             closeImportModal();
             let errorDetails = '';
             if (data.errors && data.errors.length > 0) {
-                errorDetails = '<p style="color: #fca5a5; margin-top: 10px; text-align: left;"><strong>Issues:</strong><br>' +
+                errorDetails = '<p style="color: #374151; margin-top: 10px; text-align: left;"><strong>Issues:</strong><br>' +
                                data.errors.slice(0, 5).join('<br>') +
                                (data.errors.length > 5 ? '<br>... and ' + (data.errors.length - 5) + ' more' : '') +
                                '</p>';

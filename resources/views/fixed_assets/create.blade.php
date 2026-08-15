@@ -5,7 +5,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">ADD FIXED ASSET</h1>
+            <h1 class="text-2xl font-bold">Add Fixed Asset</h1>
         </div>
 
         @if($errors->any())

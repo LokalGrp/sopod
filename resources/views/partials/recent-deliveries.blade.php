@@ -1,6 +1,6 @@
 <div class="section-card">
     <div class="section-header">
-        <h5>🚚 Recent Deliveries</h5>
+        <h5>Recent Deliveries</h5>
     </div>
     <div class="table-container">
         <table class="data-table">

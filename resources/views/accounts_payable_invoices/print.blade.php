@@ -75,7 +75,7 @@
 </head>
 <body>
 <div class="no-print print-controls">
-    <a href="{{ route('accounts_payable_invoices.show', $apv->id) }}" class="btn btn-back">← Back</a>
+    <a href="{{ route('accounts_payable_invoices.show', $apv->id) }}" class="btn btn-back">Back</a>
     <button onclick="setTimeout(()=>window.print(),100)" class="btn btn-print">Print APV</button>
 </div>
 

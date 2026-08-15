@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">CREATE SUPPLY RECEIVING REPORT</h1>
+            <h1 class="text-2xl font-bold text-white">Create Supply Receiving Report</h1>
             <div class="text-right">
                 <label class="font-semibold text-gray-300">SRR CODE:</label>
                 <span class="ml-2 px-4 py-1 bg-gray-900 border border-gray-700 text-white rounded">{{ $srrCode }}</span>

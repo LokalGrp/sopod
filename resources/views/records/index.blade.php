@@ -241,7 +241,7 @@
     @endif
 
     <!-- ====================== -->
-    <!-- 📄 TABLE SECTION -->
+    <!-- TABLE SECTION -->
     <!-- ====================== -->
     @if($type !== 'monthly_sales' && $records->count() > 0)
         <div class="overflow-x-auto">
@@ -286,7 +286,7 @@
                 @foreach($records as $record)
 
                     @php
-                        // unify data source → if delivery, use related sales order
+                        // unify data source if delivery, use related sales order
                         $so = $type === 'deliveries' ? $record->salesOrder : $record;
                     @endphp
 

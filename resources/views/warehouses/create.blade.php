@@ -4,7 +4,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">CREATE NEW WAREHOUSE</h1>
+            <h1 class="text-2xl font-bold text-white">Create New Warehouse</h1>
             <a href="{{ route('warehouses.index') }}" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
                 <i class="fas fa-arrow-left mr-1"></i> Back to List
             </a>
@@ -59,7 +59,7 @@
 
             <!-- Bank Information -->
             <div class="mb-6 bg-gray-900 border border-gray-700 rounded p-4">
-                <h3 class="font-semibold text-white mb-4">BANK INFORMATION</h3>
+                <h3 class="font-semibold text-white mb-4">Bank Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block font-semibold text-gray-300 mb-2">BANK:</label>

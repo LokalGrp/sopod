@@ -55,7 +55,7 @@
                             {{-- Manually locked by admin --}}
                             <div class="flex flex-col gap-1">
                                 <span class="bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold w-fit">
-                                    🔒 LOCKED
+                                    LOCKED
                                 </span>
                                 @if($user->lockedBy)
                                     <span class="text-gray-300 text-xs">
@@ -68,7 +68,7 @@
                             {{-- Auto-locked due to max attempts --}}
                             <div class="flex flex-col gap-1">
                                 <span class="bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold w-fit">
-                                    🔒 LOCKED (Max Attempts)
+                                    LOCKED (Max Attempts)
                                 </span>
                                 <span class="text-gray-300 text-xs">
                                     Too many failed login attempts
@@ -77,7 +77,7 @@
                         @else
                             {{-- Active account --}}
                             <span class="bg-green-600 text-white px-2 py-1 rounded text-xs w-fit">
-                                ✅ Active
+                                Active
                             </span>
                         @endif
                     </td>
@@ -86,11 +86,11 @@
                     <td class="px-4 py-3">
                         @if(isset($user->login_attempts) && $user->login_attempts >= 6)
                             <span class="bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
-                                🔒 {{ $user->login_attempts }} attempts
+                                {{ $user->login_attempts }} attempts
                             </span>
                         @elseif(isset($user->login_attempts) && $user->login_attempts > 0)
                             <span class="bg-yellow-600 text-white px-2 py-1 rounded text-xs">
-                                ⚠️ {{ $user->login_attempts }} attempts
+                                {{ $user->login_attempts }} attempts
                             </span>
                         @else
                             <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">
@@ -137,7 +137,7 @@
                                                 data-user-name="{{ $user->name }}"
                                                 data-action="unlock"
                                                 data-attempts="{{ $user->login_attempts ?? 0 }}">
-                                            🔓 Unlock
+                                            Unlock
                                         </button>
                                     @else
                                         {{-- Show LOCK button when account is active --}}
@@ -146,7 +146,7 @@
                                                 title="Lock Account"
                                                 data-user-name="{{ $user->name }}"
                                                 data-action="lock">
-                                            🔒 Lock
+                                            Lock
                                         </button>
                                     @endif
                                 </form>

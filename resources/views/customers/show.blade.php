@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Customer Details')
+
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-10 bg-gray-900 min-h-screen text-gray-100">
     <!-- Header with Back Button -->
@@ -223,7 +225,7 @@
     <div class="mt-6">
         <a href="{{ route('customers.index') }}" 
            class="inline-block bg-gray-700 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition">
-            ← Back to Customers List
+            <svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg> Back to Customers List
         </a>
     </div>
 </div>

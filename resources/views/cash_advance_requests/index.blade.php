@@ -6,7 +6,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-white">CASH ADVANCE REQUESTS</h1>
+            <h1 class="text-2xl font-bold text-white">Cash Advance Requests</h1>
             <a href="{{ route('cash_advance_requests.create') }}" class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded hover:from-purple-700 hover:to-purple-800 transition">
                 <i class="fas fa-plus mr-1"></i> Create New CAR
             </a>

@@ -6,10 +6,10 @@
 <style>
 .b { background:#fff; border:1px solid #e5e7eb; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.05); }
 .stat-card { background:#fff; border:1px solid #e5e7eb; border-radius:.45rem; padding:.8rem 1rem; }
-.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; }
+.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
 .stat-val { font-size:1.5rem; font-weight:800; color:#111827; line-height:1.1; margin:.1rem 0; }
 .usage-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.usage-table thead th { background:#1e3a5f; color:#fff; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.usage-table thead th { background:#DBEAFE; color:#1D4ED8; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .usage-table thead th.r { text-align:right; }
 .usage-table tbody tr { border-bottom:1px solid #f3f4f6; transition:background .1s; }
 .usage-table tbody tr:hover { background:#f8fbff; }

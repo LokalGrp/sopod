@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">LIQUIDATION FORM</h1>
+            <h1 class="text-2xl font-bold text-white">Liquidation Form</h1>
             <div class="flex items-center gap-4">
                 <div class="text-right">
                     <label class="font-semibold text-gray-300">LIQ NO:</label>

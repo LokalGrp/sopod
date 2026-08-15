@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Accepted Sales Orders')
+
 @section('content')
 <div class="p-6 bg-gray-900 min-h-screen text-white">
     <h2 class="text-2xl font-bold mb-6">Accepted Sales Orders</h2>

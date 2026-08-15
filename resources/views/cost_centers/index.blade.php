@@ -4,7 +4,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">COST CENTERS</h1>
+            <h1 class="text-2xl font-bold">Cost Centers</h1>
             <div class="flex gap-2">
                 <button onclick="document.getElementById('importModal').classList.remove('hidden')"
                     class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded text-sm">

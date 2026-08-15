@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Sales Order Record')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-gray-100 p-8">
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-2">
@@ -8,14 +10,14 @@
         </h1>
         <a href="{{ route('records.index') }}" 
            class="bg-gray-700 hover:bg-gray-700 px-4 py-2 rounded text-sm transition-all duration-150">
-            ← Back to List
+            Back to List
         </a>
     </div>
 
     <a href="{{ route('sales_orders.print', $salesOrder->id) }}" 
        target="_blank"
        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mb-4 inline-block">
-        🖨️ Print Form
+        Print Form
     </a>
 
     <!-- Sales Order Info -->
@@ -31,7 +33,7 @@
             <div class="space-y-1">
                 <p><span class="font-semibold text-gray-300">Sales Representative:</span> {{ $salesOrder->sales_representative ?? '—' }}</p>
                 
-                {{-- ✅ Updated Sales Executive to always get latest from customer --}}
+                {{-- Updated Sales Executive to always get latest from customer --}}
                 <p>
                     <span class="font-semibold text-gray-300">Sales Executive:</span> 
                     {{ $salesOrder->customer->sales_executive ?? $salesOrder->sales_executive ?? '—' }}
@@ -99,7 +101,7 @@
         </div>
     </div>
 
-    {{-- 🌙 Status Update Section --}}
+    {{-- Status Update Section --}}
     @if(in_array($salesOrder->status, ['Pending', 'New']) && \App\Helpers\RoleHelper::canUpdateSalesOrderStatus())
     <div class="mt-8 bg-gray-800/70 border border-gray-700 rounded-lg p-5 shadow-md">
         <div class="flex items-center justify-between mb-4">
@@ -124,9 +126,9 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     @php
                         $statuses = [
-                            'Approved' => ['icon' => '✅', 'color' => 'bg-green-600/20 text-green-700 border-green-700/40 hover:bg-green-600/30'],
-                            'Declined' => ['icon' => '❌', 'color' => 'bg-red-600/20 text-red-700 border-red-700/40 hover:bg-red-600/30'],
-                            'Cancelled' => ['icon' => '🚫', 'color' => 'bg-gray-700 text-gray-300 border-gray-700/40 hover:bg-gray-700/30'],
+                            'Approved' => ['icon' => '', 'color' => 'bg-green-600/20 text-green-700 border-green-700/40 hover:bg-green-600/30'],
+                            'Declined' => ['icon' => '', 'color' => 'bg-red-600/20 text-red-700 border-red-700/40 hover:bg-red-600/30'],
+                            'Cancelled' => ['icon' => '', 'color' => 'bg-gray-700 text-gray-300 border-gray-700/40 hover:bg-gray-700/30'],
                         ];
                     @endphp
 

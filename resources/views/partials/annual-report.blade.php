@@ -21,7 +21,7 @@
 <!-- Annual Monthly Breakdown -->
 <div class="section-card">
     <div class="section-header">
-        <h5>📅 Annual Sales Breakdown by Month</h5>
+        <h5>Annual Sales Breakdown by Month</h5>
     </div>
     <div class="table-container">
         <table class="data-table">
@@ -72,7 +72,7 @@
 <!-- Visual Chart -->
 <div class="section-card">
     <div class="section-header">
-        <h5>📊 Visual Overview</h5>
+        <h5>Visual Overview</h5>
     </div>
     <div style="padding: 1.5rem;">
         <div class="visual-chart">

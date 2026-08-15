@@ -6,7 +6,7 @@
 
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <h1 class="text-2xl font-bold">Currency Rate History</h1>
-            <a href="{{ route('currencies.index') }}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500 text-sm">← Back to Rates</a>
+            <a href="{{ route('currencies.index') }}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500 text-sm">Back to Rates</a>
         </div>
 
         <form method="GET" class="flex gap-3 mb-5 flex-wrap">

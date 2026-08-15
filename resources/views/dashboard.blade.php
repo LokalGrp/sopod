@@ -86,7 +86,7 @@
         <h2 class="text-white font-semibold mb-4">Recent Activity</h2>
 
         @if($recentActivities->isEmpty())
-            <p class="text-white text-sm">No recent activities yet 💤</p>
+            <p class="text-white text-sm">No recent activities yet </p>
         @else
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm text-left text-white">

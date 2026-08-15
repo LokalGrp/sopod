@@ -442,9 +442,9 @@
                                 </td>
                                 <td class="px-3 py-3 text-center">
                                     @if($adj['is_decrease'])
-                                        <span class="bg-red-600 px-2 py-1 rounded text-xs text-white">↓ Decrease AR</span>
+                                        <span class="bg-red-600 px-2 py-1 rounded text-xs text-white"><svg class="ico" aria-hidden="true"><use href="#i-arrow-down"/></svg> Decrease AR</span>
                                     @else
-                                        <span class="bg-green-600 px-2 py-1 rounded text-xs text-white">↑ Increase AR</span>
+                                        <span class="bg-green-600 px-2 py-1 rounded text-xs text-white"><svg class="ico" aria-hidden="true"><use href="#i-arrow-up"/></svg> Increase AR</span>
                                     @endif
                                 </td>
                                 <td class="px-3 py-3 text-gray-300">{{ $adj['gl_account'] }}</td>

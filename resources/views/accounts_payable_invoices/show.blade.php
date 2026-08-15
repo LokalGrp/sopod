@@ -50,7 +50,7 @@
             <!-- Header -->
             <div class="border-b-2 border-gray-600 pb-4 mb-6">
                 <div class="text-center mb-4">
-                    <h1 class="text-3xl font-bold">ACCOUNTS PAYABLE VOUCHER</h1>
+                    <h1 class="text-3xl font-bold">Accounts Payable Voucher</h1>
                     <p class="text-sm text-gray-300 mt-1">APV No: {{ $invoice->apv_no }}</p>
                 </div>
                 <div class="grid grid-cols-2 gap-4 text-sm">
@@ -82,7 +82,7 @@
 
             <!-- Vendor Information -->
             <div class="mb-6">
-                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">VENDOR INFORMATION</h2>
+                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">Vendor Information</h2>
                 <div class="grid grid-cols-2 gap-4 text-sm">
                     <div>
                         @if($invoice->vendor_code)
@@ -163,7 +163,7 @@
 
             <!-- Particulars & Accounting Items -->
             <div class="mb-6">
-                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">PARTICULARS & ACCOUNTING</h2>
+                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">Particulars & Accounting</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-xs border-collapse">
                         <thead class="bg-red-700 text-white uppercase">
@@ -190,7 +190,7 @@
                                 <td class="border border-gray-600 px-2 py-1 font-mono">{{ $item->item_code ?? '—' }}</td>
                                 <td class="border border-gray-600 px-2 py-1">{{ $ccNames[$item->department] ?? $item->department ?? '—' }}</td>
                                 <td class="border border-gray-600 px-2 py-1">{{ $ccNames[$item->division] ?? $item->division ?? '—' }}</td>
-                                <td class="border border-gray-600 px-2 py-1 text-center">{{ $item->vat ? '✓' : '—' }}</td>
+                                <td class="border border-gray-600 px-2 py-1 text-center">{{ $item->vat ? '' : '—' }}</td>
                                 <td class="border border-gray-600 px-2 py-1 text-center font-mono">{{ $item->tax_code ?? '—' }}</td>
                                 <td class="border border-gray-600 px-2 py-1 font-mono">{{ $item->account_code ?? '—' }}</td>
                                 <td class="border border-gray-600 px-2 py-1">{{ $item->account_name ?? '—' }}</td>
@@ -252,14 +252,14 @@
             <!-- Remarks -->
             @if($invoice->remarks)
             <div class="mb-6">
-                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">REMARKS</h2>
+                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-3">Remarks</h2>
                 <div class="bg-gray-900 p-4 rounded text-sm whitespace-pre-wrap">{{ $invoice->remarks }}</div>
             </div>
             @endif
 
             <!-- Signatures -->
             <div class="mt-8">
-                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-4">APPROVALS</h2>
+                <h2 class="text-lg font-bold border-b border-gray-400 pb-2 mb-4">Approvals</h2>
                 <div class="grid grid-cols-3 gap-8 text-sm">
                     <div class="text-center">
                         <div class="border-b-2 border-black h-16 mb-2"></div>
@@ -355,7 +355,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Department Head Review</span>
                             @if($invoice->department_head_approved_by && $invoice->departmentHeadApprover)
-                                <span class="text-green-700">✓ Reviewed</span>
+                                <span class="text-green-700">Reviewed</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $invoice->departmentHeadApprover->name }}

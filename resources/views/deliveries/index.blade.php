@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Deliveries')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-white p-8">
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-2">
@@ -14,19 +16,19 @@
         @endif
     </div>
 
-    {{-- ✅ Alerts --}}
+    {{-- Alerts --}}
     @if(session('success'))
         <div class="bg-green-600 text-white p-3 rounded mb-4">{{ session('success') }}</div>
     @elseif(session('error'))
         <div class="bg-red-600 text-white p-3 rounded mb-4">{{ session('error') }}</div>
     @elseif(session('pullout'))
         <div class="bg-orange-600 text-white p-3 rounded mb-4 flex items-center gap-2">
-            <span class="text-xl">🔒</span>
+            <span class="text-xl"></span>
             <span>{{ session('pullout') }}</span>
         </div>
     @endif
 
-    {{-- 📅 Enhanced Filter Form --}}
+    {{-- Enhanced Filter Form --}}
     <div class="bg-gradient-to-br from-gray-800 to-gray-850 rounded-2xl shadow-2xl p-6 mb-6 border border-gray-700/50">
         <div class="flex items-center gap-2 mb-4">
             <svg class="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +45,7 @@
                         <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        🚚 Delivery Date From
+                        Delivery Date From
                     </label>
                     <input type="date" name="delivery_date_from" value="{{ request('delivery_date_from') }}" 
                         class="w-full bg-gray-700/50 text-white px-4 py-2.5 rounded-lg border border-blue-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none">
@@ -54,7 +56,7 @@
                         <svg class="w-4 h-4 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        🚚 Delivery Date To
+                        Delivery Date To
                     </label>
                     <input type="date" name="delivery_date_to" value="{{ request('delivery_date_to') }}" 
                         class="w-full bg-gray-700/50 text-white px-4 py-2.5 rounded-lg border border-blue-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none">
@@ -79,40 +81,43 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 p-4 bg-gray-900/30 rounded-xl border border-gray-700/30">
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">📦 Delivery Status</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Delivery Status</label>
                     <select name="status" class="w-full bg-gray-700/50 text-white px-4 py-2.5 rounded-lg border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none cursor-pointer">
                         <option value="">All Status</option>
                         <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>⏳ Pending</option>
-                        <option value="Delivered" {{ request('status') == 'Delivered' ? 'selected' : '' }}>✓ Delivered</option>
-                        <option value="Cancelled" {{ request('status') == 'Cancelled' ? 'selected' : '' }}>✗ Cancelled</option>
+                        <option value="Delivered" {{ request('status') == 'Delivered' ? 'selected' : '' }}>Delivered</option>
+                        <option value="Cancelled" {{ request('status') == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">✅ Approval Status</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Approval Status</label>
                     <select name="approval_status" class="w-full bg-gray-700/50 text-white px-4 py-2.5 rounded-lg border border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all outline-none cursor-pointer">
                         <option value="">All Approval Status</option>
                         <option value="Pending" {{ request('approval_status') == 'Pending' ? 'selected' : '' }}>⏳ Pending Approval</option>
-                        <option value="Approved" {{ request('approval_status') == 'Approved' ? 'selected' : '' }}>✓ Approved</option>
-                        <option value="Rejected" {{ request('approval_status') == 'Rejected' ? 'selected' : '' }}>✗ Rejected</option>
+                        <option value="Approved" {{ request('approval_status') == 'Approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="Rejected" {{ request('approval_status') == 'Rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
                 </div>
             </div>
 
             {{-- Show Hidden Toggle (Admin/IT only) --}}
             @if(auth()->user()->isAdminUser())
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 p-4 bg-red-50/30 rounded-xl border border-red-200/30">
-                <div class="flex items-center gap-3">
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" name="show_hidden" value="1" {{ request('show_hidden') ? 'checked' : '' }}
-                               class="sr-only peer" onchange="this.form.submit()">
-                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-800 after:border-gray-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
-                    </label>
-                    <span class="text-sm font-medium text-red-700">Show Hidden DRs</span>
+            {{-- Compact inline toggle. Same field name, same value, same
+                 onchange submit — only the presentation changed. Neutral by
+                 default; the caution is carried by helper text rather than a
+                 full-width red container. --}}
+            <div class="mb-4">
+                <label class="toggle-row" for="show_hidden_toggle">
+                    <input type="checkbox" id="show_hidden_toggle" name="show_hidden" value="1"
+                           {{ request('show_hidden') ? 'checked' : '' }}
+                           onchange="this.form.submit()">
+                    <span>Show Hidden DRs</span>
                     @if(request('show_hidden'))
-                        <span class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">Active</span>
+                        <span class="badge badge-pending">Active</span>
                     @endif
-                </div>
+                </label>
+                <span class="toggle-hint">Includes delivery receipts hidden from the standard list. Admin and IT only.</span>
             </div>
             @endif
 
@@ -162,28 +167,28 @@
                         
                         @if(request('delivery_date_from'))
                             <span class="bg-blue-600/20 border border-blue-600/30 text-blue-700 px-3 py-1.5 rounded-full text-sm flex items-center gap-2 hover:bg-blue-600/30 transition-all">
-                                🚚 From: {{ request('delivery_date_from') }}
+                                From: {{ request('delivery_date_from') }}
                                 <a href="{{ route('deliveries.index', request()->except('delivery_date_from')) }}" class="hover:text-white">×</a>
                             </span>
                         @endif
 
                         @if(request('delivery_date_to'))
                             <span class="bg-blue-600/20 border border-blue-600/30 text-blue-700 px-3 py-1.5 rounded-full text-sm flex items-center gap-2 hover:bg-blue-600/30 transition-all">
-                                🚚 To: {{ request('delivery_date_to') }}
+                                To: {{ request('delivery_date_to') }}
                                 <a href="{{ route('deliveries.index', request()->except('delivery_date_to')) }}" class="hover:text-white">×</a>
                             </span>
                         @endif
 
                         @if(request('status'))
                             <span class="bg-gray-700 border border-gray-600/30 text-gray-300 px-3 py-1.5 rounded-full text-sm flex items-center gap-2 hover:bg-gray-700/30 transition-all">
-                                📦 Status: {{ request('status') }}
+                                Status: {{ request('status') }}
                                 <a href="{{ route('deliveries.index', request()->except('status')) }}" class="hover:text-white">×</a>
                             </span>
                         @endif
 
                         @if(request('approval_status'))
                             <span class="bg-green-600/20 border border-green-600/30 text-green-700 px-3 py-1.5 rounded-full text-sm flex items-center gap-2 hover:bg-green-600/30 transition-all">
-                                ✅ Approval: {{ request('approval_status') }}
+                                Approval: {{ request('approval_status') }}
                                 <a href="{{ route('deliveries.index', request()->except('approval_status')) }}" class="hover:text-white">×</a>
                             </span>
                         @endif
@@ -193,13 +198,13 @@
         </form>
     </div>
 
-    {{-- 📊 Delivery Summary (shown when both dates are set) --}}
+    {{-- Delivery Summary (shown when both dates are set) --}}
     @if($deliverySummary)
     @php
         $statusConfig = [
-            'Pending'   => ['color' => 'yellow', 'icon' => '⏳'],
-            'Delivered' => ['color' => 'green',  'icon' => '✓'],
-            'Cancelled' => ['color' => 'red',    'icon' => '✗'],
+            'Pending'   => ['color' => 'yellow', 'icon' => ''],
+            'Delivered' => ['color' => 'green',  'icon' => ''],
+            'Cancelled' => ['color' => 'red',    'icon' => ''],
         ];
     @endphp
     <div class="bg-gray-800/80 border border-gray-700/50 rounded-2xl p-5 mb-6 shadow-lg">
@@ -241,7 +246,7 @@
     </div>
     @endif
 
-    {{-- ✅ BATCH ACTION BAR (Only for approvers) --}}
+    {{-- BATCH ACTION BAR (Only for approvers) --}}
     @if(\App\Helpers\RoleHelper::canApproveDeliveries())
         <div id="batchActionBar" class="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 rounded-xl shadow-lg p-4 mb-4 border border-purple-200 hidden">
             <div class="flex items-center justify-between flex-wrap gap-3">
@@ -281,7 +286,7 @@
         </div>
     @endif
 
-    {{-- 📋 Deliveries Table --}}
+    {{-- Deliveries Table --}}
     <div class="flex items-center justify-between mb-2">
         <div class="flex items-center gap-2 text-sm text-gray-300">
             <span>Number of rows:</span>
@@ -299,7 +304,7 @@
             <table id="deliveriesTable" class="min-w-full text-sm border-collapse">
                 <thead class="bg-gray-700 text-gray-300 uppercase text-xs">
                     <tr>
-                        {{-- ✅ Checkbox column for batch selection --}}
+                        {{-- Checkbox column for batch selection --}}
                         @if(\App\Helpers\RoleHelper::canApproveDeliveries())
                             <th class="px-4 py-3 text-center">
                                 <input type="checkbox" id="selectAll" onchange="toggleSelectAll()" 
@@ -311,7 +316,7 @@
                         <th class="px-4 py-3 text-left">Sales Order</th>
                         <th class="px-4 py-3 text-left">Batch</th>
                         <th class="px-4 py-3 text-left">Customer</th>
-                        <th class="px-4 py-3 text-left">🚚 Delivery Date</th>
+                        <th class="px-4 py-3 text-left">Delivery Date</th>
                         <th class="px-4 py-3 text-left">Quantity</th>
                         <th class="px-4 py-3 text-left">Amount</th>
                         <th class="px-4 py-3 text-left">Approval</th>
@@ -322,7 +327,7 @@
                 <tbody>
                     @forelse($deliveries as $delivery)
                     <tr class="border-b border-gray-700 hover:bg-gray-700 transition-colors {{ $delivery->is_pulled_out ? 'opacity-60' : '' }} {{ $delivery->is_hidden ? 'bg-red-50/50 opacity-60' : '' }}">
-                        {{-- ✅ Checkbox column --}}
+                        {{-- Checkbox column --}}
                         @if(\App\Helpers\RoleHelper::canApproveDeliveries())
                             <td class="px-4 py-3 text-center">
                                 @if($delivery->approval_status === 'Pending' && !$delivery->is_pulled_out)
@@ -343,7 +348,7 @@
                                 <span class="ml-2 bg-red-600 text-white text-xs px-1.5 py-0.5 rounded">Hidden</span>
                             @endif
                             @if($delivery->is_pulled_out)
-                                <span class="ml-2 text-xs text-orange-700">🔒</span>
+                                <span class="ml-2 text-xs text-orange-700"></span>
                             @endif
                         </td>
                         <td class="px-4 py-3">
@@ -366,7 +371,7 @@
                                     }
                                 @endphp
                                 <span class="bg-purple-600/30 text-purple-700 px-2 py-1 rounded text-xs">
-                                    📦 {{ $batchDate }}
+                                    {{ $batchDate }}
                                 </span>
                             @else
                                 <span class="text-gray-300 text-xs">—</span>
@@ -394,15 +399,15 @@
                             @if($delivery->approval_status === 'Pending')
                                 <span class="bg-yellow-600/30 text-yellow-700 px-2 py-1 rounded text-xs">⏳ Pending</span>
                             @elseif($delivery->approval_status === 'Approved')
-                                <span class="bg-green-600/30 text-green-700 px-2 py-1 rounded text-xs">✓ Approved</span>
+                                <span class="bg-green-600/30 text-green-700 px-2 py-1 rounded text-xs">Approved</span>
                             @elseif($delivery->approval_status === 'Rejected')
-                                <span class="bg-red-600/30 text-red-700 px-2 py-1 rounded text-xs">✗ Rejected</span>
+                                <span class="bg-red-600/30 text-red-700 px-2 py-1 rounded text-xs">Rejected</span>
                             @endif
                         </td>
                         
                         <td class="px-4 py-3">
                             @if($delivery->is_pulled_out)
-                                <span class="bg-orange-600 text-white px-2 py-1 rounded text-xs">🔒 Pulled Out</span>
+                                <span class="bg-orange-600 text-white px-2 py-1 rounded text-xs">Pulled Out</span>
                             @elseif($delivery->status === 'Cancelled')
                                 <span class="bg-red-600 text-white px-2 py-1 rounded text-xs">Cancelled</span>
                             @elseif($delivery->status === 'Delivered')
@@ -424,7 +429,7 @@
                                     !$delivery->is_pulled_out)
                                     <button onclick="openEditModal({{ $delivery->id }})"
                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs">
-                                        ✎ Edit
+                                        Edit
                                     </button>
                                 @endif
                                 
@@ -436,7 +441,7 @@
                                     !$delivery->edit_approved)
                                     <button onclick="requestEditPermission({{ $delivery->id }})"
                                             class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md text-xs">
-                                        📝 Request Edit
+                                        Request Edit
                                     </button>
                                 @endif
                                 
@@ -456,11 +461,11 @@
                                     !$delivery->is_pulled_out)
                                     <button onclick="openEditModal({{ $delivery->id }})"
                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-xs animate-pulse">
-                                        ✎ Edit Now
+                                        Edit Now
                                     </button>
                                 @endif
                                 
-                                {{-- ✅ APPROVE/REJECT EDIT BUTTONS (Delivery Approver only, for pending deliveries) --}}
+                                {{-- APPROVE/REJECT EDIT BUTTONS (Delivery Approver only, for pending deliveries) --}}
                                 @if(\App\Helpers\RoleHelper::canApproveDeliveries() && 
                                     $delivery->edit_requested && 
                                     !$delivery->edit_approved && 
@@ -468,11 +473,11 @@
                                         !$delivery->is_pulled_out)
                                         <button onclick="approveEditRequest({{ $delivery->id }})"
                                                 class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md text-xs">
-                                            ✓ Approve Edit
+                                            Approve Edit
                                         </button>
                                         <button onclick="showRejectEditModal({{ $delivery->id }})"
                                                 class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-xs">
-                                            ✗ Reject Edit
+                                            Reject Edit
                                         </button>
                                     @endif
                                     
@@ -482,11 +487,11 @@
                                         !$delivery->is_pulled_out)
                                         <button onclick="approveDelivery({{ $delivery->id }})"
                                                 class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md text-xs">
-                                            ✓ Approve
+                                            Approve
                                         </button>
                                         <button onclick="showRejectModal({{ $delivery->id }})"
                                                 class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-xs">
-                                            ✗ Reject
+                                            Reject
                                         </button>
                                     @endif
                                     
@@ -496,7 +501,7 @@
                                         !$delivery->is_pulled_out)
                                         <button onclick="showPulloutModal({{ $delivery->id }})"
                                                 class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded-md text-xs">
-                                            🔒 Pullout
+                                            Pullout
                                         </button>
                                     @endif
                                 </div>
@@ -555,7 +560,7 @@
         <h3 class="text-xl font-bold mb-4 text-white">Pullout Delivery</h3>
         <div class="mb-4 bg-orange-100/20 border border-orange-700 p-3 rounded">
             <p class="text-orange-700 text-sm">
-                ⚠️ Warning: Pulling out this delivery will cancel it and lock it from further editing.
+                Warning: Pulling out this delivery will cancel it and lock it from further editing.
             </p>
         </div>
         <form id="pulloutForm">
@@ -583,7 +588,7 @@
     </div>
 </div>
 
-{{-- ✅ Edit Delivery Modal - WITH DR NUMBER VALIDATION --}}
+{{-- Edit Delivery Modal - WITH DR NUMBER VALIDATION --}}
 <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
     <div class="bg-gray-800 rounded-lg p-6 max-w-5xl w-full mx-4 my-8 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-4">
@@ -616,9 +621,9 @@
                 </div>
             </div>
 
-            {{-- ✅ PO IMAGE SECTION --}}
+            {{-- PO IMAGE SECTION --}}
             <div id="poImageSection" class="mb-6 bg-blue-50 border border-blue-700 p-4 rounded-lg" style="display: none;">
-                <h4 class="text-sm font-semibold text-blue-700 mb-3">📎 Purchase Order Image</h4>
+                <h4 class="text-sm font-semibold text-blue-700 mb-3">Purchase Order Image</h4>
                 <div class="flex items-center gap-4">
                     <img id="poImagePreview" class="max-w-xs max-h-48 rounded border border-gray-600 cursor-pointer" 
                          onclick="openPOImageFullscreen()" 
@@ -628,7 +633,7 @@
                         <button type="button" 
                                 onclick="openPOImageFullscreen()"
                                 class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">
-                            🔍 View Full Size
+                            View Full Size
                         </button>
                     </div>
                 </div>
@@ -636,7 +641,7 @@
 
             {{-- Editable Fields --}}
             <div class="mb-6 bg-gray-900/50 p-4 rounded-lg border border-green-200/30">
-                <h4 class="text-sm font-semibold text-green-700 mb-3">✎ Editable Fields</h4>
+                <h4 class="text-sm font-semibold text-green-700 mb-3">Editable Fields</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">
@@ -667,7 +672,7 @@
                         <input type="text" id="edit_plate_no"
                                class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-green-500">
                     </div>
-                    {{-- ✅ NEW: Request Delivery Date Field --}}
+                    {{-- NEW: Request Delivery Date Field --}}
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-300 mb-2">
                             <i class="fas fa-calendar-alt text-blue-700 mr-1"></i>
@@ -711,14 +716,14 @@
                 </button>
                 <button type="submit"
                         class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition">
-                    💾 Save Changes
+                    Save Changes
                 </button>
             </div>
         </form>
     </div>
 </div>
 
-{{-- ✅ PO Image Fullscreen Modal --}}
+{{-- PO Image Fullscreen Modal --}}
 <div id="poImageFullscreenModal" class="hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[100]">
     <div class="relative max-w-7xl w-full h-full p-4 flex items-center justify-center">
         <button onclick="closePOImageFullscreen()" 

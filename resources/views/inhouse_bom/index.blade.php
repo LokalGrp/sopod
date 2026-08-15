@@ -14,7 +14,7 @@
 .badge-pending  { background:#fef3c7; color:#92400e; }
 
 .bom-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.bom-table thead th { background:#1e3a5f; color:#fff; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.bom-table thead th { background:#DBEAFE; color:#1D4ED8; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .bom-table thead th.r { text-align:right; }
 .bom-table tbody tr { border-bottom:1px solid #f3f4f6; transition:background .1s; }
 .bom-table tbody tr:hover { background:#f8fbff; }
@@ -22,11 +22,11 @@
 .bom-table tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
 
 .stat-card { background:#fff; border:1px solid #e5e7eb; border-radius:.45rem; padding:.8rem 1rem; }
-.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; }
+.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
 .stat-val { font-size:1.5rem; font-weight:800; color:#111827; line-height:1.1; margin:.1rem 0; }
 
 .search-input { padding:.38rem .65rem; border:1px solid #d1d5db; border-radius:.375rem; font-size:.83rem; color:#111827; }
-.search-input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.1); }
+.search-input:focus { outline:none; border-color:var(--line); box-shadow:0 0 0 3px rgba(59,130,246,.1); }
 
 .action-btn { padding:.25rem .55rem; border-radius:.3rem; font-size:.73rem; font-weight:600; transition:all .12s; }
 .action-btn.view  { background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe; }

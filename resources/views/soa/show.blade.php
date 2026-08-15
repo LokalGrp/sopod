@@ -20,7 +20,7 @@
             <div class="px-8 pt-6 pb-4">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h1 class="text-2xl font-bold text-red-800 tracking-wide">MEATPLUS</h1>
+                        <h1 class="text-2xl font-bold text-red-800 tracking-wide">Meatplus</h1>
                         <p class="text-xs text-gray-400 mt-0.5">Trading Corporation</p>
                     </div>
                     <div class="text-right">

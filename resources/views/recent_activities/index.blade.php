@@ -6,11 +6,11 @@
         <h1 class="text-2xl font-bold text-white">{{ $pageTitle ?? 'All Recent Activities' }}</h1>
         <a href="{{ $backRoute ?? route('dashboard') }}"
            class="bg-gray-600 hover:bg-gray-600 text-white text-sm px-4 py-2 rounded-lg">
-            ← Back to Dashboard
+            Back to Dashboard
         </a>
     </div>
     @if($recentActivities->isEmpty())
-        <p class="text-gray-300">No recent activities found 💤</p>
+        <p class="text-gray-300">No recent activities found </p>
     @else
         <div class="overflow-x-auto">
             <table class="min-w-full border border-gray-700 text-sm text-left text-white">

@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'Imports')
+
 @section('content')
 <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg text-white">
-    <h2 class="text-xl font-bold mb-4">📥 Import Data</h2>
+    <h2 class="text-xl font-bold mb-4">Import Data</h2>
 
     @if(session('success'))
         <div class="bg-green-600 p-3 rounded mb-4">{{ session('success') }}</div>

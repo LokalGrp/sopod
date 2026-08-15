@@ -126,9 +126,9 @@
                                 <td class="border border-gray-700 px-4 py-2 text-right font-semibold text-white">₱{{ number_format($invoice->grand_total, 2) }}</td>
                                 <td class="border border-gray-700 px-4 py-2">
                                     @if($invoice->urgency === 'urgent')
-                                        <span class="bg-red-700 text-white px-3 py-1 rounded text-sm font-semibold">🔴 URGENT (≤3 days)</span>
+                                        <span class="bg-red-700 text-white px-3 py-1 rounded text-sm font-semibold">URGENT (≤3 days)</span>
                                     @else
-                                        <span class="bg-yellow-700 text-white px-3 py-1 rounded text-sm font-semibold">🟡 WARNING (4-7 days)</span>
+                                        <span class="bg-yellow-700 text-white px-3 py-1 rounded text-sm font-semibold">WARNING (4-7 days)</span>
                                     @endif
                                 </td>
                             </tr>

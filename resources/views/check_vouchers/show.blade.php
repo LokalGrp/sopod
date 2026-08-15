@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <h1 class="text-2xl font-bold text-center mb-6 border-y-2 border-black py-2">CHECK VOUCHER</h1>
+            <h1 class="text-2xl font-bold text-center mb-6 border-y-2 border-black py-2">Check Voucher</h1>
 
             <!-- Supplier and Check Info Grid -->
             <div class="grid grid-cols-2 gap-8 mb-6 text-sm">
@@ -275,7 +275,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Accounting Manager Review</span>
                             @if($voucher->accounting_reviewed_by && $voucher->accountingReviewer)
-                                <span class="text-green-700">✓ Reviewed</span>
+                                <span class="text-green-700">Reviewed</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $voucher->accountingReviewer->name }}
@@ -309,7 +309,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">ODM/FDM Approval</span>
                             @if($voucher->status === 'approved' && $voucher->approvalUser)
-                                <span class="text-green-700">✓ Approved</span>
+                                <span class="text-green-700">Approved</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $voucher->approvalUser->name }}

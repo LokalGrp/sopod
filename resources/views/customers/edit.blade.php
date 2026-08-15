@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Customer')
+
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-10 bg-gray-900 min-h-screen text-gray-100">
     <!-- Header -->

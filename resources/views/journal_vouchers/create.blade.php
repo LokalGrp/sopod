@@ -5,7 +5,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">CREATE JOURNAL VOUCHER</h1>
+            <h1 class="text-2xl font-bold">Create Journal Voucher</h1>
             <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded text-sm font-mono">{{ $nextJvNumber }}</span>
         </div>
 

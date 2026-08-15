@@ -279,10 +279,10 @@
         </div>
     </div>
 
-    <!-- ✅ ADDITIONAL DELIVERY INSTRUCTIONS -->
+    <!-- ADDITIONAL DELIVERY INSTRUCTIONS -->
     @if($delivery->additional_instructions || $delivery->salesOrder?->additional_instructions)
     <div class="instructions-section">
-        <div class="instructions-title">📋 Additional Delivery Instructions:</div>
+        <div class="instructions-title">Additional Delivery Instructions:</div>
         <div class="instructions-content">
             {{ $delivery->additional_instructions ?? $delivery->salesOrder?->additional_instructions }}
         </div>
@@ -336,7 +336,7 @@
                         {{ $item->item_description ?? $item->item?->item_description ?? '—'  }}
                         @if($item->notes)
                             <div class="item-note">
-                                📝 Note: {{ $item->notes }}
+                                Note: {{ $item->notes }}
                             </div>
                         @endif
                     </td>

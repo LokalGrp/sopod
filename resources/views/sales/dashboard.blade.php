@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Sales Analytics')
+
 @section('content')
 <!-- Link CSS -->
 <link rel="stylesheet" href="{{ asset('css/sales-dashboard.css') }}?v={{ filemtime(public_path('css/sales-dashboard.css')) }}">
@@ -12,8 +14,8 @@
             
             <!-- Tab Navigation -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="switchTab('overview')">📊 Overview</button>
-                <button class="tab-btn" onclick="switchTab('annual')">📅 Annual Report</button>
+                <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                <button class="tab-btn" onclick="switchTab('annual')">Annual Report</button>
             </div>
         </div>
 
@@ -116,16 +118,16 @@
             <div class="status-section">
                 <div class="section-card">
                     <div class="section-header">
-                        <h5>📊 Delivery Status Overview</h5>
+                        <h5>Delivery Status Overview</h5>
                     </div>
                     <div class="status-grid">
                         @php
                             $statusConfig = [
                                 'pending' => ['icon' => '⏳', 'color' => '#f59e0b', 'label' => 'Pending'],
-                                'processing' => ['icon' => '🔄', 'color' => '#3b82f6', 'label' => 'Processing'],
-                                'delivered' => ['icon' => '✅', 'color' => '#10b981', 'label' => 'Delivered'],
-                                'completed' => ['icon' => '🎉', 'color' => '#8b5cf6', 'label' => 'Completed'],
-                                'cancelled' => ['icon' => '❌', 'color' => '#ef4444', 'label' => 'Cancelled'],
+                                'processing' => ['icon' => '', 'color' => '#3b82f6', 'label' => 'Processing'],
+                                'delivered' => ['icon' => '', 'color' => '#10b981', 'label' => 'Delivered'],
+                                'completed' => ['icon' => '', 'color' => '#8b5cf6', 'label' => 'Completed'],
+                                'cancelled' => ['icon' => '', 'color' => '#ef4444', 'label' => 'Cancelled'],
                             ];
                             $salesByStatus = $salesByStatus ?? collect();
                             $totalDeliveries = $salesByStatus->sum('count');
@@ -134,7 +136,7 @@
                         @forelse($salesByStatus as $status)
                             @php
                                 $statusKey = strtolower($status->status ?? '');
-                                $config = $statusConfig[$statusKey] ?? ['icon' => '📋', 'color' => '#6b7280', 'label' => ucfirst($statusKey)];
+                                $config = $statusConfig[$statusKey] ?? ['icon' => '', 'color' => '#6b7280', 'label' => ucfirst($statusKey)];
                                 $percentage = $totalDeliveries > 0 ? ($status->count / $totalDeliveries) * 100 : 0;
                             @endphp
                             <div class="status-item" style="border-color: {{ $config['color'] }};">

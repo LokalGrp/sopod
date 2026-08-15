@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Sales Orders')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-white p-8">
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-2">
@@ -12,7 +14,7 @@
         <div class="bg-red-600 text-white p-3 rounded mb-4">{{ session('error') }}</div>
     @endif
 
-    {{-- ⚠️ DELIVERY ALERTS --}}
+    {{-- DELIVERY ALERTS --}}
     @php
         $overdueOrders = [];
         $cancelledOrders = [];
@@ -43,7 +45,7 @@
         <div id="cancelledAlert" class="bg-red-600 text-white p-4 rounded-lg mb-4 shadow-lg" style="display: none;">
             <div class="flex items-start justify-between">
                 <div class="flex items-start flex-1">
-                    <span class="text-2xl mr-3">🚫</span>
+                    <span class="text-2xl mr-3"></span>
                     <div class="flex-1">
                         <h3 class="font-bold text-lg mb-2">Cancelled Deliveries</h3>
                         <p class="mb-2">The following sales orders have cancelled deliveries:</p>
@@ -159,16 +161,16 @@
                 @if($hasNonPendingSO)
                     <button type="button" onclick="printList()"
                         class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
-                        🖨️ Print List
+                        Print List
                     </button>
                     
                     <button type="button" onclick="exportExcel()"
                         class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded transition">
-                        📥 Export Excel
+                        Export Excel
                     </button>
                 @else
                     <div class="bg-yellow-600/20 border border-yellow-600 text-yellow-700 px-4 py-2 rounded text-sm">
-                        ⚠️ Cannot print/export: All filtered sales orders are pending approval
+                        Cannot print/export: All filtered sales orders are pending approval
                     </div>
                 @endif
             @endif
@@ -183,7 +185,7 @@
         @endif
     </div>
 
-    {{-- ✅ BULK ACTION BAR --}}
+    {{-- BULK ACTION BAR --}}
     @php
         $hasPendingOrders = $salesOrders->contains(function($order) {
             return $order->status === 'Pending';
@@ -205,11 +207,11 @@
             <div class="flex items-center gap-3">
                 <button type="button" onclick="showApproveConfirm()"
                     class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded transition">
-                    ✓ Approve Selected
+                    Approve Selected
                 </button>
                 <button type="button" onclick="showDeclineModal()"
                     class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded transition">
-                    ✗ Decline Selected
+                    Decline Selected
                 </button>
                 <button type="button" onclick="hideBulkBar()" 
                     class="text-white hover:text-gray-200 text-2xl font-bold">
@@ -389,14 +391,14 @@
                             <button type="submit" 
                                 class="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-xs"
                                 onclick="return confirm('Approve this SO for editing by CSR team?')">
-                                ✓ Approve Edit
+                                Approve Edit
                             </button>
                         </form>
                     @endif
 
                     @if($isDelivered)
                         <span class="bg-gray-600 text-white px-3 py-1 rounded text-xs ml-2" title="Order has been delivered">
-                            🔒 Locked
+                            Locked
                         </span>
                     @endif
                         
@@ -424,7 +426,7 @@
     </div>
 </div>
 
-{{-- ✅ DECLINE REASON MODAL --}}
+{{-- DECLINE REASON MODAL --}}
 <div id="declineModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
     <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
         <h3 class="text-xl font-bold mb-4">Decline Selected Orders</h3>

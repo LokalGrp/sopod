@@ -47,7 +47,7 @@
 
                 @if(request()->has('aging_date'))
                 <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-xs flex items-center gap-2">
-                    ⚡ Aging Date: {{ request('aging_date') }}
+                    Aging Date: {{ request('aging_date') }}
                 </span>
                 @endif
 
@@ -65,7 +65,7 @@
             <div class="mb-4">
                 <label for="aging_date" class="block text-sm font-medium text-gray-300 mb-2">
                     Aging Date (As of Date)
-                    <span class="text-xs text-yellow-700 ml-1">⚡ (age = days since counter date; leave empty to use each record's own record date)</span>
+                    <span class="text-xs text-yellow-700 ml-1">(age = days since counter date; leave empty to use each record's own record date)</span>
                 </label>
                 <input type="date" id="aging_date" name="aging_date" form="filter-form"
                        value="{{ request('aging_date') }}"
@@ -93,7 +93,7 @@
                     <span>Export to Excel</span>
                 </button>
                 @if(auth()->user()->isAdminUser())
-                <button type="button" onclick="openCreateArAgingModal()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
+                <button type="button" onclick="openCreateArAgingModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
                     <i class="fas fa-plus"></i>
                     <span>Add New Customer</span>
                 </button>

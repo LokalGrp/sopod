@@ -972,7 +972,7 @@ function checkIfDRAlreadyPaid(drNumber, row, rowId) {
             row.classList.add('border-red-700');
             Swal.fire({
                 icon: 'warning', title: 'Different Customer',
-                html: `<div class="text-left"><p>DR <strong>"${drNumber}"</strong> belongs to a different customer:</p><p class="mt-2 text-lg font-bold" style="color:#f59e0b">${data.actual_customer_name}</p><p class="text-sm mt-1" style="color:#9ca3af">Code: ${data.actual_customer_code}</p><p class="mt-3 text-sm" style="color:#9ca3af">To collect for this DR, create a separate collection under that customer.</p></div>`,
+                html: `<div class="text-left"><p>DR <strong>"${drNumber}"</strong> belongs to a different customer:</p><p class="mt-2 text-lg font-bold" style="color:#374151">${data.actual_customer_name}</p><p class="text-sm mt-1" style="color:#9ca3af">Code: ${data.actual_customer_code}</p><p class="mt-3 text-sm" style="color:#9ca3af">To collect for this DR, create a separate collection under that customer.</p></div>`,
                 background: '#1f2937', color: '#f9fafb'
             });
         } else { showDRNotFound(drNumber, row); }

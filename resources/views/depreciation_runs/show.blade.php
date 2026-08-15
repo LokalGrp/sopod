@@ -8,7 +8,7 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <div>
-                <h1 class="text-2xl font-bold text-white">DEPRECIATION RUN</h1>
+                <h1 class="text-2xl font-bold text-white">Depreciation Run</h1>
                 <p class="text-sm text-gray-300 mt-1 font-mono font-bold">{{ $run->run_number }}</p>
             </div>
             <div class="flex items-center gap-3">

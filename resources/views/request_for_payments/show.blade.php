@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">REQUEST FOR PAYMENT</h1>
+            <h1 class="text-2xl font-bold text-white">Request For Payment</h1>
             <div class="flex items-center gap-4">
                 <div class="text-right">
                     <label class="font-semibold text-gray-300">RFP NO:</label>
@@ -331,7 +331,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Department Head Check</span>
                             @if($rfp->department_head_approved_by && $rfp->departmentHeadApprover)
-                                <span class="text-green-700">✓ Checked</span>
+                                <span class="text-green-700">Checked</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $rfp->departmentHeadApprover->name }}
@@ -365,7 +365,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Accounting Check (Finance Manager)</span>
                             @if($rfp->accounting_approved_by && $rfp->accountingApprover)
-                                <span class="text-green-700">✓ Checked</span>
+                                <span class="text-green-700">Checked</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $rfp->accountingApprover->name }}
@@ -401,7 +401,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Executive Approval (CFO/President)</span>
                             @if($rfp->status === 'approved' && $rfp->approver)
-                                <span class="text-green-700">✓ Approved</span>
+                                <span class="text-green-700">Approved</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $rfp->approver->name }}

@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-white">NON-TRADE ITEMS LIBRARY</h1>
+                <h1 class="text-2xl font-bold text-white">Non-Trade Items Library</h1>
                 <p class="text-gray-300 text-sm mt-1">Master data for non-trade items. Used for autocomplete in Purchase Requests.</p>
             </div>
             <div class="flex gap-2">

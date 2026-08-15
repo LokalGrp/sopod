@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         pre {
-            background: #1e1e1e;
+            background: var(--surface);
             color: #d4d4d4;
             padding: 1rem;
             border-radius: 0.5rem;
@@ -30,7 +30,7 @@
         <!-- IT Badge -->
         <div class="mb-4 flex items-center gap-3">
             <span class="bg-red-600 text-white px-4 py-2 rounded-lg font-bold text-sm">
-                🔧 IT DEBUG MODE
+                IT DEBUG MODE
             </span>
             <span class="text-gray-300 text-sm">
                 Logged in as: <strong>{{ auth()->user()->name ?? 'IT User' }}</strong>
@@ -42,7 +42,7 @@
             <!-- Header -->
             <div class="bg-red-600 text-white p-4">
                 <h1 class="text-2xl font-bold flex items-center gap-2">
-                    <span>⚠️</span>
+                    <span></span>
                     <span>{{ class_basename($exception) }}</span>
                 </h1>
             </div>
@@ -112,15 +112,15 @@
         <div class="flex gap-4 mb-8">
             <button onclick="window.location.reload()" 
                     class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
-                🔄 Refresh Page
+                Refresh Page
             </button>
             <a href="{{ route('dashboard') }}" 
                class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-semibold">
-                🏠 Go to Dashboard
+                Go to Dashboard
             </a>
             <button onclick="copyError()" 
                     class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
-                📋 Copy Error Details
+                Copy Error Details
             </button>
         </div>
 

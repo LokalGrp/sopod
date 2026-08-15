@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Item Details')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-white p-8">
     <div class="max-w-4xl mx-auto">
@@ -28,11 +30,11 @@
         <!-- Approval Status Badge -->
         <div class="mb-6">
             @if($item->approval_status === 'approved')
-                <span class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">✓ Approved</span>
+                <span class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Approved</span>
             @elseif($item->approval_status === 'pending')
                 <span class="bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">⏳ Pending Approval</span>
             @else
-                <span class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">✗ Rejected</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Rejected</span>
             @endif
         </div>
 
@@ -64,7 +66,7 @@
         <!-- Approval Actions (Only for pending items and authorized users) -->
         @if($item->approval_status === 'pending' && auth()->check() && auth()->user()->canApproveItems())
             <div class="bg-yellow-100 border border-yellow-600 rounded-xl p-6 mb-6">
-                <h3 class="text-xl font-bold text-yellow-700 mb-4">⚠️ Approval Required</h3>
+                <h3 class="text-xl font-bold text-yellow-700 mb-4">Approval Required</h3>
                 <p class="text-gray-300 mb-4">This item is pending approval. Please review and take action:</p>
                 
                 <div class="flex gap-4">
@@ -73,7 +75,7 @@
                         <button type="submit"
                             class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition"
                             onclick="return confirm('Are you sure you want to approve this item?')">
-                            ✓ Approve Item
+                            Approve Item
                         </button>
                     </form>
 
@@ -82,7 +84,7 @@
                         <button type="submit"
                             class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition"
                             onclick="return confirm('Are you sure you want to reject this item?')">
-                            ✗ Reject Item
+                            Reject Item
                         </button>
                     </form>
                 </div>

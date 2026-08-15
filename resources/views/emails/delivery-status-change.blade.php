@@ -58,7 +58,7 @@
             
             @if(isset($action) && $action === 'approved')
             <div class="alert-success">
-                ✅ This delivery has been approved and can now proceed.
+                This delivery has been approved and can now proceed.
             </div>
             @endif
             

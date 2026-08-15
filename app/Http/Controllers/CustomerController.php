@@ -695,12 +695,18 @@ public function diagnosticAdjustments()
         ->whereNotNull('customer_name')
         ->count();
     
+    $totalAdjustments = DB::table('ar_adjustments')->count();
+
     return response()->json([
         'summary' => [
-            'total_adjustments' => DB::table('ar_adjustments')->count(),
+            'total_adjustments' => $totalAdjustments,
             'without_customer_code' => $adjustmentsWithoutCode->count(),
             'with_customer_code' => $adjustmentsWithCode->count(),
-            'percentage_missing' => round(($adjustmentsWithoutCode->count() / DB::table('ar_adjustments')->count()) * 100, 2) . '%'
+            // Guarded: this divided by a live count(), so the endpoint threw
+            // DivisionByZeroError whenever ar_adjustments was empty.
+            'percentage_missing' => $totalAdjustments > 0
+                ? round(($adjustmentsWithoutCode->count() / $totalAdjustments) * 100, 2) . '%'
+                : '0%'
         ],
         'matching_potential' => [
             'have_dr_no' => $withDR . ' adjustments',
@@ -755,7 +761,10 @@ public function diagnosticArAgingMatch()
         'summary' => [
             'total_adjustments_checked' => $sampleDRs->count(),
             'matches_found' => $totalMatches,
-            'match_rate' => round(($totalMatches / $sampleDRs->count()) * 100, 2) . '%'
+            // Guarded: threw DivisionByZeroError when no sample rows matched.
+            'match_rate' => $sampleDRs->count() > 0
+                ? round(($totalMatches / $sampleDRs->count()) * 100, 2) . '%'
+                : '0%'
         ],
         'sample_matches' => $matchResults,
         'recommendation' => $totalMatches > 0 

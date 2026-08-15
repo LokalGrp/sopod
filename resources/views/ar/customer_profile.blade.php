@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Customer Profile')
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="bg-gray-900 rounded-xl shadow-lg border border-gray-700">
@@ -7,7 +9,7 @@
         <div class="bg-gray-800 px-6 py-4 border-b border-gray-700 flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-bold text-white flex items-center gap-2">
-                    👤 Customer AR Profile
+                    Customer AR Profile
                 </h1>
                 <p class="text-sm text-gray-300 mt-1">
                     <span class="font-semibold">{{ $customerName }}</span>

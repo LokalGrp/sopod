@@ -23,98 +23,72 @@
     <h1 class="text-3xl font-bold text-white mb-2">Import Data from Excel/CSV</h1>
     <p class="text-gray-300 mb-6">Upload Excel or CSV files to import items, customers, suppliers, or monthly sales into your database</p>
 
-    <!-- Tabs -->
+    {{-- Two-level navigation. The fourteen imports used to sit in one flat
+         row that wrapped over several lines. They are now grouped by category
+         (level 1) with the individual imports underneath (level 2).
+
+         Every button keeps its original onclick="switchTab('…')", its id and
+         its permission @if, so routes, panels and import behaviour are
+         completely unchanged — only the navigation is reorganised. --}}
     <div class="bg-gray-800 rounded-lg shadow-sm mb-6">
-        <div class="border-b border-gray-700">
-            <div class="flex flex-wrap">
+        <div class="imp-cats" role="tablist" aria-label="Import categories">
+            <button type="button" class="imp-cat active" data-cat="master"    onclick="switchCategory('master')">Master Data</button>
+            <button type="button" class="imp-cat"        data-cat="vendors"   onclick="switchCategory('vendors')">Vendors</button>
+            <button type="button" class="imp-cat"        data-cat="salesar"   onclick="switchCategory('salesar')">Sales &amp; AR</button>
+            <button type="button" class="imp-cat"        data-cat="inventory" onclick="switchCategory('inventory')">Inventory / BOM</button>
+            <button type="button" class="imp-cat"        data-cat="assets"    onclick="switchCategory('assets')">Fixed Assets</button>
+        </div>
 
+        <div class="imp-subs">
+            <div class="imp-sub" data-cat="master">
                 @if($canImportItems)
-                <button onclick="switchTab('items')" id="items-tab"
-                    class="tab-button px-6 py-3 font-medium text-blue-700 border-b-2 border-blue-400">
-                    Import Items
-                </button>
+                <button onclick="switchTab('items')" id="items-tab" class="tab-button">Items</button>
                 @endif
-
                 @if($canImportCustomers)
-                <button onclick="switchTab('customers')" id="customers-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import Customers
-                </button>
+                <button onclick="switchTab('customers')" id="customers-tab" class="tab-button">Customers</button>
                 @endif
-
                 @if($canImportSuppliers)
-                <button onclick="switchTab('suppliers')" id="suppliers-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import Suppliers
-                </button>
-                <button onclick="switchTab('vendors_trade')" id="vendors_trade-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Trade Vendors
-                </button>
-                <button onclick="switchTab('vendors_nontrade')" id="vendors_nontrade-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Non-Trade Vendors
-                </button>
-                <button onclick="switchTab('vendors_employees')" id="vendors_employees-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Employees
-                </button>
-                <button onclick="switchTab('vendors_replace')" id="vendors_replace-tab"
-                    class="tab-button px-6 py-3 font-medium text-red-300 hover:text-red-200">
-                    🔄 Replace All Vendors
-                </button>
+                <button onclick="switchTab('suppliers')" id="suppliers-tab" class="tab-button">Suppliers</button>
                 @endif
+            </div>
 
+            <div class="imp-sub" data-cat="vendors" hidden>
+                @if($canImportSuppliers)
+                <button onclick="switchTab('vendors_trade')" id="vendors_trade-tab" class="tab-button">Trade Vendors</button>
+                <button onclick="switchTab('vendors_nontrade')" id="vendors_nontrade-tab" class="tab-button">Non-Trade Vendors</button>
+                <button onclick="switchTab('vendors_employees')" id="vendors_employees-tab" class="tab-button">Employees</button>
+                <button onclick="switchTab('vendors_replace')" id="vendors_replace-tab" class="tab-button is-destructive">Replace All Vendors</button>
+                @endif
+            </div>
+
+            <div class="imp-sub" data-cat="salesar" hidden>
                 @if($canImportMonthlySales)
-                <button onclick="switchTab('monthly_sales')" id="monthly_sales-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import Monthly Sales
-                </button>
+                <button onclick="switchTab('monthly_sales')" id="monthly_sales-tab" class="tab-button">Monthly Sales</button>
                 @endif
-
                 @if($canImportARAging)
-                <button onclick="switchTab('ar_aging')" id="ar_aging-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import AR Aging
-                </button>
+                <button onclick="switchTab('ar_aging')" id="ar_aging-tab" class="tab-button">AR Aging</button>
                 @endif
-
                 @if($canImportCollections)
-                <button onclick="switchTab('collections')" id="collections-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import Collections
-                </button>
+                <button onclick="switchTab('collections')" id="collections-tab" class="tab-button">Collections</button>
                 @endif
-
                 @if($canImportARAdjustments)
-                <button onclick="switchTab('ar_adjustments')" id="ar_adjustments-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Import AR Adjustments
-                </button>
+                <button onclick="switchTab('ar_adjustments')" id="ar_adjustments-tab" class="tab-button">AR Adjustments</button>
                 @endif
+            </div>
 
-                {{-- ✅ NEW: BOM MATERIALS TAB --}}
+            <div class="imp-sub" data-cat="inventory" hidden>
                 @if($canImportBomMaterials)
-                <button onclick="switchTab('bom_materials')" id="bom_materials-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    🐔 BOM Materials
-                </button>
+                <button onclick="switchTab('bom_materials')" id="bom_materials-tab" class="tab-button">BOM Materials</button>
                 @endif
+            </div>
 
+            <div class="imp-sub" data-cat="assets" hidden>
                 @if($canImportAssetClasses)
-                <button onclick="switchTab('asset_classes')" id="asset_classes-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    Asset Classes
-                </button>
+                <button onclick="switchTab('asset_classes')" id="asset_classes-tab" class="tab-button">Asset Classes</button>
                 @endif
-
                 @if($canImportFixedAssets)
-                <button onclick="switchTab('fixed_assets')" id="fixed_assets-tab"
-                    class="tab-button px-6 py-3 font-medium text-gray-300 hover:text-gray-300">
-                    FA Masterdata (Fixed Assets)
-                </button>
+                <button onclick="switchTab('fixed_assets')" id="fixed_assets-tab" class="tab-button">FA Masterdata</button>
                 @endif
-
             </div>
         </div>
 
@@ -126,7 +100,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Items Import Requirements</h3>
                     <div class="bg-blue-100 bg-opacity-20 border border-blue-700 rounded-lg p-4">
-                        <p class="text-sm text-gray-300 mb-2"><strong>✅ All fields are OPTIONAL:</strong></p>
+                        <p class="text-sm text-gray-300 mb-2"><strong>All fields are OPTIONAL:</strong></p>
                         <p class="text-xs text-gray-300 mb-3">Only item_code is checked. Rows without item_code will be skipped. All other fields are optional.</p>
                         <ul class="text-sm text-gray-300 space-y-1 ml-4">
                             <li>• <strong>item_code</strong> or <strong>Item Code</strong></li>
@@ -163,7 +137,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Customers Import Requirements</h3>
                     <div class="bg-blue-100 bg-opacity-20 border border-blue-700 rounded-lg p-4 max-h-96 overflow-y-auto">
-                        <p class="text-sm text-gray-300 mb-2"><strong>✅ Required columns:</strong></p>
+                        <p class="text-sm text-gray-300 mb-2"><strong>Required columns:</strong></p>
                         <ul class="text-sm text-gray-300 space-y-1 ml-4 mb-4">
                             <li>• <strong class="text-red-700">customer_code</strong> / Customer Code</li>
                             <li>• <strong class="text-red-700">customer_name</strong> / Customer Name</li>
@@ -175,11 +149,11 @@
                             </li>
                         </ul>
                         <div class="bg-yellow-100/20 border border-yellow-600 rounded p-3 mb-4">
-                            <p class="text-xs text-yellow-700 font-semibold mb-2">📋 Flag Status Examples:</p>
+                            <p class="text-xs text-yellow-700 font-semibold mb-2">Flag Status Examples:</p>
                             <div class="text-xs text-gray-300 space-y-1">
                                 <p>• Use <strong class="text-yellow-700">"Flagged"</strong> for customers requiring approval</p>
                                 <p>• Use <strong class="text-green-700">"Unflagged"</strong> for customers with auto-approval</p>
-                                <p class="text-red-700 mt-2">⚠️ Case-insensitive: "flagged", "FLAGGED", or "Flagged" all work</p>
+                                <p class="text-red-700 mt-2">Case-insensitive: "flagged", "FLAGGED", or "Flagged" all work</p>
                             </div>
                         </div>
                         <p class="text-sm text-gray-300 mt-3 mb-2"><strong>Optional columns:</strong></p>
@@ -222,7 +196,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Suppliers Import Requirements</h3>
                     <div class="bg-blue-100 bg-opacity-20 border border-blue-700 rounded-lg p-4 max-h-96 overflow-y-auto">
-                        <p class="text-sm text-gray-300 mb-2"><strong>✅ All fields are OPTIONAL:</strong></p>
+                        <p class="text-sm text-gray-300 mb-2"><strong>All fields are OPTIONAL:</strong></p>
                         <p class="text-xs text-gray-300 mb-4">If supplier_code is missing, it will be auto-generated.</p>
                         <div class="grid grid-cols-2 gap-x-4">
                             <ul class="text-sm text-gray-300 space-y-1 ml-4">
@@ -263,7 +237,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Trade Vendors Import</h3>
                     <div class="bg-green-900/30 border border-green-700 rounded-lg p-4">
-                        <p class="text-sm text-green-400 font-semibold mb-2">✅ Category will be automatically set to <strong>TRADE</strong> for all rows.</p>
+                        <p class="text-sm text-green-400 font-semibold mb-2">Category will be automatically set to <strong>TRADE</strong> for all rows.</p>
                         <p class="text-sm text-gray-300 mb-2">All fields optional except <strong>Vendor Code</strong> or <strong>Vendor Name</strong>. Supported headers:</p>
                         <p class="text-xs text-gray-400 font-mono">Vendor Code, Vendor Name, Group, GL Account, Status, Company, EE ID, Last Name, First Name, Middle Name, Position, Department, Location, Office Address, Date Hired</p>
                     </div>
@@ -290,7 +264,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Non-Trade Vendors Import</h3>
                     <div class="bg-yellow-900/30 border border-yellow-700 rounded-lg p-4">
-                        <p class="text-sm text-yellow-400 font-semibold mb-2">✅ Category will be automatically set to <strong>NON TRADE</strong> for all rows.</p>
+                        <p class="text-sm text-yellow-400 font-semibold mb-2">Category will be automatically set to <strong>NON TRADE</strong> for all rows.</p>
                         <p class="text-sm text-gray-300 mb-2">All fields optional except <strong>Vendor Code</strong> or <strong>Vendor Name</strong>. Supported headers:</p>
                         <p class="text-xs text-gray-400 font-mono">Vendor Code, Vendor Name, Group, GL Account, Status, Company, EE ID, Last Name, First Name, Middle Name, Position, Department, Location, Office Address, Date Hired</p>
                     </div>
@@ -317,7 +291,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Employees Import</h3>
                     <div class="bg-purple-900/30 border border-purple-700 rounded-lg p-4">
-                        <p class="text-sm text-purple-400 font-semibold mb-2">✅ Category will be automatically set to <strong>EMPLOYEES</strong> for all rows.</p>
+                        <p class="text-sm text-purple-400 font-semibold mb-2">Category will be automatically set to <strong>EMPLOYEES</strong> for all rows.</p>
                         <p class="text-sm text-gray-300 mb-2">All fields optional except <strong>Vendor Code</strong> or <strong>Vendor Name</strong>. Supported headers:</p>
                         <p class="text-xs text-gray-400 font-mono">Vendor Code, Vendor Name, Group, GL Account, Status, Company, EE ID, Last Name, First Name, Middle Name, Position, Department, Location, Office Address, Date Hired</p>
                     </div>
@@ -344,7 +318,7 @@
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold mb-2 text-white">Replace All Vendors</h3>
                     <div class="bg-red-900/40 border border-red-600 rounded-lg p-4">
-                        <p class="text-sm text-red-400 font-bold mb-2">⚠️ WARNING: This will DELETE all existing vendors and replace with the uploaded file.</p>
+                        <p class="text-sm text-red-400 font-bold mb-2">WARNING: This will DELETE all existing vendors and replace with the uploaded file.</p>
                         <p class="text-sm text-gray-300">Upload a CSV/Excel with all categories (TRADE, NON TRADE, EMPLOYEES) in one file. The CATEGORY column in the file will be used.</p>
                     </div>
                 </div>
@@ -533,7 +507,7 @@
             </div>
             @endif
 
-            {{-- ✅ NEW: BOM MATERIALS TAB CONTENT --}}
+            {{-- NEW: BOM MATERIALS TAB CONTENT --}}
             @if($canImportBomMaterials)
             <div id="bom_materials-content" class="tab-content hidden">
                 <div class="mb-6">
@@ -545,7 +519,7 @@
 
                     {{-- Column requirements --}}
                     <div class="bg-blue-100 bg-opacity-20 border border-blue-700 rounded-lg p-4 mb-4">
-                        <p class="text-sm text-gray-300 font-semibold mb-3">📋 Supported Columns</p>
+                        <p class="text-sm text-gray-300 font-semibold mb-3">Supported Columns</p>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {{-- Required --}}
@@ -571,7 +545,7 @@
 
                     {{-- Category mapping info --}}
                     <div class="bg-gray-800 bg-opacity-30 border border-gray-600 rounded-lg p-4 mb-4">
-                        <p class="text-xs font-semibold text-yellow-700 uppercase tracking-wide mb-2">🗂️ Category Values (for BOM grouping)</p>
+                        <p class="text-xs font-semibold text-yellow-700 uppercase tracking-wide mb-2">Category Values (for BOM grouping)</p>
                         <p class="text-xs text-gray-300 mb-3">
                             Use one of these exact values in the <strong class="text-white">category</strong> column so items are grouped correctly in the BOM form.
                             If left blank, items will be placed under <strong class="text-white">Other</strong>.
@@ -586,14 +560,14 @@
                             <span class="text-xs bg-gray-700/60 border border-gray-600 rounded px-2 py-1 text-gray-300">overhead</span>
                         </div>
                         <p class="text-xs text-gray-300 mt-3">
-                            💡 Tip: The category column is also auto-detected from your Excel sheet's section headers
+                            Tip: The category column is also auto-detected from your Excel sheet's section headers
                             (e.g. a row containing only "FEEDS" or "VACCINE & MEDICATION" will set the category for all rows below it).
                         </p>
                     </div>
 
                     {{-- Tips --}}
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p class="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">💡 Import Tips</p>
+                        <p class="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Import Tips</p>
                         <ul class="text-xs text-gray-300 space-y-1.5 ml-2">
                             <li>• Matches your existing <strong class="text-white">NBC Masterlist</strong> format (Item Code · Item Description · UOM)</li>
                             <li>• If <strong>item_code</strong> already exists, the record will be <strong class="text-yellow-700">updated</strong> (not duplicated)</li>
@@ -608,8 +582,8 @@
                 <div id="bom-preview-container" class="hidden mb-4">
                     <div class="border border-gray-700 rounded-lg overflow-hidden">
                         <div class="bg-gray-900 px-4 py-2 border-b border-gray-700 flex items-center justify-between">
-                            <span class="text-sm font-semibold text-gray-200">📄 File Preview <span id="bom-preview-count" class="text-gray-300 font-normal"></span></span>
-                            <button type="button" onclick="clearBomFile()" class="text-xs text-red-500 hover:text-red-700">✕ Clear</button>
+                            <span class="text-sm font-semibold text-gray-200">File Preview <span id="bom-preview-count" class="text-gray-300 font-normal"></span></span>
+                            <button type="button" onclick="clearBomFile()" class="text-xs text-red-500 hover:text-red-700">Clear</button>
                         </div>
                         <div class="overflow-x-auto max-h-64">
                             <table class="w-full text-xs">
@@ -799,18 +773,53 @@
 // ── Tab switching ─────────────────────────────────────────────────────────────
 function switchTab(tab) {
     document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('text-blue-700', 'border-b-2', 'border-blue-400');
+        btn.classList.remove('text-blue-700', 'border-b-2', 'border-blue-400', 'is-active');
         btn.classList.add('text-gray-300');
     });
     const activeTab = document.getElementById(tab + '-tab');
     if (activeTab) {
         activeTab.classList.remove('text-gray-300');
-        activeTab.classList.add('text-blue-700', 'border-b-2', 'border-blue-400');
+        activeTab.classList.add('text-blue-700', 'border-b-2', 'border-blue-400', 'is-active');
     }
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     const content = document.getElementById(tab + '-content');
     if (content) content.classList.remove('hidden');
 }
+
+/* Level-1 category selector. Shows that category's import buttons and
+   activates its first available import. Purely navigational — it calls the
+   existing switchTab(), so panels, routes and permissions are untouched. */
+function switchCategory(cat) {
+    document.querySelectorAll('.imp-cat').forEach(b => {
+        b.classList.toggle('active', b.dataset.cat === cat);
+    });
+    let firstBtn = null;
+    document.querySelectorAll('.imp-sub').forEach(group => {
+        const on = group.dataset.cat === cat;
+        group.hidden = !on;
+        if (on) firstBtn = group.querySelector('.tab-button');
+    });
+    // If the current panel is not in this category, open the first one here.
+    const stillVisible = document.querySelector('.imp-sub:not([hidden]) .tab-button.is-active');
+    if (!stillVisible && firstBtn) firstBtn.click();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Hide categories the user has no permission for, and open the first
+    // category that actually has imports.
+    let opened = false;
+    document.querySelectorAll('.imp-sub').forEach(group => {
+        const cat = group.dataset.cat;
+        const btn = document.querySelector('.imp-cat[data-cat="' + cat + '"]');
+        if (!group.querySelector('.tab-button')) {
+            if (btn) btn.hidden = true;
+            group.hidden = true;
+        } else if (!opened) {
+            opened = true;
+            switchCategory(cat);
+        }
+    });
+});
 
 function handleFileSelect(input, type) {
     const filename = input.files[0]?.name;

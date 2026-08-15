@@ -5,7 +5,7 @@
 <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
     {{-- Header --}}
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-        <h1 class="text-2xl font-bold">GL ACCOUNT DETAILS</h1>
+        <h1 class="text-2xl font-bold">GL Account Details</h1>
     </div>
 
     {{-- Flash Messages --}}

@@ -12,9 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ar_adjustments', function (Blueprint $table) {
-            $table->unsignedBigInteger('receiving_report_id')->nullable()->after('gl_account_id');
-            $table->foreign('receiving_report_id')->references('id')->on('receiving_reports')->nullOnDelete();
+            if (! Schema::hasColumn('ar_adjustments', 'receiving_report_id')) {
+                $table->unsignedBigInteger('receiving_report_id')->nullable()->after('gl_account_id');
+            }
         });
+
+        // FIXED 2026-08-15: the constraint was added unconditionally, but
+        // `receiving_reports` is created by a later migration, so this aborted
+        // the run on a fresh install. The column is what the application reads;
+        // the constraint is added only once its target exists.
+        if (Schema::hasTable('receiving_reports')) {
+            Schema::table('ar_adjustments', function (Blueprint $table) {
+                $table->foreign('receiving_report_id')->references('id')->on('receiving_reports')->nullOnDelete();
+            });
+        }
     }
 
     public function down(): void

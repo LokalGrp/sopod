@@ -8,9 +8,9 @@
     <div class="flex justify-between items-center mb-6">
         <div>
             <a href="{{ route('changelog.index') }}" class="text-blue-700 hover:text-blue-700 text-sm mb-2 inline-block">
-                ← Back to Change Log
+                <svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg> Back to Change Log
             </a>
-            <h1 class="text-3xl font-bold">📜 Change History</h1>
+            <h1 class="text-3xl font-bold">Change History</h1>
             <p class="text-gray-300 mt-2">Sales Order: <span class="text-white font-semibold">{{ $salesOrder->sales_order_number }}</span></p>
         </div>
         <a href="{{ route('sales_orders.show', $salesOrder->id) }}" 
@@ -150,7 +150,7 @@
                                                                 $oldVal .= '%';
                                                                 $newVal .= '%';
                                                             }
-                                                            $changes[] = ucwords(str_replace('_', ' ', $key)) . " ({$oldVal} → {$newVal})";
+                                                            $changes[] = ucwords(str_replace('_', ' ', $key)) . " ({$oldVal} {$newVal})";
                                                         }
                                                     }
                                                 }

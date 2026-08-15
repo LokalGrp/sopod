@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
+@section('title', 'Receiving Reports')
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-800">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-white">📦 Receiving Reports (Backload)</h2>
+            <h2 class="text-2xl font-bold text-white">Receiving Reports (Backload)</h2>
             
             <button onclick="window.location.href='{{ route('receiving-reports.export') }}?{{ http_build_query(request()->all()) }}'" 
                     class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">

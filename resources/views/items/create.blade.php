@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
+@section('title', 'Create Item')
+
 @section('content')
 <div class="p-6 bg-gray-900 min-h-screen text-gray-200">
     <h1 class="text-2xl font-bold mb-6">Add Item</h1>
 
-    {{-- 💠 Form Container --}}
+    {{-- Form Container --}}
     <div class="bg-gray-800/90 border border-gray-700 p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
         <form action="{{ route('items.store') }}" method="POST">
             @csrf
 
-            {{-- 🔹 Item Description --}}
+            {{-- Item Description --}}
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-400 mb-1">Item Description</label>
                 <input 
@@ -20,7 +22,7 @@
                 >
             </div>
 
-            {{-- 🔹 Item Code --}}
+            {{-- Item Code --}}
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-400 mb-1">Item Code</label>
                 <input 
@@ -31,7 +33,7 @@
                 >
             </div>
 
-            {{-- 🔹 Category --}}
+            {{-- Category --}}
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-400 mb-1">Category</label>
                 <input 
@@ -42,7 +44,7 @@
                 >
             </div>
 
-            {{-- 🔹 Brand --}}
+            {{-- Brand --}}
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-400 mb-1">Brand</label>
                 <input 
@@ -62,7 +64,7 @@
                 </select>
             </div>
 
-            {{-- 🔘 Buttons --}}
+            {{-- Buttons --}}
             <div class="flex justify-end gap-3">
                 <a href="{{ route('items.index') }}" 
                    class="bg-gray-700 hover:bg-gray-700 text-gray-200 px-4 py-2 rounded-md transition">

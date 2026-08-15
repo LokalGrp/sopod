@@ -4,22 +4,22 @@
 
 @section('content')
 <style>
-.b { background:#162030; border:1px solid #2a3f55; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
-.stat-card { background:#162030; border:1px solid #2a3f55; border-radius:.45rem; padding:.8rem 1rem; }
+.b { background:var(--surface); border:1px solid var(--line); border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+.stat-card { background:var(--surface); border:1px solid var(--line); border-radius:.45rem; padding:.8rem 1rem; }
 .stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#4d6880; }
-.stat-val { font-size:1.5rem; font-weight:800; color:#e2eaf4; line-height:1.1; margin:.1rem 0; }
+.stat-val { font-size:1.5rem; font-weight:800; color:var(--body); line-height:1.1; margin:.1rem 0; }
 
 .txn-table { width:100%; border-collapse:collapse; font-size:.8rem; }
-.txn-table thead th { background:#1e3a5f; color:#fff; padding:.45rem .6rem; font-size:.68rem; font-weight:600; text-align:left; white-space:nowrap; }
+.txn-table thead th { background:#DBEAFE; color:#1D4ED8; padding:.45rem .6rem; font-size:.68rem; font-weight:600; text-align:left; white-space:nowrap; }
 .txn-table thead th.r { text-align:right; }
-.txn-table tbody tr { border-bottom:1px solid #1e2d3d; transition:background .1s; }
-.txn-table tbody tr:hover { background:#1e2d3d; }
+.txn-table tbody tr { border-bottom:1px solid var(--line); transition:background .1s; }
+.txn-table tbody tr:hover { background:var(--surface); }
 .txn-table tbody td { padding:.45rem .6rem; color:#c0cfe0; vertical-align:middle; white-space:nowrap; }
 .txn-table tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
 
-.search-input { padding:.38rem .65rem; border:1px solid #3a5570; border-radius:.375rem; font-size:.83rem; color:#e2eaf4; background:#1e2d3d; }
-.search-input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.15); }
-.search-input option { background:#1e2d3d; }
+.search-input { padding:.38rem .65rem; border:1px solid var(--line); border-radius:.375rem; font-size:.83rem; color:var(--body); background:var(--surface); }
+.search-input:focus { outline:none; border-color:var(--line); box-shadow:0 0 0 3px rgba(59,130,246,.15); }
+.search-input option { background:var(--surface); }
 
 .badge-type { display:inline-block; padding:.15rem .5rem; border-radius:999px; font-size:.65rem; font-weight:700; }
 .badge-deposit    { background:#dcfce7; color:#15803d; }
@@ -30,14 +30,14 @@
 .badge-adjustment { background:#f3f4f6; color:#374151; }
 
 .tab-btn { padding:.45rem 1.1rem; font-size:.82rem; font-weight:600; border-radius:.375rem; cursor:pointer; transition:background .15s,color .15s; }
-.tab-btn.active-in  { background:#16a34a; color:#fff; }
-.tab-btn.active-out { background:#dc2626; color:#fff; }
-.tab-btn.inactive   { background:#374151; color:#d1d5db; }
-.tab-btn.inactive:hover { background:#4b5563; color:#fff; }
+.tab-btn.active-in  { background:var(--surface); color:var(--body); }
+.tab-btn.active-out { background:#B91C1C; color:var(--body); }
+.tab-btn.inactive   { background:#F9FAFB; color:var(--body); }
+.tab-btn.inactive:hover { background:#F9FAFB; color:var(--body); }
 
-.modal-input { padding:.38rem .6rem; border:1px solid #4b5563; border-radius:.375rem; font-size:.82rem; color:#fff; background:#374151; width:100%; }
-.modal-input:focus { outline:none; border-color:#3b82f6; }
-.modal-label { display:block; font-size:.72rem; font-weight:600; color:#9ca3af; margin-bottom:.25rem; text-transform:uppercase; letter-spacing:.03em; }
+.modal-input { padding:.38rem .6rem; border:1px solid var(--line); border-radius:.375rem; font-size:.82rem; color:var(--body); background:#F9FAFB; width:100%; }
+.modal-input:focus { outline:none; border-color:var(--line); }
+.modal-label { display:block; font-size:.72rem; font-weight:600; color:var(--muted); margin-bottom:.25rem; text-transform:uppercase; letter-spacing:.03em; }
 </style>
 
 @php
@@ -88,7 +88,7 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-5">
     <div class="stat-card md:col-span-1" style="border-color:{{ $color }};background:linear-gradient(135deg,#1a2a3a,#162030);">
         <div class="stat-lbl" style="color:{{ $color }};">Current Balance</div>
-        <div class="stat-val" style="font-size:1.3rem;color:#e2eaf4;">{{ $sym }} {{ number_format($account->display_balance ?? $account->cash_balance, 2) }}</div>
+        <div class="stat-val" style="font-size:1.3rem;color:#374151;">{{ $sym }} {{ number_format($account->display_balance ?? $account->cash_balance, 2) }}</div>
         @if($account->balance_as_of)
         <div class="text-xs text-gray-400 mt-0.5">as of {{ $account->balance_as_of->format('M d, Y') }}</div>
         @endif
@@ -200,7 +200,7 @@
                 <td class="text-xs text-gray-400">{{ $txn->cr_account ?: '—' }}</td>
                 <td class="r font-bold">{{ $sym }} {{ number_format($txn->running_balance, 2) }}</td>
                 <td class="text-xs text-gray-400">{{ $txn->logged_by ?: '—' }}</td>
-                <td><button onclick="deleteTxn({{ $txn->id }})" style="padding:.2rem .45rem;border-radius:.3rem;font-size:.65rem;background:#7f1d1d;color:#fca5a5;border:1px solid #991b1b;cursor:pointer;" title="Delete"><i class="fas fa-trash"></i></button></td>
+                <td><button onclick="deleteTxn({{ $txn->id }})" style="padding:.2rem .45rem;border-radius:.3rem;font-size:.65rem;background:#7f1d1d;color:#374151;border:1px solid #991b1b;cursor:pointer;" title="Delete"><i class="fas fa-trash"></i></button></td>
             </tr>
         @empty
             <tr><td colspan="17" class="text-center py-10 text-gray-400">
@@ -252,7 +252,7 @@
                 <td class="r font-semibold">{{ $sym }} {{ number_format($txn->amount_php ?? $txn->credit, 2) }}</td>
                 <td class="r font-bold">{{ $sym }} {{ number_format($txn->running_balance, 2) }}</td>
                 <td class="text-xs text-gray-400">{{ $txn->logged_by ?: '—' }}</td>
-                <td><button onclick="deleteTxn({{ $txn->id }})" style="padding:.2rem .45rem;border-radius:.3rem;font-size:.65rem;background:#7f1d1d;color:#fca5a5;border:1px solid #991b1b;cursor:pointer;" title="Delete"><i class="fas fa-trash"></i></button></td>
+                <td><button onclick="deleteTxn({{ $txn->id }})" style="padding:.2rem .45rem;border-radius:.3rem;font-size:.65rem;background:#7f1d1d;color:#374151;border:1px solid #991b1b;cursor:pointer;" title="Delete"><i class="fas fa-trash"></i></button></td>
             </tr>
         @empty
             <tr><td colspan="15" class="text-center py-10 text-gray-400">
@@ -346,7 +346,7 @@
                 </div>
                 <div>
                     <label class="modal-label">Amount PHP (auto)</label>
-                    <input type="text" id="modal-amount-php-display" class="modal-input" readonly placeholder="Auto-calculated" style="background:#1f2937;color:#6ee7b7;">
+                    <input type="text" id="modal-amount-php-display" class="modal-input" readonly placeholder="Auto-calculated" style="background:#FFFFFF;color:#6ee7b7;">
                 </div>
             </div>
 

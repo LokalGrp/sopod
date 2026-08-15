@@ -8,6 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // FIXED 2026-08-15: Laravel's default 0001_01_01_000000_create_users_table
+        // already creates `sessions`, so this failed with "Table 'sessions' already
+        // exists" on a fresh install. Kept for databases where the default
+        // migration predates the sessions table.
+        if (Schema::hasTable('sessions')) {
+            return;
+        }
+
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();

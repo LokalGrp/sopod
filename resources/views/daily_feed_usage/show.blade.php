@@ -7,7 +7,7 @@
 .b { background:#fff; border:1px solid #e5e7eb; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.05); }
 .b-hd { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#1e3a5f; padding:.6rem 1rem; border-bottom:1px solid #f0f4f8; background:linear-gradient(to right,#f0f7ff,#f8fafc); border-radius:.5rem .5rem 0 0; }
 .detail-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.detail-table thead th { background:#1e3a5f; color:#fff; padding:.45rem .6rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.detail-table thead th { background:var(--surface); color:#fff; padding:.45rem .6rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .detail-table thead th.r { text-align:right; }
 .detail-table tbody tr { border-bottom:1px solid #f3f4f6; }
 .detail-table tbody td { padding:.4rem .6rem; color:#374151; vertical-align:middle; }

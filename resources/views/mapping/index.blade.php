@@ -4,8 +4,8 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">DOCUMENT MAPPING</h1>
-            <span class="text-xs text-gray-400">PR → PO → RFP → APV → SRR</span>
+            <h1 class="text-2xl font-bold">Document Mapping</h1>
+            <span class="text-xs text-gray-400">PR PO RFP APV SRR</span>
         </div>
 
         <form method="GET" class="mb-4 flex gap-3">

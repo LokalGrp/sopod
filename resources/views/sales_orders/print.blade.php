@@ -172,7 +172,7 @@
             border-top: 1px solid #ddd;
         }
 
-        /* ✅ NEW: Style for hidden prices indicator */
+        /* NEW: Style for hidden prices indicator */
         .price-hidden-notice {
             background: #f0f0f0;
             border: 1px dashed #999;
@@ -203,10 +203,10 @@
 
     <div class="document-title">SALES ORDER</div>
 
-    {{-- ✅ NEW: Show notice if prices are hidden --}}
+    {{-- NEW: Show notice if prices are hidden --}}
     @if(request('hide_prices') == 1)
     <div class="price-hidden-notice">
-        ℹ️ <strong>Note:</strong> Price information has been hidden as per print settings
+        ℹ<strong>Note:</strong> Price information has been hidden as per print settings
     </div>
     @endif
 
@@ -279,7 +279,7 @@
 <!-- Additional Delivery Instructions -->
 @if($salesOrder->additional_instructions)
 <div class="instructions-section">
-    <div class="instructions-title">📋 Additional Delivery Instructions:</div>
+    <div class="instructions-title">Additional Delivery Instructions:</div>
     <div class="instructions-content">
         {{ $salesOrder->additional_instructions }}
     </div>
@@ -311,7 +311,7 @@
                         {{ $item->item_description ?: ($item->item->item_description ?? '') }}
                         @if($item->note)
                             <div class="item-note">
-                                📝 Note: {{ $item->note }}
+                                Note: {{ $item->note }}
                             </div>
                         @endif
                     </td>
@@ -319,7 +319,7 @@
                     <td>{{ $item->item_category ?: ($item->item->item_category ?? '') }}</td>
                     <td class="text-right">{{ number_format($item->quantity, 2) }} {{ $item->unit ?? 'Kgs' }}</td>
                     
-                    {{-- ✅ Show 0.00 if hide_prices is enabled, otherwise show actual price --}}
+                    {{-- Show 0.00 if hide_prices is enabled, otherwise show actual price --}}
                     <td class="text-right">
                         @if(request('hide_prices') == 1)
                             ₱0.00
@@ -347,7 +347,7 @@
     <div class="total-section">
         <div style="font-size: 14px; margin-bottom: 5px;">Total Amount:</div>
         <div class="total-amount">
-            {{-- ✅ Show 0.00 if hide_prices is enabled, otherwise show actual total --}}
+            {{-- Show 0.00 if hide_prices is enabled, otherwise show actual total --}}
             @if(request('hide_prices') == 1)
                 ₱0.00
             @else

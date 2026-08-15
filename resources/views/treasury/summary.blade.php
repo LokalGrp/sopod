@@ -1,45 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Bank')
+@section('title', 'Treasury Summary')
 
 @section('content')
 <style>
-.b { background:#1f2937; border:1px solid #374151; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.2); }
-.stat-card { background:#1f2937; border:1px solid #374151; border-radius:.45rem; padding:.8rem 1rem; }
-.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; }
-.stat-val { font-size:1.5rem; font-weight:800; color:#f9fafb; line-height:1.1; margin:.1rem 0; }
+.b { background:var(--surface); border:1px solid var(--line); border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.stat-card { background:var(--surface); border:1px solid var(--line); border-radius:.45rem; padding:.8rem 1rem; }
+.stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+.stat-val { font-size:1.5rem; font-weight:800; color:var(--body); line-height:1.1; margin:.1rem 0; }
 
 .ts-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.ts-table thead th { background:#111827; color:#fff; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.ts-table thead th { background:var(--surface); color:var(--body); padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .ts-table thead th.r { text-align:right; }
-.ts-table tbody tr { border-bottom:1px solid #374151; transition:background .1s; }
-.ts-table tbody tr:hover { background:#374151; }
-.ts-table tbody td { padding:.5rem .75rem; color:#d1d5db; vertical-align:middle; }
+.ts-table tbody tr { border-bottom:1px solid var(--line); transition:background .1s; }
+.ts-table tbody tr:hover { background:#F9FAFB; }
+.ts-table tbody td { padding:.5rem .75rem; color:var(--body); vertical-align:middle; }
 .ts-table tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
-.ts-table tfoot td { padding:.6rem .75rem; font-weight:700; background:#111827; border-top:2px solid #374151; color:#f9fafb; }
+.ts-table tfoot td { padding:.6rem .75rem; font-weight:700; background:var(--surface); border-top:2px solid var(--line); color:var(--body); }
 
-.search-input { padding:.38rem .65rem; border:1px solid #4b5563; border-radius:.375rem; font-size:.83rem; color:#f9fafb; background:#374151; }
-.search-input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.2); }
+.search-input { padding:.38rem .65rem; border:1px solid var(--line); border-radius:.375rem; font-size:.83rem; color:var(--body); background:#F9FAFB; }
+.search-input:focus { outline:none; border-color:var(--line); box-shadow:0 0 0 3px rgba(59,130,246,.2); }
 .search-input::placeholder { color:#6b7280; }
 
-.badge-confirmed { display:inline-block; padding:.15rem .55rem; border-radius:999px; font-size:.68rem; font-weight:700; background:#14532d; color:#86efac; border:1px solid #16a34a; }
-.credit-row { background:linear-gradient(135deg,#2a1f00,#1f2937) !important; }
+.badge-confirmed { display:inline-block; padding:.15rem .55rem; border-radius:999px; font-size:.68rem; font-weight:700; background:#DCFCE7; color:#15803D; border:1px solid var(--line); }
+.credit-row { background:var(--surface) !important; }
 .credit-row td { color:#fbbf24 !important; font-weight:600; }
 
 .currency-card {
     display:flex; align-items:center; justify-content:space-between;
-    background:#1f2937; border:2px solid #374151; border-radius:.6rem;
+    background:var(--surface); border:2px solid var(--line); border-radius:.6rem;
     padding:1rem 1.5rem; cursor:pointer; transition:all .18s;
     text-decoration:none;
 }
 .currency-card:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.3); }
-.currency-card.peso { border-color:#1d4ed8; background:linear-gradient(135deg,#1e3a5f,#1f2937); }
-.currency-card.peso:hover { border-color:#3b82f6; box-shadow:0 4px 12px rgba(59,130,246,.2); }
-.currency-card.dollar { border-color:#15803d; background:linear-gradient(135deg,#14532d,#1f2937); }
-.currency-card.dollar:hover { border-color:#22c55e; box-shadow:0 4px 12px rgba(34,197,94,.2); }
-.currency-card .cc-icon { width:48px; height:48px; border-radius:.5rem; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:#fff; font-weight:800; flex-shrink:0; }
-.currency-card .cc-title { font-size:1rem; font-weight:800; color:#f9fafb; }
-.currency-card .cc-sub { font-size:.72rem; color:#9ca3af; }
+.currency-card.peso { border-color:var(--line); background:var(--surface); }
+.currency-card.peso:hover { border-color:var(--line); box-shadow:0 4px 12px rgba(59,130,246,.2); }
+.currency-card.dollar { border-color:var(--line); background:var(--surface); }
+.currency-card.dollar:hover { border-color:var(--line); box-shadow:0 4px 12px rgba(34,197,94,.2); }
+.currency-card .cc-icon { width:48px; height:48px; border-radius:.5rem; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--body); font-weight:800; flex-shrink:0; }
+.currency-card .cc-title { font-size:1rem; font-weight:800; color:var(--body); }
+.currency-card .cc-sub { font-size:.72rem; color:var(--muted); }
 .currency-card .cc-balance { font-size:1.2rem; font-weight:800; text-align:right; }
 .currency-card .cc-chevron { font-size:.8rem; color:#6b7280; margin-left:.75rem; }
 </style>
@@ -47,8 +47,8 @@
 <!-- HEADER -->
 <div class="flex items-center justify-between mb-5">
     <div>
-        <h2 class="text-xl font-bold text-white">Bank</h2>
-        <p class="text-xs text-gray-300 mt-0.5">Bank — Overview of confirmed payments & credit balance</p>
+        <h2 class="text-xl font-bold text-white">Treasury Summary</h2>
+        <p class="text-xs text-gray-300 mt-0.5">Overview of confirmed payments & credit balance</p>
     </div>
     <div class="flex gap-2">
         <a href="{{ route('treasury.confirmation') }}"
@@ -75,7 +75,7 @@
         <div class="text-xs text-blue-400 mt-0.5">PHP {{ number_format($stats['today_amount'], 2) }}</div>
     </div>
     <div class="stat-card" style="border-color:#b45309;">
-        <div class="stat-lbl" style="color:#fbbf24;">Remaining Credit Balance</div>
+        <div class="stat-lbl" style="color:#374151;">Remaining Credit Balance</div>
         <div class="stat-val text-amber-400">PHP {{ number_format($stats['remaining_credit'], 2) }}</div>
         <div class="text-xs text-amber-500 mt-0.5">Overpayments: PHP {{ number_format($stats['total_overpayment'], 2) }}</div>
     </div>
@@ -85,7 +85,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
     <a href="{{ route('treasury.banks', 'peso') }}" class="currency-card peso">
         <div class="flex items-center gap-3">
-            <div class="cc-icon" style="background:#2563eb;">₱</div>
+            <div class="cc-icon" style="background:#FFFFFF;">₱</div>
             <div>
                 <div class="cc-title">PESO ACCOUNTS</div>
                 <div class="cc-sub">{{ $bankStats['pesoCount'] }} active bank account{{ $bankStats['pesoCount'] != 1 ? 's' : '' }}</div>
@@ -101,7 +101,7 @@
     </a>
     <a href="{{ route('treasury.banks', 'dollar') }}" class="currency-card dollar">
         <div class="flex items-center gap-3">
-            <div class="cc-icon" style="background:#16a34a;">$</div>
+            <div class="cc-icon" style="background:#FFFFFF;">$</div>
             <div>
                 <div class="cc-title">DOLLAR ACCOUNTS</div>
                 <div class="cc-sub">{{ $bankStats['dollarCount'] }} active bank account{{ $bankStats['dollarCount'] != 1 ? 's' : '' }}</div>

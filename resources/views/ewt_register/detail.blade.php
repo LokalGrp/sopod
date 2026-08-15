@@ -10,7 +10,7 @@
             <p class="text-gray-400 text-xs mt-0.5">{{ \Carbon\Carbon::parse($dateFrom)->format('M d, Y') }} — {{ \Carbon\Carbon::parse($dateTo)->format('M d, Y') }}</p>
         </div>
         <a href="{{ route('accounts_payable_invoices.ewt_register') }}?date_from={{ $dateFrom }}&date_to={{ $dateTo }}{{ $status ? '&status='.$status : '' }}"
-           class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500 text-sm">← Back to EWT Register</a>
+           class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500 text-sm">Back to EWT Register</a>
     </div>
 
     <div class="overflow-x-auto mb-6">

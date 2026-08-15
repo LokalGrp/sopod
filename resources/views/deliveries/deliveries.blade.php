@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
+@section('title', 'Create Delivery')
+
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="max-w-6xl mx-auto mt-10 bg-gray-900 text-gray-100 p-8 rounded-xl shadow-lg border border-gray-800">
-    <h2 class="text-2xl font-bold mb-6 text-white">🚚 Delivery Module</h2>
+    {{-- Standard page header: title, one-line description, divider. --}}
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Create Delivery</h2>
+            <p class="page-subtitle">Search for a Sales Order to create a delivery.</p>
+        </div>
+    </div>
 
-    {{-- 🔒 View Only Notice --}}
+    {{-- View Only Notice --}}
     @if(!\App\Helpers\RoleHelper::canManageDeliveries())
     <div class="bg-blue-100/40 border border-blue-700 text-blue-700 p-4 rounded-lg mb-6">
         <strong>View Only Mode</strong>
@@ -14,7 +22,7 @@
     </div>
     @endif
 
-    <!-- 🔍 Search by Sales Order Number -->
+    <!-- Search by Sales Order Number -->
     <div class="mb-6 bg-gray-800/80 p-4 rounded-lg border border-gray-700">
         <label class="block text-gray-300 font-medium mb-2">Search Sales Order Number</label>
         <div class="flex gap-2">
@@ -26,10 +34,10 @@
         </div>
     </div>
 
-    {{-- ✅ Batch Selector (Hidden by default) --}}
+    {{-- Batch Selector (Hidden by default) --}}
     <div id="batch_selector_container" class="mb-6 bg-yellow-100/20 border border-yellow-700 p-4 rounded-lg hidden">
         <label class="block text-yellow-700 font-medium mb-2">
-            📦 Multiple Delivery Batches Found - Select One:
+            Multiple Delivery Batches Found - Select One:
         </label>
         <select id="delivery_batch_select" 
                 class="w-full bg-gray-900 border border-yellow-700 text-gray-200 rounded-md p-2 focus:ring-2 focus:ring-yellow-500">
@@ -38,14 +46,14 @@
         <p class="text-xs text-gray-300 mt-2">This Sales Order has multiple delivery dates. Please select the batch you want to create/edit a delivery for.</p>
     </div>
 
-    {{-- ✅ Partial Delivery Warning --}}
+    {{-- Partial Delivery Warning --}}
     <div id="partial_delivery_warning" class="mb-6 bg-orange-100/20 border border-orange-700 p-4 rounded-lg hidden">
         <div class="flex items-start gap-3">
             <svg class="w-6 h-6 text-orange-700 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
             <div class="flex-1">
-                <h4 class="text-orange-700 font-semibold mb-2">⚠️ Partial Delivery Detected</h4>
+                <h4 class="text-orange-700 font-semibold mb-2">Partial Delivery Detected</h4>
                 <p class="text-sm text-orange-200 mb-2">You have reduced quantities below the original Sales Order amounts. This will be marked as a <strong>Partial Delivery</strong>.</p>
                 <div id="partial_items_summary" class="text-xs text-orange-100 bg-orange-950/30 p-2 rounded mt-2"></div>
             </div>
@@ -55,7 +63,7 @@
     {{-- Hidden field to store selected batch --}}
     <input type="hidden" id="delivery_batch" name="delivery_batch">
 
-    <!-- 🧾 Sales Order Information -->
+    <!-- Sales Order Information -->
     <div class="mb-8">
         <h3 class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-1">Sales Order Information</h3>
         <div class="grid grid-cols-2 gap-4">
@@ -79,7 +87,7 @@
         </div>
     </div>
 
-    <!-- 📦 Delivery Details -->
+    <!-- Delivery Details -->
 <div class="mb-8">
     <h3 class="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-1">Delivery Details</h3>
     <div class="grid grid-cols-2 gap-4">
@@ -105,7 +113,7 @@
                 placeholder="Optional">
         </div>
 
-        {{-- ✅ UPDATED: DR/RR Number (Dynamic based on status) --}}
+        {{-- UPDATED: DR/RR Number (Dynamic based on status) --}}
         <div>
             <label class="block text-gray-300 text-sm">
                 <span id="dr_rr_label">DR No</span>
@@ -115,11 +123,11 @@
                 {{ \App\Helpers\RoleHelper::canManageDeliveries() ? '' : 'readonly' }}
                 placeholder="Will be auto-generated for Backload">
             <p id="dr_rr_hint" class="text-xs text-gray-300 mt-1 hidden">
-                🔄 RR Number will be auto-generated when saving a Backload
+                RR Number will be auto-generated when saving a Backload
             </p>
         </div>
 
-        {{-- ✅ NEW: Type of Delivery (Replaces Partial in Status) --}}
+        {{-- NEW: Type of Delivery (Replaces Partial in Status) --}}
         <div>
             <label class="block text-gray-300 text-sm mb-1">Type of Delivery</label>
             <select id="delivery_type"
@@ -130,7 +138,7 @@
             </select>
         </div>
 
-        {{-- ✅ UPDATED: Status (Delivered, Cancelled, or Backload) --}}
+        {{-- UPDATED: Status (Delivered, Cancelled, or Backload) --}}
         <div>
             <label class="block text-gray-300 text-sm">Status</label>
             <select id="status"
@@ -166,7 +174,7 @@
     </div>
 </div>
 
-<!-- 📋 Delivery Items Section - REDESIGNED -->
+<!-- Delivery Items Section - REDESIGNED -->
 <div class="mb-8">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-semibold text-white border-b border-gray-700 pb-1">Delivery Items</h3>
@@ -187,7 +195,7 @@
     @if(\App\Helpers\RoleHelper::canManageDeliveries())
         <div class="text-right mt-6">
             <button id="save_btn" class="bg-green-600 hover:bg-green-500 text-white px-5 py-2 rounded-md shadow-sm transition-all">
-                💾 Save Delivery
+                Save Delivery
             </button>
         </div>
     @endif

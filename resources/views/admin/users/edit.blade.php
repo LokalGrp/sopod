@@ -81,33 +81,33 @@ $navStructure = [
         'ap_dashboard' => 'AP Dashboard',
     ],
     'Sales Orders' => [
-        'sales_orders'          => '📂 Section Access',
+        'sales_orders'          => 'Section Access',
         'sales_orders.create'   => 'Create Order',
         'sales_orders.list'     => 'Order List',
         'sales_orders.accepted' => 'Accepted Orders',
     ],
     'Customers' => [
-        'customers'        => '📂 Section Access',
+        'customers'        => 'Section Access',
         'customers.create' => 'Add Customer',
         'customers.list'   => 'Customer List',
     ],
     'Supply Chain' => [
-        'suppliers'                      => '📂 Section Access (Suppliers)',
+        'suppliers'                      => 'Section Access (Suppliers)',
         'supply_chain.add_supplier'      => 'Add Supplier',
         'supply_chain.supplier_list'     => 'Supplier List',
-        'supplier_rr'                    => '📂 Section Access (Supplier RR)',
+        'supplier_rr'                    => 'Section Access (Supplier RR)',
         'supply_chain.receiving_reports' => 'Receiving Reports',
-        'issue_slips'                    => '📂 Section Access (Issue Slips)',
+        'issue_slips'                    => 'Section Access (Issue Slips)',
         'supply_chain.issue_slips'       => 'Issue Slips',
-        'purchase_requests'              => '📂 Section Access (PR)',
+        'purchase_requests'              => 'Section Access (PR)',
         'supply_chain.purchase_requests' => 'Purchase Request (PR)',
-        'purchase_orders'                => '📂 Section Access (PO)',
+        'purchase_orders'                => 'Section Access (PO)',
         'supply_chain.purchase_orders'   => 'Purchase Order (PO)',
-        'rfp'                            => '📂 Section Access (RFP)',
+        'rfp'                            => 'Section Access (RFP)',
         'supply_chain.rfp'               => 'Request For Payment (RFP)',
-        'non_trade_items'                => '📂 Section Access (Non-Trade)',
+        'non_trade_items'                => 'Section Access (Non-Trade)',
         'supply_chain.non_trade_items'   => 'Non-Trade Items Library',
-        'trade_items'                    => '📂 Section Access (Trade)',
+        'trade_items'                    => 'Section Access (Trade)',
         'supply_chain.trade_items'       => 'Trade Items Library',
     ],
     'Storage / Warehouse' => [
@@ -115,17 +115,17 @@ $navStructure = [
         'storages'  => 'Storages',
     ],
     'Items' => [
-        'items'        => '📂 Section Access',
+        'items'        => 'Section Access',
         'items.create' => 'Add Item',
         'items.list'   => 'Item List',
     ],
     'Deliveries' => [
-        'deliveries'      => '📂 Section Access',
-        'deliveries.view' => 'View Delivery',
+        'deliveries'      => 'Section Access',
+        'deliveries.view' => 'Create Delivery',
         'deliveries.list' => 'Delivery List',
     ],
     'Receiving Reports' => [
-        'receiving_reports' => '📂 Section Access',
+        'receiving_reports' => 'Section Access',
     ],
     'Finance' => [
         'purchase_requests' => 'Purchase Request (PR)',
@@ -151,7 +151,7 @@ $navStructure = [
         'daily_feed_usage' => 'Daily Feed Usage',
     ],
     'Credits & Collection' => [
-        'aging_reports'          => '📂 Section Access (Aging)',
+        'aging_reports'          => 'Section Access (Aging)',
         'aging.view'             => 'Aging Reports View',
         'ar_dashboard'           => 'AR Dashboard',
         'payments'               => 'Collection',
@@ -209,11 +209,11 @@ $navStructure = [
                 @php
                     $ov = $overrides->get($key);
                     $current = $ov ? ($ov->allowed ? 'grant' : 'deny') : 'default';
-                    $isSection = str_starts_with($label, '📂');
+                    $isSection = str_starts_with($label, '');
                 @endphp
                 <div class="flex items-center justify-between px-3 py-1.5 {{ $isSection ? 'bg-gray-700/40' : 'bg-gray-800' }} gap-2">
-                    <span class="text-xs truncate {{ $isSection ? 'text-gray-300 italic' : 'text-gray-300' }}" title="{{ $isSection ? ltrim(str_replace('📂', '', $label)) : $label }}">
-                        {{ $isSection ? str_replace('📂 ', '', $label) : $label }}
+                    <span class="text-xs truncate {{ $isSection ? 'text-gray-300 italic' : 'text-gray-300' }}" title="{{ $isSection ? ltrim(str_replace('', '', $label)) : $label }}">
+                        {{ $isSection ? str_replace('', '', $label) : $label }}
                     </span>
                     <select
                         class="module-override-select flex-shrink-0 border text-xs rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-indigo-500

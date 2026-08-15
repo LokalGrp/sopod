@@ -23,7 +23,7 @@
         </div>
         
         <div class="content">
-            {{-- ✅ FIXED: Changed from $message to $emailMessage --}}
+            {{-- FIXED: Changed from $message to $emailMessage --}}
             <p>{{ $emailMessage ?? 'A new item has been added and requires approval.' }}</p>
             
             <div class="info-box">

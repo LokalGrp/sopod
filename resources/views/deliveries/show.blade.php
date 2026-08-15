@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Delivery Details')
+
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-10 bg-gray-900 min-h-screen text-gray-100">
 
@@ -10,30 +12,30 @@
             <a href="{{ route('deliveries.print', $delivery->id) }}"
                target="_blank"
                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
-               🖨️ Print Delivery
+               Print Delivery
             </a>
             <button type="button"
                     onclick="exportExcel({{ $delivery->id }})"
                     class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded transition">
-                     📥 Export Excel
+                     Export Excel
             </button>
             @if(auth()->user()->isAdminUser() && !$delivery->is_hidden)
                 <button type="button"
                         onclick="showHideModal()"
                         class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">
-                    🚫 Hide DR
+                    Hide DR
                 </button>
             @endif
             @if(auth()->user()->isAdminUser())
                 <button type="button"
                         onclick="showDeleteModal()"
                         class="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded transition">
-                    🗑️ Delete DR
+                    Delete DR
                 </button>
             @endif
             <a href="{{ route('deliveries.index') }}"
                class="bg-gray-600 hover:bg-gray-600 text-white px-4 py-2 rounded transition">
-               ← Back
+               Back
             </a>
         </div>
     </div>
@@ -113,7 +115,7 @@
     @if($delivery->is_hidden)
     <div class="mb-6 bg-red-100 border border-red-600 p-4 rounded-lg">
         <div class="flex items-start gap-3">
-            <span class="text-2xl">🚫</span>
+            <span class="text-2xl"></span>
             <div class="flex-1">
                 <h4 class="text-red-700 font-semibold mb-1">Delivery Hidden</h4>
                 <p class="text-sm text-red-700 mb-2">
@@ -148,7 +150,7 @@
     @if($delivery->is_pulled_out)
     <div class="mb-6 bg-orange-100 border border-orange-600 p-4 rounded-lg">
         <div class="flex items-start gap-3">
-            <span class="text-2xl">🔒</span>
+            <span class="text-2xl"></span>
             <div class="flex-1">
                 <h4 class="text-orange-700 font-semibold mb-1">Delivery Pulled Out</h4>
                 <p class="text-sm text-orange-200 mb-2">
@@ -174,7 +176,7 @@
     @if($delivery->approval_status === 'Rejected')
     <div class="mb-6 bg-red-100 border border-red-600 p-4 rounded-lg">
         <div class="flex items-start gap-3">
-            <span class="text-2xl">❌</span>
+            <span class="text-2xl"></span>
             <div class="flex-1">
                 <h4 class="text-red-700 font-semibold mb-1">Delivery Rejected</h4>
                 <p class="text-sm text-red-700 mb-2">
@@ -221,7 +223,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
             <div>
-                <h4 class="text-orange-700 font-semibold mb-1">⚠️ Partial Delivery</h4>
+                <h4 class="text-orange-700 font-semibold mb-1">Partial Delivery</h4>
                 <p class="text-sm text-orange-200">This delivery was partially fulfilled. Remaining quantities need to be delivered separately.</p>
             </div>
         </div>
@@ -260,7 +262,7 @@
                         }
                     @endphp
                     <div class="w-full px-4 py-2 rounded-lg bg-purple-100 border border-purple-700 text-purple-700 flex items-center gap-2">
-                        <span class="text-lg">📦</span>
+                        <span class="text-lg"></span>
                         <span>{{ $batchDisplay }}</span>
                     </div>
                 @else
@@ -274,11 +276,11 @@
                 <label class="block text-sm font-semibold text-gray-300 mb-2">Delivery Status</label>
                 <div class="w-full px-4 py-2 rounded-lg border {{ $statusColor }} flex items-center gap-2">
                     @if($delivery->status === 'Delivered')
-                        <span class="text-lg">✅</span>
+                        <span class="text-lg"></span>
                     @elseif($delivery->status === 'Partial')
-                        <span class="text-lg">⚠️</span>
+                        <span class="text-lg"></span>
                     @elseif($delivery->status === 'Cancelled')
-                        <span class="text-lg">❌</span>
+                        <span class="text-lg"></span>
                     @endif
                     <span class="font-semibold">{{ $delivery->status }}</span>
                 </div>
@@ -297,11 +299,11 @@
                 @endphp
                 <div class="w-full px-4 py-2 rounded-lg border {{ $approvalColor }} flex items-center gap-2">
                     @if($delivery->approval_status === 'Approved')
-                        <span class="text-lg">✓</span>
+                        <span class="text-lg"></span>
                     @elseif($delivery->approval_status === 'Pending')
                         <span class="text-lg">⏳</span>
                     @elseif($delivery->approval_status === 'Rejected')
-                        <span class="text-lg">✗</span>
+                        <span class="text-lg"></span>
                     @endif
                     <span class="font-semibold">{{ $delivery->approval_status }}</span>
                 </div>
@@ -410,10 +412,10 @@
             </div>
             @endif
 
-            <!-- ✅ NEW: PO Image from Sales Order -->
+            <!-- NEW: PO Image from Sales Order -->
             @if($so && $so->po_image)
             <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-300 mb-2">📸 PO Proof / Order Evidence (from Sales Order)</label>
+                <label class="block text-sm font-semibold text-gray-300 mb-2">PO Proof / Order Evidence (from Sales Order)</label>
                 <div class="bg-gray-700/50 border border-gray-600 rounded-lg p-4">
                     @if(Str::endsWith($so->po_image, '.pdf'))
                         {{-- PDF File --}}
@@ -450,7 +452,7 @@
             <!-- Notes from Sales Order -->
             @if($notes !== '—')
             <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-gray-300 mb-2">📝 Notes (from Sales Order)</label>
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Notes (from Sales Order)</label>
                 <textarea class="w-full px-4 py-2 rounded-lg bg-blue-50 border border-blue-700 text-blue-700"
                         rows="2" readonly>{{ $notes }}</textarea>
             </div>
@@ -463,7 +465,7 @@
                         rows="3" readonly>{{ $additionalInstructions }}</textarea>
             </div>
 
-            <!-- 📎 Attachment Display -->
+            <!-- Attachment Display -->
            @if($delivery->attachment)
                 <div class="md:col-span-2">
                     <h3 class="font-semibold mb-2">Attached Image:</h3>
@@ -486,7 +488,7 @@
             $grandTotal = 0;
             $hasPartialItems = false;
             
-            // ✅ Create map of SO items for comparison (keyed by ID to handle duplicate item_codes)
+            // Create map of SO items for comparison (keyed by ID to handle duplicate item_codes)
             $soItemsMap = collect();
             if ($so && $so->items) {
                 foreach ($so->items as $soItem) {
@@ -494,7 +496,7 @@
                 }
             }
             
-            // ✅ FIXED: Calculate total delivered quantities across ALL batches INCLUDING this one
+            // FIXED: Calculate total delivered quantities across ALL batches INCLUDING this one
             // Using sales_order_item_id to handle duplicate item_codes correctly
             $totalDeliveredMap = \App\Models\DeliveryItem::whereHas('delivery', function($q) use ($delivery) {
                     $q->where('sales_order_number', $delivery->sales_order_number)
@@ -533,12 +535,12 @@
                 <tbody class="bg-gray-900">
                   @forelse($items as $item)
                     @php
-                        // ✅ FIXED: Use sales_order_item_id for lookups to handle duplicate item_codes
+                        // FIXED: Use sales_order_item_id for lookups to handle duplicate item_codes
                         $soItem = $soItemsMap->get($item->sales_order_item_id);
                         $originalQty = $item->original_quantity ?? $soItem?->quantity ?? $item->quantity;
                         $thisBatchQty = $item->quantity ?? 0;
 
-                        // ✅ SKIP items with zero quantity (removed items)
+                        // SKIP items with zero quantity (removed items)
                         if ($thisBatchQty == 0) {
                             continue;
                         }
@@ -614,7 +616,7 @@
                                         OVER: {{ number_format(abs($remaining), 3) }}
                                     </span>
                                 @else
-                                    <span class="text-green-700 font-semibold">✓ Complete</span>
+                                    <span class="text-green-700 font-semibold">Complete</span>
                                 @endif
                             </td>
 
@@ -709,11 +711,11 @@
     </div>
 </div>
 
-<!-- 🚫 Hide DR Modal -->
+<!-- Hide DR Modal -->
 @if(auth()->user()->isAdminUser() && !$delivery->is_hidden)
 <div id="hideModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
     <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 class="text-xl font-bold text-white mb-2">🚫 Hide Delivery</h3>
+        <h3 class="text-xl font-bold text-white mb-2">Hide Delivery</h3>
         <p class="text-sm text-gray-300 mb-4">
             Hiding <strong>DR {{ $delivery->dr_no }}</strong> will make it invisible across <strong>all modules</strong> —
             delivery list, aging reports, treasury, SOA, etc. Only Admin/IT users can see and unhide it.
@@ -741,11 +743,11 @@
 </div>
 @endif
 
-<!-- 🗑️ Delete DR Modal (IT only) -->
+<!-- Delete DR Modal (IT only) -->
 @if(auth()->user()->isAdminUser())
 <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
     <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
-        <h3 class="text-xl font-bold text-white mb-2">🗑️ Permanently Delete Delivery</h3>
+        <h3 class="text-xl font-bold text-white mb-2">Permanently Delete Delivery</h3>
         <p class="text-sm text-red-400 mb-2">
             <strong>WARNING:</strong> This action is <strong>permanent and cannot be undone</strong>.
         </p>
@@ -782,13 +784,12 @@
 </div>
 @endif
 
-<!-- 🖼️ Image Modal -->
+<!-- Image Modal -->
 <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeImageModal()">
     <div class="relative max-w-7xl max-h-screen p-4">
         <button onclick="closeImageModal()" 
                 class="absolute top-4 right-4 bg-red-600 hover:bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold">
-            ✕
-        </button>
+                    </button>
         <img id="modalImage" src="" alt="Full Size Image" class="max-w-full max-h-screen object-contain rounded-lg">
     </div>
 </div>

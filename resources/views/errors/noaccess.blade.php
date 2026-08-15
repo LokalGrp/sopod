@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Access Denied')
+
 @section('content')
 <div class=" bg-gray-900 flex flex-col items-center justify-center min-h-screen bg-gray-700 text-center">
     <h1 class="text-3xl font-bold text-white mb-4">Oops!</h1>

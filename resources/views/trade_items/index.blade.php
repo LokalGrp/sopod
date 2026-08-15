@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-white">TRADE ITEMS LIBRARY</h1>
+                <h1 class="text-2xl font-bold text-white">Trade Items Library</h1>
                 <p class="text-gray-300 text-sm mt-1">Trade items linked to suppliers (Local or Import). Used for autocomplete in Purchase Orders — filtered by selected supplier.</p>
             </div>
             <div class="flex gap-2">

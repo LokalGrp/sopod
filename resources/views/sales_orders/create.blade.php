@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create Sales Order')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-white p-8">
     <!-- Header -->
@@ -81,47 +83,48 @@
             <input type="hidden" id="customer_code" name="customer_code" required>
         </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
+            {{-- Layout only: the same fields, paired into a responsive grid so
+                 short values (TIN, Sales Rep) stop occupying a full 1000px row.
+                 Every id, name, type, readonly flag and class is unchanged. --}}
+            <div class="form-grid">
+                <div class="col-6">
                     <label for="customer_name" class="block text-sm font-medium text-gray-400 mb-1">Customer Name</label>
                     <input type="text" id="customer_name" name="customer_name" readonly
                         class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
                 </div>
-                <div>
+                <div class="col-6">
                     <label for="business_style" class="block text-sm font-medium text-gray-400 mb-1">Business Style</label>
                     <input type="text" id="business_style" name="business_style" readonly
                         class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
                 </div>
-            </div>
 
-            <div class="mt-4">
-                <label for="billing_address" class="block text-sm font-medium text-gray-400 mb-1">Billing Address</label>
-                <input type="text" id="billing_address" name="billing_address" readonly
-                    class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
-            </div>
+                <div class="col-8">
+                    <label for="billing_address" class="block text-sm font-medium text-gray-400 mb-1">Billing Address</label>
+                    <input type="text" id="billing_address" name="billing_address" readonly
+                        class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
+                </div>
+                <div class="col-4">
+                    <label for="tin_no" class="block text-sm font-medium text-gray-400 mb-1">TIN</label>
+                    <input type="text" id="tin_no" name="tin_no" readonly
+                        class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
+                </div>
 
-            <div class="mt-4">
-                <label for="tin_no" class="block text-sm font-medium text-gray-400 mb-1">TIN</label>
-                <input type="text" id="tin_no" name="tin_no" readonly
-                    class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
-            </div>
+                <div class="col-8">
+                    <label for="shipping_address" class="block text-sm font-medium text-gray-400 mb-1">Shipping Address</label>
+                    <input type="text" id="shipping_address" name="shipping_address"
+                        class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
+                </div>
+                <div class="col-4">
+                    <label for="sales_rep" class="block text-sm font-medium text-gray-400 mb-1">Sales Representative</label>
+                    <input type="text" id="sales_rep" name="sales_rep" readonly
+                      class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                </div>
 
-            <div class="mt-4">
-                <label for="shipping_address" class="block text-sm font-medium text-gray-400 mb-1">Shipping Address</label>
-                <input type="text" id="shipping_address" name="shipping_address" 
-                    class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500" />
-            </div>
-
-            <div class="mb-4">
-                <label for="sales_rep" class="block text-sm font-medium text-gray-400 mb-1">Sales Representative</label>
-                <input type="text" id="sales_rep" name="sales_rep" readonly
-                  class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500">
-            </div>
-
-            <div class="mt-4">
-                <label for="additional_instructions" class="block text-sm font-medium text-gray-400 mb-1">Additional Delivery Instructions</label>
-                <textarea id="additional_instructions" name="additional_instructions" rows="2"
-                    class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500"></textarea>
+                <div class="col-12">
+                    <label for="additional_instructions" class="block text-sm font-medium text-gray-400 mb-1">Additional Delivery Instructions</label>
+                    <textarea id="additional_instructions" name="additional_instructions" rows="2"
+                        class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:border-blue-500 focus:ring-blue-500"></textarea>
+                </div>
             </div>
         </div>
         <!-- ================= END CUSTOMER DETAILS ================= -->
@@ -155,11 +158,11 @@
                         class="w-full bg-gray-900 text-white border border-gray-700 rounded px-2 py-1 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
-                {{-- ✅ PO Image Upload (shows when no PO number) --}}
+                {{-- PO Image Upload (shows when no PO number) --}}
                 <div class="col-span-2" id="po_image_container" style="display: none;">
                     <div class="bg-yellow-100/20 border-2 border-yellow-700 rounded-lg p-4">
                         <label class="block text-sm font-medium text-yellow-700 mb-2">
-                            📸 PO Proof / Order Evidence <span class="text-red-500">*</span>
+                            PO Proof / Order Evidence <span class="text-red-500">*</span>
                         </label>
                         <input type="file" id="po_image" name="po_image" accept="image/*,application/pdf"
                             class="w-full bg-gray-900 border border-gray-700 text-white rounded px-3 py-2
@@ -169,7 +172,7 @@
                             Required: Upload proof of customer order (JPG, PNG, or PDF, max 4MB)
                         </p>
                         <p class="text-xs text-orange-700 mt-1">
-                            ⚠️ Once uploaded, the image cannot be removed
+                            Once uploaded, the image cannot be removed
                         </p>
                         <div id="po_image_preview" class="mt-3 hidden">
                             <img id="po_image_preview_img" src="" alt="PO Preview" class="max-w-xs rounded border border-gray-700">

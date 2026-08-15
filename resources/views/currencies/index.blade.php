@@ -98,7 +98,7 @@
                             </div>
                             <div class="flex items-center gap-1 mt-0.5">
                                 <span class="text-red-400">₱{{ number_format($log->old_rate, 4) }}</span>
-                                <span class="text-gray-500">→</span>
+                                <span class="text-gray-500"></span>
                                 <span class="text-green-400">₱{{ number_format($log->new_rate, 4) }}</span>
                             </div>
                         </div>

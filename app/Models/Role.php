@@ -1,36 +1,27 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Models;
 
-use Illuminate\Database\Seeder;
-use App\Models\Role;
+use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder
+/**
+ * FIXED 2026-08-15.
+ *
+ * This file previously contained a verbatim copy of
+ * Database\Seeders\DatabaseSeeder — same namespace, same class name — so
+ * App\Models\Role did not exist, and loading both files fataled with
+ * "Cannot declare class Database\Seeders\DatabaseSeeder, because the name is
+ * already in use". That broke `php artisan db:seed` outright. Composer also
+ * reported it as a PSR-4 violation on every `composer install`.
+ *
+ * Restored to the model the filename and DatabaseSeeder both expect.
+ */
+class Role extends Model
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        $roles = [
-            'Admin',
-            'IT',
-            'CSR',
-            'SCM',
-            'Delivery_Creator',
-            'Delivery_Approver',
-            'CC_Creator',
-            'CC_Approver',
-            'Accounting_Creator',
-            'Accounting_Approver',
-            'Requisitioner',
-            'PR_Approver',
-            'Purchasing',
-            'Procurement_Approver',
-        ];
+    protected $table = 'roles';
 
-        foreach ($roles as $role) {
-            Role::firstOrCreate(['name' => $role]);
-        }
-    }
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 }

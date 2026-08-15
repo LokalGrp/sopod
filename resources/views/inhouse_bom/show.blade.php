@@ -5,11 +5,11 @@
 @section('content')
 <style>
 .b { background:#fff; border:1px solid #e5e7eb; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.05); }
-.b-hd { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#1e3a5f; padding:.6rem 1rem; border-bottom:1px solid #f0f4f8; background:linear-gradient(to right,#f0f7ff,#f8fafc); border-radius:.5rem .5rem 0 0; display:flex; align-items:center; justify-content:space-between; }
+.b-hd { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#1e3a5f; padding:.6rem 1rem; border-bottom:1px solid #f0f4f8; background:var(--surface); border-radius:.5rem .5rem 0 0; display:flex; align-items:center; justify-content:space-between; }
 .kpi { background:#fff; border:1px solid #e5e7eb; border-radius:.45rem; padding:.75rem 1rem; }
-.kpi-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; }
+.kpi-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
 .kpi-val { font-size:1.2rem; font-weight:800; color:#111827; line-height:1.1; margin:.1rem 0; }
-.kpi.accent { border-color:#bfdbfe; background:linear-gradient(135deg,#eff6ff,#fff); }
+.kpi.accent { border-color:#bfdbfe; background:var(--surface); }
 .kpi.accent .kpi-val { color:#1d4ed8; }
 .badge { display:inline-block; padding:.15rem .55rem; border-radius:999px; font-size:.68rem; font-weight:700; }
 .badge-draft    { background:#f3f4f6; color:#6b7280; }
@@ -19,12 +19,12 @@
 .badge-approved { background:#dcfce7; color:#15803d; border:1px solid #86efac; }
 .badge-not-approved { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
 .htab { padding:.28rem .8rem; border-radius:999px; font-size:.75rem; font-weight:600; border:1px solid #e5e7eb; color:#6b7280; background:#fff; cursor:pointer; transition:all .15s; }
-.htab.active { background:#1e3a5f; color:#fff; border-color:#1e3a5f; }
+.htab.active { background:#DBEAFE; color:#1D4ED8; border-color:var(--line); }
 .bt { width:100%; border-collapse:collapse; font-size:.79rem; }
-.bt thead th { background:#1e3a5f; color:#fff; padding:.48rem .6rem; font-size:.69rem; font-weight:600; text-align:left; white-space:nowrap; }
+.bt thead th { background:#DBEAFE; color:#1D4ED8; padding:.48rem .6rem; font-size:.69rem; font-weight:600; text-align:left; white-space:nowrap; }
 .bt thead th.r { text-align:right; }
-.bt tr.grand-total td { background:#0f2744; color:#fff; font-weight:800; font-size:.82rem; padding:.55rem .6rem; }
-.bt tr.cat-hd td { background:#1e3a5f; color:#e0f2fe; font-weight:700; padding:.42rem .6rem; font-size:.73rem; }
+.bt tr.grand-total td { background:var(--surface); color:var(--body); font-weight:800; font-size:.82rem; padding:.55rem .6rem; }
+.bt tr.cat-hd td { background:#DBEAFE; color:#1D4ED8; font-weight:700; padding:.42rem .6rem; font-size:.73rem; }
 .bt tr.data-row td { padding:.36rem .6rem; color:#374151; border-bottom:1px solid #f3f4f6; }
 .bt td.r { text-align:right; font-variant-numeric:tabular-nums; }
 </style>
@@ -389,7 +389,7 @@
                                 <td class="r">{{ $cdmCpk ? number_format($cdmCpk,2) : '—' }}</td>
                             </tr>
                             @endif
-                            <tr class="cat-hd"@if($isCdmSub) style="background:#2a4f7a;"@endif>
+                            <tr class="cat-hd"@if($isCdmSub) style="background:#FFFFFF;"@endif>
                                 <td @if($isCdmSub) style="padding-left:1.2rem;" @endif>{{ $catLabel }}</td>
                                 <td class="r" style="font-size:.6rem;white-space:nowrap;">{{ $catKey==='feed' ? 'Rec. Bags/Hds' : ($catKey==='labor' ? 'Days' : '') }}</td>
                                 <td class="r" style="font-size:.6rem;white-space:nowrap;">{{ $catKey==='feed' ? 'KG' : 'QTY' }}</td>

@@ -10,7 +10,14 @@ return new class extends Migration
     {
         Schema::create('supplier_receiving_report_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_receiving_report_id')->constrained('supplier_receiving_reports')->onDelete('cascade');
+            // The auto-generated constraint name
+            // "supplier_receiving_report_items_supplier_receiving_report_id_foreign"
+            // is 66 chars and exceeds MySQL's 64-char identifier limit, which made
+            // this migration fail on a fresh database. Name it explicitly instead.
+            $table->unsignedBigInteger('supplier_receiving_report_id');
+            $table->foreign('supplier_receiving_report_id', 'srr_items_srr_id_foreign')
+                  ->references('id')->on('supplier_receiving_reports')
+                  ->onDelete('cascade');
             $table->integer('item_no');
             $table->string('item_code')->nullable();
             $table->string('item_description')->nullable();

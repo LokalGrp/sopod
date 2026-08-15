@@ -6,7 +6,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-white">SUPPLY RECEIVING REPORTS</h1>
+            <h1 class="text-2xl font-bold text-white">Supply Receiving Reports</h1>
             <div class="flex gap-2">
                 <a href="{{ route('supplier_receiving_reports.exportExcel', request()->query()) }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
                     <i class="fas fa-file-excel mr-1"></i> Export CSV

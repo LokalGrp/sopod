@@ -20,7 +20,7 @@
     </div>
     <div class="flex gap-3">
         <a href="{{ route('disposals.index') }}" class="px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 font-semibold">
-            ← Back to Disposals
+            Back to Disposals
         </a>
     </div>
 </div>

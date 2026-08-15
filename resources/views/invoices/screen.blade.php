@@ -114,13 +114,16 @@
 
                     {{-- Quick Actions --}}
                     <div class="grid grid-cols-2 gap-4">
-                        <button type="button" id="view_summary_btn" class="bg-gradient-to-br from-indigo-900/40 to-indigo-800/30 border border-indigo-200 rounded-lg p-4 hover:bg-indigo-800/50 transition">
-                            <div class="flex items-center justify-between mb-2">
-                                <i class="fas fa-table text-indigo-700 text-2xl"></i>
-                                <span class="text-xs text-indigo-700 font-semibold">VIEW</span>
-                            </div>
-                            <p class="text-white text-sm font-bold">Summary Report</p>
-                            <p class="text-gray-300 text-xs mt-1">Pivot table view</p>
+                        {{-- Presentation only: same button, same id, same handler.
+                             This was a gradient <button>, and the global rule fills gradient
+                             buttons with a solid primary colour — far too much weight for a
+                             report link. Now a normal white report card. --}}
+                        <button type="button" id="view_summary_btn" class="report-card">
+                            <span class="report-card-body">
+                                <span class="report-card-title">Summary Report</span>
+                                <span class="report-card-desc">Pivot table view</span>
+                            </span>
+                            <span class="report-card-action">View</span>
                         </button>
                     </div>
                 </div>
@@ -204,22 +207,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // View Details Report
-    viewDetailsBtn.addEventListener('click', function() {
-        const weekEndDate = weekEndDateInput.value;
+    // FIXED 2026-08-15: viewDetailsBtn was never declared and this view has no
+    // #view_details_btn element, so this line threw a ReferenceError that
+    // aborted the rest of the script — which silently disabled the Export
+    // Summary and Export Details handlers defined below it.
+    // Guarded rather than deleted, so the handler binds again unchanged if the
+    // button is ever restored. Behaviour is otherwise identical.
+    const viewDetailsBtn = document.getElementById('view_details_btn');
+    if (viewDetailsBtn) {
+        viewDetailsBtn.addEventListener('click', function() {
+            const weekEndDate = weekEndDateInput.value;
 
-        if (!weekEndDate) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Missing Date',
-                text: 'Please select a date before viewing details.',
-                background: '#ffffff',
-                color: '#1f2937'
-            });
-            return;
-        }
+            if (!weekEndDate) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Missing Date',
+                    text: 'Please select a date before viewing details.',
+                    background: '#ffffff',
+                    color: '#1f2937'
+                });
+                return;
+            }
 
-        window.location.href = `/aging-reports?filter_date=${weekEndDate}`;
-    });
+            window.location.href = `/aging-reports?filter_date=${weekEndDate}`;
+        });
+    }
 
     // Export Summary
     exportSummaryBtn.addEventListener('click', function() {

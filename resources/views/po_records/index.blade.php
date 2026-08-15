@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">PO RECORDS</h1>
+            <h1 class="text-2xl font-bold text-white">PO Records</h1>
             <a href="{{ route('po_records.export', ['type' => $type, 'status' => $status, 'from' => $from, 'to' => $to]) }}"
                class="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded hover:from-green-700 hover:to-green-800 transition">
                 <i class="fas fa-file-excel mr-1"></i> Export Excel

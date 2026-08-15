@@ -129,12 +129,12 @@
 
         <!-- Legend -->
         <div class="mt-6 bg-gray-700 rounded-lg p-4">
-            <p class="text-gray-300 text-sm mb-3 font-semibold">📋 How to Use:</p>
+            <p class="text-gray-300 text-sm mb-3 font-semibold">How to Use:</p>
             <ul class="text-gray-300 text-sm space-y-1">
                 <li>• <strong>Click any card</strong> to see all invoices in that aging bucket</li>
                 <li>• <strong>Invoice count</strong> shows how many invoices in that bucket</li>
                 <li>• <strong>Amount</strong> shows total outstanding AR for that bucket</li>
-                <li>• <strong>Colors indicate urgency:</strong> Green (safe) → Yellow → Orange → Red (critical)</li>
+                <li>• <strong>Colors indicate urgency:</strong> Green (safe) Yellow Orange Red (critical)</li>
             </ul>
         </div>
     </div>

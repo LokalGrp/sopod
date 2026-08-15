@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">EDIT ACCOUNTS PAYABLE VOUCHER</h1>
+            <h1 class="text-2xl font-bold text-white">Edit Accounts Payable Voucher</h1>
             <div class="text-right">
                 <label class="font-semibold text-gray-300">APV NO:</label>
                 <span class="ml-2 px-4 py-1 bg-gray-900 border border-gray-700 text-white rounded">{{ $invoice->apv_no }}</span>
@@ -86,7 +86,7 @@
 
             <!-- Vendor Information -->
             <div class="mb-6 bg-gray-900 border border-gray-700 rounded p-4">
-                <h3 class="font-semibold text-white mb-4">VENDOR INFORMATION</h3>
+                <h3 class="font-semibold text-white mb-4">Vendor Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block font-semibold text-gray-300 mb-2">VENDOR CODE:</label>
@@ -118,7 +118,7 @@
 
             <!-- Document Details -->
             <div class="mb-6 bg-gray-900 border border-gray-700 rounded p-4">
-                <h3 class="font-semibold text-white mb-4">DOCUMENT DETAILS</h3>
+                <h3 class="font-semibold text-white mb-4">Document Details</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block font-semibold text-gray-300 mb-2">DOCUMENT DATE: <span class="text-red-700">*</span></label>
@@ -160,7 +160,7 @@
             <!-- Particulars & Accounting Items Table -->
             <div class="mb-6 bg-gray-900 border border-gray-700 rounded p-4">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-semibold text-white">PARTICULARS & ACCOUNTING</h3>
+                    <h3 class="font-semibold text-white">Particulars & Accounting</h3>
                     <button type="button" onclick="addApvRow()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm">
                         <i class="fas fa-plus mr-1"></i> Add Row
                     </button>

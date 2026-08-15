@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Delivery Record')
+
 @section('content')
 <div class="max-w-5xl mx-auto px-6 py-10 bg-gray-900 min-h-screen text-gray-100">
 
@@ -10,7 +12,7 @@
             <a href="{{ route('deliveries.print', $delivery->id) }}"
                target="_blank"
                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
-               🖨️ Print Delivery
+               Print Delivery
             </a>
         </div>
     </div>
@@ -118,7 +120,7 @@
                         rows="3" readonly>{{ $delivery->additional_instructions ?? $delivery->salesOrder?->additional_instructions ?? '—' }}</textarea>
             </div>
 
-            <!-- 📎 Attachment Display -->
+            <!-- Attachment Display -->
            @if($delivery->attachment)
                 <div class="md:col-span-2">
                     <h3 class="font-semibold mb-2">Attached Image:</h3>
@@ -171,13 +173,12 @@
     </div>
 </div>
 
-<!-- 🖼️ Image Modal -->
+<!-- Image Modal -->
 <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeImageModal()">
     <div class="relative max-w-7xl max-h-screen p-4">
         <button onclick="closeImageModal()" 
                 class="absolute top-4 right-4 bg-red-600 hover:bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold">
-            ✕
-        </button>
+                    </button>
         <img id="modalImage" src="" alt="Full Size Image" class="max-w-full max-h-screen object-contain rounded-lg">
     </div>
 </div>

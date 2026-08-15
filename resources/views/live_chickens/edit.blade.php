@@ -7,8 +7,8 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
 
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">🐔 Edit Live Chicken Record</h1>
-            <a href="{{ route('live_chickens.show', $record->id) }}" class="text-gray-400 hover:text-white text-sm">← Back</a>
+            <h1 class="text-2xl font-bold">Edit Live Chicken Record</h1>
+            <a href="{{ route('live_chickens.show', $record->id) }}" class="text-gray-400 hover:text-white text-sm">Back</a>
         </div>
 
         @if($errors->any())

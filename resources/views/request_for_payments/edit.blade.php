@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">EDIT REQUEST FOR PAYMENT</h1>
+            <h1 class="text-2xl font-bold text-white">Edit Request For Payment</h1>
             <div class="text-right">
                 <label class="font-semibold text-gray-300">RFP NO:</label>
                 <span class="ml-2 px-4 py-1 bg-gray-900 border border-gray-700 text-white rounded">{{ $rfp->rfp_no }}</span>
@@ -95,12 +95,12 @@
                         @if($rfp->grpo)
                         <div id="grpo_linked_badge" class="mt-2 p-2 bg-blue-900 border border-blue-700 rounded text-sm text-blue-200 flex justify-between items-center">
                             <span id="grpo_linked_text">GRPO: {{ $rfp->grpo->grpo_no }} | PO: {{ $rfp->grpo->po_no }}</span>
-                            <button type="button" onclick="clearGrpo()" class="text-red-400 hover:text-red-300 ml-2 text-xs">✕ Clear</button>
+                            <button type="button" onclick="clearGrpo()" class="text-red-400 hover:text-red-300 ml-2 text-xs">Clear</button>
                         </div>
                         @else
                         <div id="grpo_linked_badge" class="hidden mt-2 p-2 bg-blue-900 border border-blue-700 rounded text-sm text-blue-200 flex justify-between items-center">
                             <span id="grpo_linked_text"></span>
-                            <button type="button" onclick="clearGrpo()" class="text-red-400 hover:text-red-300 ml-2 text-xs">✕ Clear</button>
+                            <button type="button" onclick="clearGrpo()" class="text-red-400 hover:text-red-300 ml-2 text-xs">Clear</button>
                         </div>
                         @endif
                     </div>

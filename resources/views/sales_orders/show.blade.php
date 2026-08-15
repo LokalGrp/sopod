@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Sales Order Details')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-gray-100 p-8">
     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-2">
@@ -8,7 +10,7 @@
         </h1>
         <a href="{{ route('sales_orders.index') }}" 
            class="bg-gray-700 hover:bg-gray-700 px-4 py-2 rounded text-sm transition-all duration-150">
-            ← Back to List
+            Back to List
         </a>
     </div>
 
@@ -26,13 +28,13 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         <div>
-            <strong class="text-lg">✅ Sales Order Closed</strong>
+            <strong class="text-lg">Sales Order Closed</strong>
             <p class="text-sm mt-1">All items have been fully delivered. This Sales Order can no longer be edited.</p>
         </div>
     </div>
 @endif
 
-{{-- 🔥 ADD THIS: Show notes for Declined/Cancelled orders --}}
+{{-- ADD THIS: Show notes for Declined/Cancelled orders --}}
 @if(in_array($salesOrder->status, ['Declined', 'Cancelled']) && $salesOrder->notes)
     <div class="bg-red-100/40 border-2 border-red-600 text-red-700 p-4 rounded-lg mb-6 flex items-start gap-3">
         <svg class="w-6 h-6 text-red-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,9 +43,9 @@
         <div class="flex-1">
             <strong class="text-lg flex items-center gap-2">
                 @if($salesOrder->status === 'Declined')
-                    ❌ Sales Order Declined
+                    Sales Order Declined
                 @else
-                    🚫 Sales Order Cancelled
+                    Sales Order Cancelled
                 @endif
             </strong>
             <p class="text-sm mt-2 font-semibold">Reason:</p>
@@ -61,7 +63,7 @@
         <div class="relative inline-block">
             <button id="printDropdownBtn" 
                     class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded inline-flex items-center gap-2 transition">
-                🖨️ Print Form
+                Print Form
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
@@ -75,31 +77,31 @@
                     <a href="{{ route('sales_orders.print', ['id' => $salesOrder->id, 'hide_prices' => 0]) }}" 
                        target="_blank"
                        class="block px-3 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded transition mb-2">
-                        ✅ Show All Prices
+                        Show All Prices
                     </a>
                     
                     <a href="{{ route('sales_orders.print', ['id' => $salesOrder->id, 'hide_prices' => 1]) }}" 
                        target="_blank"
                        class="block px-3 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded transition">
-                        🚫 Hide Prices (Show as 0.00)
+                        Hide Prices (Show as 0.00)
                     </a>
                 </div>
             </div>
         </div>
     @else
         <div class="bg-yellow-600/20 border border-yellow-600 text-yellow-700 px-4 py-2 rounded inline-block">
-            ⚠️ Cannot print: Sales order is pending for approval
+            Cannot print: Sales order is pending for approval
         </div>
     @endif
 
-        {{-- ✅ NEW: Manual Close Sales Order Button --}}
+        {{-- NEW: Manual Close Sales Order Button --}}
         @if(!$salesOrder->is_closed && auth()->user()->canPerformInModule('can_manage', 'sales_orders'))
             <button onclick="confirmCloseSO()"
                     class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded inline-block transition flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                 </svg>
-                🔒 Close Sales Order
+                Close Sales Order
             </button>
             
             {{-- Hidden form for closing SO --}}
@@ -145,25 +147,25 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                 </svg>
-                📦 View Delivery Batches ({{ $deliveryCount }})
+                View Delivery Batches ({{ $deliveryCount }})
             </a>
         @endif
 
         {{-- Message for Single Delivery --}}
         @if($deliveryCount === 1)
             <div class="bg-blue-600/20 border border-blue-600 text-blue-700 px-4 py-2 rounded inline-block">
-                ℹ️ Single delivery - No multiple batches
+                ℹSingle delivery - No multiple batches
             </div>
         @endif
     </div>
     
-         {{-- ✅ FLAGGED CUSTOMER WARNING BADGE --}}
+         {{-- FLAGGED CUSTOMER WARNING BADGE --}}
         @if($salesOrder->customer && $salesOrder->customer->is_flagged)
             <div class="flex items-center gap-2 bg-red-100 border border-red-600 rounded-lg px-4 py-2">
                 <svg class="w-5 h-5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                 </svg>
-                <span class="text-red-700 font-semibold text-sm">⚠️ FLAGGED CUSTOMER</span>
+                <span class="text-red-700 font-semibold text-sm">FLAGGED CUSTOMER</span>
             </div>
         @endif
     <!-- Sales Order Info -->
@@ -181,10 +183,10 @@
                         class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-gray-300" readonly>
                 </div>
 
-                {{-- ✅ UPDATED: Show PO Image if available --}}
+                {{-- UPDATED: Show PO Image if available --}}
                 @if($salesOrder->po_image)
                     <div>
-                        <label class="block text-sm mb-2 text-gray-300 font-semibold">📸 PO Proof / Order Evidence</label>
+                        <label class="block text-sm mb-2 text-gray-300 font-semibold">PO Proof / Order Evidence</label>
                         <div class="bg-gray-800 border border-gray-700 rounded-lg p-3">
                             @if(Str::endsWith($salesOrder->po_image, '.pdf'))
                                 {{-- PDF File --}}
@@ -220,7 +222,7 @@
                 <p><span class="font-semibold text-gray-300">TIN:</span> {{ $salesOrder->customer->tin_no ?? 'N/A' }}</p>
                 <p><span class="font-semibold text-gray-300">Request Delivery Date:</span> {{ $salesOrder->request_delivery_date ?? '—' }}</p>
                 
-                {{-- ✅ Delivery Type Display --}}
+                {{-- Delivery Type Display --}}
                 <p><span class="font-semibold text-gray-300">Delivery Type:</span> 
                     @php
                         $deliveryType = trim($salesOrder->delivery_type ?? '');
@@ -308,7 +310,7 @@
                                     <div class="text-xl font-bold text-white">₱{{ number_format($batchTotal, 2) }}</div>
                                 </div>
                                 <span class="px-4 py-2 rounded-lg text-sm font-bold {{ $isActive ? 'bg-green-500 text-white' : 'bg-red-100 text-red-700' }} shadow-lg">
-                                    {{ $isActive ? '✅ Active' : '❌ Cancelled' }}
+                                    {{ $isActive ? 'Active' : 'Cancelled' }}
                                 </span>
                             </div>
                         </div>
@@ -467,9 +469,9 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     @php
                         $statuses = [
-                            'Approved' => ['icon' => '✅', 'color' => 'bg-green-600/20 text-green-700 border-green-700/40 hover:bg-green-600/30'],
-                            'Declined' => ['icon' => '❌', 'color' => 'bg-red-600/20 text-red-700 border-red-700/40 hover:bg-red-600/30'],
-                            'Cancelled' => ['icon' => '🚫', 'color' => 'bg-gray-700 text-gray-300 border-gray-700/40 hover:bg-gray-700/30'],
+                            'Approved' => ['icon' => '', 'color' => 'bg-green-600/20 text-green-700 border-green-700/40 hover:bg-green-600/30'],
+                            'Declined' => ['icon' => '', 'color' => 'bg-red-600/20 text-red-700 border-red-700/40 hover:bg-red-600/30'],
+                            'Cancelled' => ['icon' => '', 'color' => 'bg-gray-700 text-gray-300 border-gray-700/40 hover:bg-gray-700/30'],
                         ];
                     @endphp
 

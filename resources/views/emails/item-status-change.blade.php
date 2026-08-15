@@ -41,7 +41,7 @@
             
             @if(isset($rejection_reason) && $rejection_reason)
             <div class="alert-danger">
-                <strong>⚠️ Rejection Reason:</strong><br>
+                <strong>Rejection Reason:</strong><br>
                 {{ $rejection_reason }}
             </div>
             @endif

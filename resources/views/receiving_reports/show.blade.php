@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Receiving Report Details')
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="bg-gray-900 rounded-xl shadow-lg border border-gray-800">
@@ -7,7 +9,7 @@
         <div class="bg-gray-800 px-6 py-4 border-b border-gray-700 flex justify-between items-center">
             <div>
                 <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    🔄 Receiving Report Details
+                    Receiving Report Details
                 </h2>
                 <p class="text-sm text-gray-300 mt-1">RR Number: <span class="text-blue-700 font-mono">{{ $receivingReport->rr_number }}</span></p>
             </div>

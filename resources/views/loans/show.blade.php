@@ -8,7 +8,7 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <div>
-                <h1 class="text-2xl font-bold text-white">LOAN DETAILS</h1>
+                <h1 class="text-2xl font-bold text-white">Loan Details</h1>
                 <p class="text-sm text-gray-300 mt-1 font-mono font-bold">{{ $loan->loan_no }}</p>
             </div>
             <div class="flex items-center gap-3">

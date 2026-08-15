@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Customers')
+
 @section('content')
 <div class="p-6 bg-gray-900 min-h-screen text-white">
     <h1 class="text-2xl font-bold mb-6">Customers</h1>
@@ -11,7 +13,7 @@
         <div class="bg-red-600 text-white px-4 py-3 rounded mb-4">{{ session('error') }}</div>
     @endif
 
-    <!-- 🔍 Search, Filters & Create -->
+    <!-- Search, Filters & Create -->
     <form method="GET" action="{{ route('customers.index') }}" id="filterForm">
         <div class="flex flex-col gap-4 mb-4">
             <!-- First Row: Export Button -->
@@ -30,8 +32,8 @@
                         class="border border-gray-700 bg-gray-800 text-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         onchange="document.getElementById('filterForm').submit()">
                     <option value="">All Flag Status</option>
-                    <option value="flagged" {{ request('flag_filter') === 'flagged' ? 'selected' : '' }}>🚩 Flagged</option>
-                    <option value="unflagged" {{ request('flag_filter') === 'unflagged' ? 'selected' : '' }}>✅ Unflagged</option>
+                    <option value="flagged" {{ request('flag_filter') === 'flagged' ? 'selected' : '' }}>Flagged</option>
+                    <option value="unflagged" {{ request('flag_filter') === 'unflagged' ? 'selected' : '' }}>Unflagged</option>
                 </select>
 
                 <!-- Status Filter -->
@@ -39,8 +41,8 @@
                         class="border border-gray-700 bg-gray-800 text-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         onchange="document.getElementById('filterForm').submit()">
                     <option value="">All Status</option>
-                    <option value="enabled" {{ request('status_filter') === 'enabled' ? 'selected' : '' }}>🟢 Enabled</option>
-                    <option value="disabled" {{ request('status_filter') === 'disabled' ? 'selected' : '' }}>🔴 Disabled</option>
+                    <option value="enabled" {{ request('status_filter') === 'enabled' ? 'selected' : '' }}>Enabled</option>
+                    <option value="disabled" {{ request('status_filter') === 'disabled' ? 'selected' : '' }}>Disabled</option>
                 </select>
 
                 <!-- Search Input -->
@@ -71,7 +73,7 @@
         </div>
     </form>
 
-    <!-- 📋 Responsive Table -->
+    <!-- Responsive Table -->
     <div class="overflow-x-auto bg-gray-800 rounded-lg shadow border border-gray-700">
         <table id="customersTable" class="min-w-full divide-y divide-gray-700 text-sm">
             <thead class="bg-gray-700 text-gray-300 uppercase text-xs tracking-wider">
@@ -111,20 +113,20 @@
                         </td>
                         <td class="px-4 py-3">
                             <span class="px-2 py-1 rounded text-xs font-medium {{ $customer->is_flagged ? 'bg-orange-600 text-white' : 'bg-blue-600 text-white' }}">
-                                {{ $customer->is_flagged ? '🚩 Flagged' : '✅ Unflagged' }}
+                                {{ $customer->is_flagged ? 'Flagged' : 'Unflagged' }}
                             </span>
                         </td>
 
                         <td class="px-4 py-3 text-center">
                             <div class="flex flex-wrap justify-center gap-2">
-                                <!-- 👁️ View Button -->
+                                <!-- View Button -->
                                 <a href="{{ route('customers.show', $customer->id) }}" 
                                    class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-3 py-1.5 rounded transition">
                                    View
                                 </a>
 
                                 @if(auth()->user()->canManageCustomers())
-                                    <!-- ✏️ Edit -->
+                                    <!-- Edit -->
                                     @if(auth()->user()->canEditCustomers())
                                         <a href="{{ route('customers.edit', $customer->id) }}" 
                                            class="bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium px-3 py-1.5 rounded transition">
@@ -132,7 +134,7 @@
                                         </a>
                                     @endif
 
-                                    <!-- 🔄 Enable / Disable Toggle -->
+                                    <!-- Enable / Disable Toggle -->
                                     @if(auth()->user()->canEditCustomers())
                                         <form action="{{ route('customers.toggleStatus', $customer->id) }}" method="POST" class="inline-block">
                                             @csrf
@@ -147,7 +149,7 @@
                                         </form>
                                     @endif
 
-                                    <!-- 🚩 Flag / Unflag Toggle (CC_Approver only) -->
+                                    <!-- Flag / Unflag Toggle (CC_Approver only) -->
                                     @if(auth()->user()->canPerformInModule('can_manage', 'customers'))
                                         <form action="{{ route('customers.toggleFlag', $customer->id) }}" method="POST" class="inline-block">
                                             @csrf
@@ -163,7 +165,7 @@
                                         </form>
                                     @endif
 
-                                    <!-- 🗑️ Delete -->
+                                    <!-- Delete -->
                                     @if(auth()->user()->canDeleteCustomers())
                                         <form action="{{ route('customers.destroy', $customer->id) }}" 
                                               method="POST" 
@@ -193,7 +195,7 @@
         </table>
     </div>
 
-    <!-- 📊 Count -->
+    <!-- Count -->
     <div class="mt-4 text-gray-400 text-sm">
         Showing {{ $customers->count() }} customer{{ $customers->count() !== 1 ? 's' : '' }}
     </div>

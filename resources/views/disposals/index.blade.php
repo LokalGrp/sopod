@@ -4,17 +4,17 @@
 
 @section('content')
 <style>
-    .stat-card { background:#1f2937; border:1px solid #374151; border-radius:.45rem; padding:1rem; text-align:center; }
+    .stat-card { background:var(--surface); border:1px solid #374151; border-radius:.45rem; padding:1rem; text-align:center; }
     .stat-label { font-size:.75rem; font-weight:700; text-transform:uppercase; color:#9ca3af; letter-spacing:.05em; }
-    .stat-value { font-size:1.75rem; font-weight:800; color:#f9fafb; margin:.25rem 0; }
-    .table-container { background:#1f2937; border:1px solid #374151; border-radius:.5rem; overflow:hidden; }
+    .stat-value { font-size:1.75rem; font-weight:800; color:var(--body); margin:.25rem 0; }
+    .table-container { background:var(--surface); border:1px solid #374151; border-radius:.5rem; overflow:hidden; }
     .table-header { padding:1rem; border-bottom:1px solid #374151; }
     .asset-table { width:100%; border-collapse:collapse; font-size:.875rem; }
-    .asset-table thead th { background:#111827; color:#9ca3af; padding:.75rem; font-weight:600; text-align:left; border-bottom:2px solid #374151; }
+    .asset-table thead th { background:var(--surface); color:#9ca3af; padding:.75rem; font-weight:600; text-align:left; border-bottom:2px solid #374151; }
     .asset-table tbody td { color:#d1d5db; padding:.75rem; border-bottom:1px solid #374151; }
-    .asset-table tbody tr:hover { background:#2d3748; }
-    .asset-code { font-weight:600; color:#f9fafb; }
-    .disposal-badge { display:inline-block; padding:.25rem .75rem; border-radius:9999px; font-size:.75rem; font-weight:600; background:rgba(153,27,27,0.3); color:#fca5a5; }
+    .asset-table tbody tr:hover { background:var(--surface); }
+    .asset-code { font-weight:600; color:var(--body); }
+    .disposal-badge { display:inline-block; padding:.25rem .75rem; border-radius:9999px; font-size:.75rem; font-weight:600; background:rgba(153,27,27,0.3); color:var(--body); }
 </style>
 
 <!-- HEADER -->
@@ -24,7 +24,7 @@
         <p class="text-gray-300 mt-1">Archived assets marked for disposal</p>
     </div>
     <a href="{{ route('fixed_assets.index') }}" class="px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 font-semibold">
-        ← Back to Fixed Assets
+        Back to Fixed Assets
     </a>
 </div>
 

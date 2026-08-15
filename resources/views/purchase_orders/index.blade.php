@@ -6,7 +6,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-white">PURCHASE ORDERS</h1>
+            <h1 class="text-2xl font-bold text-white">Purchase Orders</h1>
             <div class="flex items-center gap-3">
                 @if(auth()->user()->canApprovePurchaseOrders())
                     <button type="button" id="bulkApproveBtn"

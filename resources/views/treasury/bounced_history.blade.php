@@ -2,13 +2,13 @@
 @section('title', 'Bounced Payments')
 @section('content')
 <style>
-.b { background:#162030; border:1px solid #2a3f55; border-radius:.5rem; }
-.search-input { padding:.38rem .65rem; border:1px solid #3a5570; border-radius:.375rem; font-size:.83rem; color:#e2eaf4; background:#1e2d3d; }
+.b { background:var(--surface); border:1px solid #2a3f55; border-radius:.5rem; }
+.search-input { padding:.38rem .65rem; border:1px solid #3a5570; border-radius:.375rem; font-size:.83rem; color:var(--body); background:var(--surface); }
 .search-input:focus { outline:none; border-color:#3b82f6; }
 .tbl { width:100%; border-collapse:collapse; font-size:.81rem; }
-.tbl thead th { background:#1e3a5f; color:#fff; padding:.45rem .7rem; font-size:.68rem; font-weight:600; text-align:left; white-space:nowrap; }
+.tbl thead th { background:var(--surface); color:#fff; padding:.45rem .7rem; font-size:.68rem; font-weight:600; text-align:left; white-space:nowrap; }
 .tbl tbody tr { border-bottom:1px solid #1e2d3d; transition:background .1s; }
-.tbl tbody tr:hover { background:#1e2d3d; }
+.tbl tbody tr:hover { background:var(--surface); }
 .tbl tbody td { padding:.45rem .7rem; color:#c0cfe0; vertical-align:middle; }
 </style>
 

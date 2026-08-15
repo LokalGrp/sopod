@@ -28,7 +28,7 @@
             <p>{{ $emailMessage ?? 'Sales Order has been closed.' }}</p>
             
             <div class="alert-info">
-                ✅ All items in this sales order have been fully delivered. This order is now complete.
+                All items in this sales order have been fully delivered. This order is now complete.
             </div>
             
             <div class="info-box">

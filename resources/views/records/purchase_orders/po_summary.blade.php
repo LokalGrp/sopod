@@ -5,307 +5,160 @@
 @section('content')
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+/* ==================================================================
+   PO Summary — presentation only.
+   Rewritten 2026-08-15 to consume the global SOPOD tokens. Every
+   selector and class name is preserved exactly, so the Blade markup
+   and JavaScript are untouched; only colours, spacing and type change.
+   Previously this file defined its own dark palette (#1f2937 / #2d3748)
+   and five saturated KPI accents, which is why the module looked like
+   a different product.
+   ================================================================== */
+.po-summary-wrap { color: var(--body); }
 
-    .po-summary-wrap {
-        font-family: 'IBM Plex Sans', sans-serif;
-    }
+.mono { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 
-    .mono {
-        font-family: 'IBM Plex Mono', monospace;
-    }
+/* ---- KPI cards: white surface, 3px semantic rail, no fills ---- */
+.kpi-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px 14px 17px;
+    overflow: hidden;
+    transition: border-color .12s ease;
+}
+.kpi-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--line);
+}
+.kpi-card:hover { border-color: #D8DDE5; }
+.kpi-card.accent-blue::before   { background: var(--primary); }
+.kpi-card.accent-green::before  { background: var(--success); }
+.kpi-card.accent-amber::before  { background: var(--warning); }
+.kpi-card.accent-rose::before   { background: var(--danger); }
+.kpi-card.accent-violet::before { background: #6D28D9; }
 
-    /* ── KPI Cards ── */
-    .kpi-card {
-        background: #1f2937;
-        border: 1px solid #374151;
-        border-radius: 8px;
-        padding: 1.25rem 1.5rem;
-        position: relative;
-        overflow: hidden;
-        transition: border-color 0.2s, transform 0.2s;
-    }
-    .kpi-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 3px;
-        height: 100%;
-    }
-    .kpi-card:hover { transform: translateY(-2px); border-color: #4b5563; }
-    .kpi-card.accent-blue::before  { background: #3b82f6; }
-    .kpi-card.accent-green::before { background: #22c55e; }
-    .kpi-card.accent-amber::before { background: #f59e0b; }
-    .kpi-card.accent-rose::before  { background: #f43f5e; }
-    .kpi-card.accent-violet::before{ background: #8b5cf6; }
+.kpi-value {
+    font-size: 26px; font-weight: 600; color: var(--heading);
+    line-height: 1.15; margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+}
+.kpi-label { font-size: 12px; font-weight: 500; color: var(--muted); }
+.kpi-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .kpi-value {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: #f9fafb;
-        line-height: 1.2;
-    }
-    .kpi-label {
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #6b7280;
-        margin-bottom: 0.4rem;
-    }
-    .kpi-sub {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.7rem;
-        color: #9ca3af;
-        margin-top: 0.3rem;
-    }
+/* ---- Status pills: identical vocabulary to the global badges ---- */
+.status-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; line-height: 1.6; white-space: nowrap;
+}
+.status-pill::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; flex:none; }
+.status-PAID            { background:#DCFCE7; color:#15803D; }
+.status-UNPAID          { background:#FEF3C7; color:#B45309; }
+.status-FOR_DEPOSIT     { background:#DBEAFE; color:#1D4ED8; }
+.status-FOR_COLLECTION  { background:#DBEAFE; color:#1D4ED8; }
+.status-HOLD            { background:#F3F4F6; color:#4B5563; }
+.status-CANCEL          { background:#F3F4F6; color:#6B7280; }
+.status-REFUNDED        { background:#FEE2E2; color:#B91C1C; }
 
-    /* ── Status Pills ── */
-    .status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        font-family: 'IBM Plex Mono', monospace;
-    }
-    .status-PAID        { background: rgba(34,197,94,0.12);  color: #22c55e;  border: 1px solid rgba(34,197,94,0.25); }
-    .status-UNPAID      { background: rgba(244,63,94,0.12);  color: #f43f5e;  border: 1px solid rgba(244,63,94,0.25); }
-    .status-FOR_DEPOSIT { background: rgba(59,130,246,0.12); color: #60a5fa;  border: 1px solid rgba(59,130,246,0.25); }
-    .status-FOR_COLLECTION{ background: rgba(139,92,246,0.12);color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
-    .status-HOLD        { background: rgba(245,158,11,0.12); color: #fbbf24;  border: 1px solid rgba(245,158,11,0.25); }
-    .status-CANCEL      { background: rgba(107,114,128,0.12);color: #9ca3af;  border: 1px solid rgba(107,114,128,0.25); }
-    .status-REFUNDED    { background: rgba(20,184,166,0.12); color: #2dd4bf;  border: 1px solid rgba(20,184,166,0.25); }
+/* ---- Panels ---- */
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+.panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; border-bottom: 1px solid var(--line);
+}
+.panel-title { font-size: 14px; font-weight: 600; color: var(--heading); margin: 0; }
 
-    /* ── Panels ── */
-    .panel {
-        background: #1f2937;
-        border: 1px solid #374151;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    .panel-header {
-        padding: 0.9rem 1.25rem;
-        border-bottom: 1px solid #374151;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .panel-title {
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #6b7280;
-    }
+/* ---- Horizontal bar rows ---- */
+.bar-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 20px; border-bottom: 1px solid var(--line);
+}
+.bar-row:last-child { border-bottom: none; }
+.bar-row:hover { background: #F9FAFB; }
+.bar-track { flex: 1; height: 6px; background: #F1F3F7; border-radius: 3px; overflow: hidden; min-width: 60px; }
+.bar-fill  { height: 100%; background: var(--primary); border-radius: 3px; }
+.bar-label { font-size: 13px; color: var(--body); min-width: 0; }
+.bar-amount { font-size: 13px; font-weight: 500; color: var(--heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-    /* ── Bar chart rows ── */
-    .bar-row {
-        display: grid;
-        grid-template-columns: 9rem 1fr 7rem;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.55rem 1.25rem;
-        border-bottom: 1px solid #374151;
-        transition: background 0.15s;
-    }
-    .bar-row:last-child { border-bottom: none; }
-    .bar-row:hover { background: #2d3748; }
-    .bar-track {
-        height: 6px;
-        background: #374151;
-        border-radius: 3px;
-        overflow: hidden;
-    }
-    .bar-fill {
-        height: 100%;
-        border-radius: 3px;
-        transition: width 1s cubic-bezier(0.4,0,0.2,1);
-    }
-    .bar-label {
-        font-size: 0.72rem;
-        color: #9ca3af;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .bar-amount {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        color: #9ca3af;
-        text-align: right;
-    }
+/* ---- Table: matches the global table system ---- */
+.po-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.po-table thead th {
+    background: #F9FAFB; color: var(--muted);
+    font-size: 12px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase;
+    padding: 8px 12px; text-align: left; white-space: nowrap;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 5;
+}
+.po-table tbody tr { border-bottom: 1px solid var(--line); }
+.po-table tbody tr:hover { background: #F9FAFB; }
+.po-table tbody td { padding: 8px 12px; color: var(--body); vertical-align: middle; }
+.po-table tbody td.mono-col { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 
-    /* ── Table ── */
-    .po-table { width: 100%; border-collapse: collapse; }
-    .po-table thead th {
-        padding: 0.6rem 1rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #6b7280;
-        background: #111827;
-        text-align: left;
-        border-bottom: 1px solid #374151;
-        position: sticky;
-        top: 0;
-        z-index: 5;
-    }
-    .po-table tbody tr {
-        border-bottom: 1px solid #374151;
-        transition: background 0.12s;
-    }
-    .po-table tbody tr:hover { background: #2d3748; }
-    .po-table tbody td {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-        color: #d1d5db;
-    }
-    .po-table tbody td.mono-col {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.72rem;
-        color: #6b7280;
-    }
+/* ---- Controls: same height/radius/focus as every other input ---- */
+.filter-select, .search-input {
+    background: #fff; border: 1px solid #D1D5DB; color: var(--body);
+    border-radius: var(--radius); padding: 6px 10px; font-size: 13px;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; transition: border-color .12s ease, box-shadow .12s ease;
+}
+.filter-select:focus, .search-input:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,.11);
+}
+.search-input::placeholder { color: #9CA3AF; }
 
-    /* ── Filters ── */
-    .filter-select {
-        background: #1f2937;
-        border: 1px solid #374151;
-        border-radius: 4px;
-        color: #9ca3af;
-        font-size: 0.75rem;
-        padding: 0.35rem 0.65rem;
-        outline: none;
-        cursor: pointer;
-        font-family: 'IBM Plex Sans', sans-serif;
-    }
-    .filter-select:focus { border-color: #3b82f6; color: #d1d5db; }
+/* ---- Company tabs: same pattern as the global .tabs ---- */
+.company-tab {
+    padding: 8px 13px; font-size: 13px; font-weight: 500; color: var(--muted);
+    background: none; border: none; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; cursor: pointer; transition: color .12s ease, border-color .12s ease;
+}
+.company-tab:hover { color: var(--heading); }
+.company-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-    .search-input {
-        background: #1f2937;
-        border: 1px solid #374151;
-        border-radius: 4px;
-        color: #d1d5db;
-        font-size: 0.75rem;
-        padding: 0.35rem 0.75rem;
-        outline: none;
-        width: 200px;
-        font-family: 'IBM Plex Sans', sans-serif;
-        transition: border-color 0.15s, width 0.3s;
-    }
-    .search-input:focus { border-color: #3b82f6; width: 260px; }
-    .search-input::placeholder { color: #4b5563; }
+/* ---- Donut ---- */
+.donut-wrap { display: flex; align-items: center; gap: 20px; padding: 16px 20px; flex-wrap: wrap; }
+.donut-svg { flex: none; }
+.donut-legend { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--body); }
+.donut-dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
 
-    /* ── Company tabs ── */
-    .company-tab {
-        padding: 0.4rem 1rem;
-        font-size: 0.72rem;
-        font-weight: 500;
-        border-radius: 4px;
-        cursor: pointer;
-        border: 1px solid transparent;
-        transition: all 0.15s;
-        color: #6b7280;
-        background: transparent;
-        font-family: 'IBM Plex Sans', sans-serif;
-    }
-    .company-tab:hover { color: #d1d5db; background: #2d3748; }
-    .company-tab.active {
-        color: #60a5fa;
-        background: rgba(59,130,246,0.1);
-        border-color: rgba(59,130,246,0.3);
-    }
+/* ---- Status breakdown rows ---- */
+.status-row { display: flex; align-items: center; gap: 12px; padding: 8px 20px; border-bottom: 1px solid var(--line); }
+.status-row:last-child { border-bottom: none; }
+.status-name { font-size: 13px; color: var(--body); min-width: 120px; }
+.status-bar-wrap { flex: 1; height: 6px; background: #F1F3F7; border-radius: 3px; overflow: hidden; min-width: 60px; }
+.status-count-num  { font-size: 13px; font-weight: 500; color: var(--heading); font-variant-numeric: tabular-nums; min-width: 44px; text-align: right; }
+.status-amount-num { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 100px; text-align: right; white-space: nowrap; }
 
-    /* ── Donut placeholder ── */
-    .donut-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        gap: 2rem;
-        flex-wrap: wrap;
-    }
-    .donut-svg { transform: rotate(-90deg); }
-    .donut-legend { display: flex; flex-direction: column; gap: 0.5rem; }
-    .donut-legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.72rem;
-        color: #9ca3af;
-    }
-    .donut-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
+/* ---- Scroll container ---- */
+.table-scroll { overflow: auto; max-height: 560px; }
+.table-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+.table-scroll::-webkit-scrollbar-track { background: transparent; }
+.table-scroll::-webkit-scrollbar-thumb { background: #D5DAE2; border-radius: 6px; border: 2px solid transparent; background-clip: content-box; }
 
-    /* ── Progress bar for status breakdown ── */
-    .status-row {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.55rem 1.25rem;
-        border-bottom: 1px solid #374151;
-    }
-    .status-row:last-child { border-bottom: none; }
-    .status-name { width: 9rem; font-size: 0.72rem; color: #9ca3af; }
-    .status-bar-wrap { flex: 1; height: 6px; background: #374151; border-radius: 3px; overflow: hidden; }
-    .status-count-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #6b7280; width: 2.5rem; text-align: right; }
-    .status-amount-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #9ca3af; width: 8rem; text-align: right; }
+/* ---- Section badge ---- */
+.section-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--muted);
+}
+.section-badge::before { content: ''; width: 3px; height: 12px; background: var(--primary); border-radius: 2px; }
 
-    /* ── Table scroll wrapper ── */
-    .table-scroll { overflow-x: auto; overflow-y: auto; max-height: 420px; }
-    .table-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
-    .table-scroll::-webkit-scrollbar-track { background: transparent; }
-    .table-scroll::-webkit-scrollbar-thumb { background: #374151; border-radius: 2px; }
+/* ---- Motion: one quiet fade, no staggered entrance choreography ---- */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+.kpi-card, .panel { animation: fadeSlideUp .18s ease both; }
+.kpi-card:nth-child(1), .kpi-card:nth-child(2), .kpi-card:nth-child(3),
+.kpi-card:nth-child(4), .kpi-card:nth-child(5) { animation-delay: 0s; }
 
-    /* ── Divider badge ── */
-    .section-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #6b7280;
-    }
-    .section-badge::before {
-        content: '';
-        display: block;
-        width: 12px;
-        height: 1px;
-        background: #374151;
-    }
+.shimmer { background: linear-gradient(90deg,#F3F4F6 25%,#E9EBEF 37%,#F3F4F6 63%); background-size: 400% 100%; animation: shimmer 1.3s ease infinite; }
+@keyframes shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
 
-    /* ── Stagger animations ── */
-    @keyframes fadeSlideUp {
-        from { opacity: 0; transform: translateY(10px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    .kpi-card { animation: fadeSlideUp 0.4s ease both; }
-    .kpi-card:nth-child(1) { animation-delay: 0.05s; }
-    .kpi-card:nth-child(2) { animation-delay: 0.1s; }
-    .kpi-card:nth-child(3) { animation-delay: 0.15s; }
-    .kpi-card:nth-child(4) { animation-delay: 0.2s; }
-    .kpi-card:nth-child(5) { animation-delay: 0.25s; }
-    .panel { animation: fadeSlideUp 0.5s ease 0.2s both; }
-
-    /* Loading shimmer */
-    .shimmer {
-        background: linear-gradient(90deg, #1f2937 25%, #2d3748 50%, #1f2937 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-        border-radius: 4px;
-    }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .kpi-card, .panel { animation: none; } }
 </style>
 
 <div class="po-summary-wrap" x-data="poSummary()" x-init="init()">
@@ -426,7 +279,7 @@
                 <div class="bar-row">
                     <span class="bar-label" x-text="cat.name"></span>
                     <div class="bar-track">
-                        <div class="bar-fill" :style="'width:' + pct(cat.amount, topCategories[0].amount) + '%; background: #3b82f6;'"></div>
+                        <div class="bar-fill" :style="'width:' + pct(cat.amount, topCategories[0].amount) + '%; background: #FFFFFF;'"></div>
                     </div>
                     <span class="bar-amount" x-text="formatPHP(cat.amount)"></span>
                 </div>

@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Sales Order')
+
 @section('content')
 <div class="min-h-screen bg-gray-900 text-white p-8">
     <h1 class="text-2xl font-bold mb-6 border-b border-gray-700 pb-2">
-        ✏️ Edit Sales Order
+        Edit Sales Order
     </h1>
 
     @php
@@ -26,27 +28,27 @@
         }
     @endphp
 
-    {{-- ✅ Show warning if order is delivered and CSR needs approval --}}
+    {{-- Show warning if order is delivered and CSR needs approval --}}
     @if($isDelivered && $needsApproval)
         <div class="bg-yellow-100/40 border-2 border-yellow-600 text-yellow-700 p-4 rounded-lg mb-6 flex items-center gap-3">
             <svg class="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
             <div>
-                <strong class="text-lg">⚠️ Editing Not Permitted</strong>
+                <strong class="text-lg">Editing Not Permitted</strong>
                 <p class="text-sm mt-1">This Sales Order has been delivered and requires CC Approver permission to edit. Please request approval from CC Approver first.</p>
             </div>
         </div>
     @endif
 
-    {{-- ✅ Show info if order is delivered (for CC_Approver or approved CSR) --}}
+    {{-- Show info if order is delivered (for CC_Approver or approved CSR) --}}
     @if($isDelivered && !$needsApproval)
         <div class="bg-blue-100/40 border-2 border-blue-600 text-blue-700 p-4 rounded-lg mb-6 flex items-center gap-3">
             <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <div>
-                <strong class="text-lg">📦 Delivered Order</strong>
+                <strong class="text-lg">Delivered Order</strong>
                 <p class="text-sm mt-1">This Sales Order has been delivered. You have permission to edit it.</p>
             </div>
         </div>
@@ -137,9 +139,9 @@
                     data-has-po-image="{{ $salesOrder->po_image ? 'true' : 'false' }}"
                     data-original-value="{{ $salesOrder->po_number }}">
                 @if($salesOrder->po_number)
-                    <p class="text-xs text-blue-700 mt-1">💡 To remove this and use an image instead, upload a PO image below</p>
+                    <p class="text-xs text-blue-700 mt-1">To remove this and use an image instead, upload a PO image below</p>
                 @elseif($salesOrder->po_image)
-                    <p class="text-xs text-blue-700 mt-1">💡 Enter a PO Number here to remove the current image</p>
+                    <p class="text-xs text-blue-700 mt-1">Enter a PO Number here to remove the current image</p>
                 @else
                     <p class="text-xs text-gray-300 mt-1">Provide either PO Number OR upload image below</p>
                 @endif
@@ -172,11 +174,11 @@
     </p>
 </div>
 
-            {{-- ✅ PO Image Upload Section --}}
+            {{-- PO Image Upload Section --}}
             <div class="col-span-2" id="po_image_container">
                 <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
                     <label class="block text-sm mb-2 text-gray-300 font-semibold">
-                        📸 PO Proof / Order Evidence
+                        PO Proof / Order Evidence
                     </label>
 
                     {{-- Current PO Image Display --}}
@@ -202,7 +204,7 @@
                                 </a>
                                 <p class="text-xs text-gray-300 mt-2">Click to view full size</p>
                             @endif
-                            <p class="text-xs text-blue-700 mt-2">💡 To remove this image, provide a PO Number above</p>
+                            <p class="text-xs text-blue-700 mt-2">To remove this image, provide a PO Number above</p>
                         </div>
                     @endif
 
@@ -252,11 +254,11 @@
             </div>
         </div>
 
-        {{-- ✅ Additional Delivery Instructions Section --}}
+        {{-- Additional Delivery Instructions Section --}}
 <div class="col-span-2">
     <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
         <label class="block text-sm mb-2 text-gray-300 font-semibold">
-            📋 Additional Delivery Instructions
+            Additional Delivery Instructions
         </label>
         <textarea name="additional_instructions" 
                   rows="4"
@@ -275,7 +277,7 @@
             <h3 class="text-lg font-semibold">Order Items</h3>
             <button type="button" onclick="addNewItem()" 
                 class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
-                ➕ Add Item
+                Add Item
             </button>
         </div>
 
@@ -286,7 +288,7 @@
                         <h4 class="text-sm font-semibold text-gray-300">Item #{{ $loop->index + 1 }}</h4>
                         <button type="button" onclick="removeItem(this)" 
                             class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs transition">
-                            🗑️ Remove
+                            Remove
                         </button>
                     </div>
 
@@ -401,7 +403,7 @@
         <div class="flex items-center gap-4">
             <button type="submit" 
                 class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold transition">
-                💾 Update Sales Order
+                Update Sales Order
             </button>
             <a href="{{ route('sales_orders.show', $salesOrder->id) }}" 
                class="text-gray-300 hover:text-gray-200">Cancel</a>
@@ -436,7 +438,7 @@
 }
 
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-    color: #9ca3af !important;
+    color: var(--muted) !important;
 }
 
 .select2-dropdown {
@@ -454,7 +456,7 @@
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field::placeholder {
-    color: #9ca3af !important;
+    color: var(--muted) !important;
 }
 
 .select2-container--default .select2-results__option {
@@ -464,11 +466,11 @@
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #3b82f6 !important;
+    background-color: var(--surface) !important;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
-    background-color: #2563eb !important;
+    background-color: var(--surface) !important;
 }
 
 .select2-container--default .select2-results__option--disabled {
@@ -481,7 +483,7 @@
 
 /* Loading state */
 .select2-container--default .select2-results__option--loading {
-    color: #9ca3af !important;
+    color: var(--muted) !important;
 }
 </style>
 

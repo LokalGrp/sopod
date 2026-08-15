@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <div>
-            <h1 class="text-3xl font-bold">🔔 Notifications</h1>
+            <h1 class="text-3xl font-bold">Notifications</h1>
             <p class="text-gray-300 mt-2">{{ $unreadCount }} unread notification(s)</p>
         </div>
         

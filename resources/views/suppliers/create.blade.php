@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">CREATE NEW SUPPLIER</h1>
+            <h1 class="text-2xl font-bold text-white">Create New Supplier</h1>
             <a href="{{ route('suppliers.index') }}" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
                 <i class="fas fa-arrow-left mr-1"></i> Back to List
             </a>

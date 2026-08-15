@@ -6,7 +6,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
 
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">EDIT LOAN</h1>
+            <h1 class="text-2xl font-bold text-white">Edit Loan</h1>
             <a href="{{ route('loans.show', $loan->id) }}" class="bg-gray-600 text-gray-200 px-4 py-2 rounded hover:bg-gray-600 text-sm">
                 <i class="fas fa-arrow-left mr-1"></i> Back
             </a>

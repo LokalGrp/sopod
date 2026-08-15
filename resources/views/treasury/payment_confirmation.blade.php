@@ -4,27 +4,27 @@
 
 @section('content')
 <style>
-.b { background:#162030; border:1px solid #2a3f55; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
-.stat-card { background:#162030; border:1px solid #2a3f55; border-radius:.45rem; padding:.8rem 1rem; }
+.b { background:var(--surface); border:1px solid var(--line); border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+.stat-card { background:var(--surface); border:1px solid var(--line); border-radius:.45rem; padding:.8rem 1rem; }
 .stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#4d6880; }
-.stat-val { font-size:1.5rem; font-weight:800; color:#e2eaf4; line-height:1.1; margin:.1rem 0; }
+.stat-val { font-size:1.5rem; font-weight:800; color:var(--body); line-height:1.1; margin:.1rem 0; }
 
 .pay-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.pay-table thead th { background:#1e3a5f; color:#fff; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.pay-table thead th { background:#DBEAFE; color:#1D4ED8; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .pay-table thead th.r { text-align:right; }
-.pay-table tbody tr { border-bottom:1px solid #1e2d3d; transition:background .1s; }
-.pay-table tbody tr:hover { background:#1e2d3d; }
+.pay-table tbody tr { border-bottom:1px solid var(--line); transition:background .1s; }
+.pay-table tbody tr:hover { background:var(--surface); }
 .pay-table tbody td { padding:.5rem .75rem; color:#c0cfe0; vertical-align:middle; }
 .pay-table tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
 
-.search-input { padding:.38rem .65rem; border:1px solid #3a5570; border-radius:.375rem; font-size:.83rem; color:#e2eaf4; background:#1e2d3d; }
-.search-input:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.15); }
-.search-input option { background:#1e2d3d; }
+.search-input { padding:.38rem .65rem; border:1px solid var(--line); border-radius:.375rem; font-size:.83rem; color:var(--body); background:var(--surface); }
+.search-input:focus { outline:none; border-color:var(--line); box-shadow:0 0 0 3px rgba(59,130,246,.15); }
+.search-input option { background:var(--surface); }
 
 .btn-confirm { padding:.25rem .6rem; border-radius:.3rem; font-size:.73rem; font-weight:600; background:#dcfce7; color:#15803d; border:1px solid #86efac; cursor:pointer; transition:all .12s; }
 .btn-confirm:hover { background:#bbf7d0; }
-.btn-bulk { padding:.4rem .8rem; border-radius:.35rem; font-size:.78rem; font-weight:600; background:#2563eb; color:#fff; border:none; cursor:pointer; transition:all .12s; }
-.btn-bulk:hover { background:#1d4ed8; }
+.btn-bulk { padding:.4rem .8rem; border-radius:.35rem; font-size:.78rem; font-weight:600; background:var(--surface); color:var(--body); border:none; cursor:pointer; transition:all .12s; }
+.btn-bulk:hover { background:var(--surface); color:var(--body);}
 .btn-bulk:disabled { background:#9ca3af; cursor:not-allowed; }
 
 .badge-posted { display:inline-block; padding:.15rem .55rem; border-radius:999px; font-size:.68rem; font-weight:700; background:#fef3c7; color:#92400e; }
@@ -157,7 +157,7 @@
                                         <option value="{{ $ba->id }}">{{ $ba->short_name ?: $ba->bank_name }} ({{ $ba->account_number }})</option>
                                     @endforeach
                                 </select>
-                                <div class="text-amber-500 mt-0.5" style="font-size:.6rem;">⚠ Old entry — no G/L saved</div>
+                                <div class="text-amber-500 mt-0.5" style="font-size:.6rem;">Old entry — no G/L saved</div>
                             </div>
                         @endif
                     </td>
@@ -175,7 +175,7 @@
                         <button class="btn-confirm" onclick="openConfirmModal({{ $payment->id }})">
                             <i class="fas fa-check mr-0.5"></i> Confirm
                         </button>
-                        <button style="padding:.25rem .6rem;border-radius:.3rem;font-size:.73rem;font-weight:600;background:#7f1d1d;color:#fca5a5;border:1px solid #991b1b;cursor:pointer;" onclick="openBounceModal({{ $payment->id }})">
+                        <button style="padding:.25rem .6rem;border-radius:.3rem;font-size:.73rem;font-weight:600;background:#7f1d1d;color:#374151;border:1px solid #991b1b;cursor:pointer;" onclick="openBounceModal({{ $payment->id }})">
                             <i class="fas fa-ban mr-0.5"></i> Bounce
                         </button>
                     </td>

@@ -6,9 +6,9 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">FIXED ASSET CAPITALIZATION</h1>
+            <h1 class="text-2xl font-bold text-white">Fixed Asset Capitalization</h1>
             <div class="flex gap-2">
-                <a href="{{ route('fixed_assets.summary') }}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition text-sm">
+                <a href="{{ route('fixed_assets.summary') }}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition text-sm">
                     <i class="fas fa-chart-bar mr-1"></i> Lapsing Schedule
                 </a>
                 <button onclick="document.getElementById('importModal').classList.remove('hidden')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition text-sm">

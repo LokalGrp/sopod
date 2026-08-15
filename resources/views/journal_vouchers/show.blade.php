@@ -5,7 +5,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">JOURNAL VOUCHER</h1>
+            <h1 class="text-2xl font-bold">Journal Voucher</h1>
             <div class="flex items-center gap-3">
                 @if($voucher->status === 'Posted')
                     <span class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm font-semibold">Posted</span>

@@ -4,34 +4,34 @@
 
 @section('content')
 <style>
-.b { background:#162030; border:1px solid #2a3f55; border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
-.stat-card { background:#162030; border:1px solid #2a3f55; border-radius:.45rem; padding:.8rem 1rem; }
+.b { background:var(--surface); border:1px solid var(--line); border-radius:.5rem; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+.stat-card { background:var(--surface); border:1px solid var(--line); border-radius:.45rem; padding:.8rem 1rem; }
 .stat-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#4d6880; }
-.stat-val { font-size:1.5rem; font-weight:800; color:#e2eaf4; line-height:1.1; margin:.1rem 0; }
+.stat-val { font-size:1.5rem; font-weight:800; color:var(--body); line-height:1.1; margin:.1rem 0; }
 
 .bank-card {
-    background:#162030; border:1px solid #2a3f55; border-radius:.5rem;
+    background:var(--surface); border:1px solid var(--line); border-radius:.5rem;
     padding:1rem 1.25rem; cursor:pointer; transition:all .15s;
     display:flex; align-items:center; gap:1rem;
 }
-.bank-card:hover { border-color:#3b82f6; box-shadow:0 2px 8px rgba(59,130,246,.2); transform:translateY(-1px); }
+.bank-card:hover { border-color:var(--line); box-shadow:0 2px 8px rgba(59,130,246,.2); transform:translateY(-1px); }
 .bank-icon {
     width:42px; height:42px; border-radius:.4rem; display:flex; align-items:center; justify-content:center;
-    font-weight:800; font-size:.7rem; color:#fff; flex-shrink:0;
+    font-weight:800; font-size:.7rem; color:var(--body); flex-shrink:0;
 }
-.bank-card .acct-num { font-size:.72rem; color:#8fa8c0; font-family:monospace; }
-.bank-card .bank-label { font-size:.88rem; font-weight:700; color:#e2eaf4; }
-.bank-card .balance { font-size:1.05rem; font-weight:800; color:#e2eaf4; text-align:right; margin-left:auto; }
+.bank-card .acct-num { font-size:.72rem; color:#8fa8c0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+.bank-card .bank-label { font-size:.88rem; font-weight:700; color:var(--body); }
+.bank-card .balance { font-size:1.05rem; font-weight:800; color:var(--body); text-align:right; margin-left:auto; }
 .bank-card .balance-date { font-size:.62rem; color:#4d6880; text-align:right; }
 
 .bank-table { width:100%; border-collapse:collapse; font-size:.82rem; }
-.bank-table thead th { background:#1e3a5f; color:#fff; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
+.bank-table thead th { background:#DBEAFE; color:#1D4ED8; padding:.5rem .75rem; font-size:.7rem; font-weight:600; text-align:left; white-space:nowrap; }
 .bank-table thead th.r { text-align:right; }
-.bank-table tbody tr { border-bottom:1px solid #1e2d3d; transition:background .1s; cursor:pointer; }
-.bank-table tbody tr:hover { background:#1e2d3d; }
+.bank-table tbody tr { border-bottom:1px solid var(--line); transition:background .1s; cursor:pointer; }
+.bank-table tbody tr:hover { background:var(--surface); }
 .bank-table tbody td { padding:.55rem .75rem; color:#c0cfe0; vertical-align:middle; }
 .bank-table tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
-.bank-table tfoot td { padding:.6rem .75rem; font-weight:700; background:#1e2d3d; border-top:2px solid #2a3f55; color:#e2eaf4; }
+.bank-table tfoot td { padding:.6rem .75rem; font-weight:700; background:var(--surface); border-top:2px solid var(--line); color:var(--body); }
 </style>
 
 <!-- HEADER -->

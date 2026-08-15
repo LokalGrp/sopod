@@ -70,7 +70,7 @@
 
         <!-- Instructions -->
         <div class="mt-8 bg-gray-700 p-4 rounded">
-            <h3 class="font-semibold mb-3">📋 Excel File Format Guidelines</h3>
+            <h3 class="font-semibold mb-3">Excel File Format Guidelines</h3>
             <p class="text-sm text-gray-300 mb-2">Your Excel file should have the following columns:</p>
             <ul class="text-sm text-gray-300 space-y-1 list-disc list-inside">
                 <li><strong>name</strong> - Customer name (required)</li>
@@ -85,7 +85,7 @@
                     href="{{ route('import.customers.template') }}" 
                     class="inline-flex items-center text-blue-700 hover:text-blue-700 text-sm"
                 >
-                    📥 Download Sample Template
+                    Download Sample Template
                 </a>
             </div>
         </div>

@@ -6,10 +6,14 @@
      <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'SOPOD')</title>
 
-    <!-- ✅ Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- ✅ Font Awesome CDN -->
+    <!-- SOPOD design system — must load immediately after Tailwind so
+         tailwind.config is set before the CDN generates its styles -->
+    @include('partials.theme')
+
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -50,31 +54,33 @@
             display: none !important;
         }
 
-        /* Active state styling for sidebar links */
+        /* Sidebar states. These use the global tokens defined in
+           partials/theme.blade.php so the navy sidebar stays navy —
+           an earlier colour pass had left them painting white surfaces
+           inside the dark sidebar. Parent sections and the selected
+           child page are deliberately distinguished:
+             selected child  = solid --sidebar-active, white text
+             parent section  = quieter --sidebar-hover, white text  */
         .sidebar nav a.active {
-            background-color: #1e3a5f;
-            border-left: 3px solid #3b82f6;
-            color: #93c5fd;
+            background-color: var(--sidebar-active);
+            color: #FFFFFF;
         }
 
         .sidebar nav .submenu a.active {
-            background-color: #1e3a5f;
-            border-left: 3px solid #60a5fa;
-            color: #93c5fd;
+            background-color: var(--sidebar-active);
+            color: #FFFFFF;
             font-weight: 500;
         }
 
         .sidebar nav button.parent-active {
-            background-color: #1f2937;
+            background-color: var(--sidebar-hover);
+            color: #FFFFFF;
         }
 
         /* Hover states */
-        .sidebar nav a:hover:not(.active) {
-            background-color: #1f2937;
-        }
-
+        .sidebar nav a:hover:not(.active),
         .sidebar nav .submenu a:hover:not(.active) {
-            background-color: #1f2937;
+            background-color: var(--sidebar-hover);
         }
 
         /* Fix collapsed sidebar - make it completely invisible/minimal */
@@ -132,27 +138,27 @@
 <div id="sidebar" class="sidebar bg-gray-800 text-gray-200 w-64 flex-shrink-0 min-h-screen border-r border-gray-700 transition-all duration-300 ease-in-out md:relative">
     <div class="flex items-center justify-center p-4 sidebar-header">
         <h2 class="text-lg font-bold sidebar-text">NOMSUITE</h2>
-        <span class="text-2xl hidden collapsed-icon">☰</span>
+        <span class="text-2xl hidden collapsed-icon"><svg class="nav-icon" aria-hidden="true"><use href="#i-menu"/></svg></span>
     </div>
 
     <nav class="mt-4 space-y-2">
         <!-- Dashboard -->
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-            <span>📊</span>
+            <svg class="nav-icon" aria-hidden="true"><use href="#i-dashboard"/></svg>
             <span class="sidebar-text">Dashboard</span>
         </a>
 
         <!-- PO Dashboard -->
         @if(auth()->user()->navAccess('po_dashboard', fn() => auth()->user()->canAccessModule('po_dashboard')))
         <a href="{{ route('po_dashboard') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-            <span>💰</span>
+            <svg class="nav-icon" aria-hidden="true"><use href="#i-wallet"/></svg>
             <span class="sidebar-text">PO Dashboard</span>
         </a>
         @endif
 
         @if(auth()->user()->navAccess('po_summary', fn() => auth()->user()->canAccessModule('po_dashboard')))
         <a href="{{ route('po_summary') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-            <span>📋</span>
+            <svg class="nav-icon" aria-hidden="true"><use href="#i-clipboard"/></svg>
             <span class="sidebar-text">PO Summary</span>
         </a>
         @endif
@@ -160,7 +166,7 @@
         <!-- AP Dashboard -->
         @if(auth()->user()->navAccess('ap_dashboard', fn() => auth()->user()->canAccessModule('ap_dashboard')))
         <a href="{{ route('ap_dashboard') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-            <span>📑</span>
+            <svg class="nav-icon" aria-hidden="true"><use href="#i-receipt"/></svg>
             <span class="sidebar-text">AP Dashboard</span>
         </a>
         @endif
@@ -173,10 +179,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📦</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-package"/></svg>
                         <span class="sidebar-text">Purchase Order</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     <a href="{{ route('purchase_orders.create') }}" class="block hover:underline">Create Purchase Order</a>
@@ -188,10 +194,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📄</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-file"/></svg>
                         <span class="sidebar-text">Sales Orders</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->navAccess('sales_orders.create', fn() => auth()->user()->canCreateSalesOrders()))
@@ -212,10 +218,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>👥</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-users"/></svg>
                         <span class="sidebar-text">Customers</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->navAccess('customers.create', fn() => auth()->user()->canAddCustomers()))
@@ -246,10 +252,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>🏢</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-building"/></svg>
                         <span class="sidebar-text">Supply Chain</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->canManageSuppliers())
@@ -277,10 +283,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📦</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-package"/></svg>
                         <span class="sidebar-text">Goods Receipt PO</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     <a href="{{ route('live_chickens.create') }}" class="block hover:underline">New Record</a>
@@ -294,10 +300,10 @@
         <div>
             <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                 <span class="flex items-center space-x-2">
-                    <span>🏭</span>
+                    <svg class="nav-icon" aria-hidden="true"><use href="#i-warehouse"/></svg>
                     <span class="sidebar-text">Storage / Warehouse</span>
                 </span>
-                <span class="chevron">▼</span>
+                <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
             </button>
             <div class="submenu ml-8 space-y-1 hidden">
                 <a href="{{ route('warehouses.create') }}" class="block hover:underline">Add Warehouse</a>
@@ -314,10 +320,10 @@
         <div>
             <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                 <span class="flex items-center space-x-2">
-                    <span>🐔</span>
+                    <svg class="nav-icon" aria-hidden="true"><use href="#i-bird"/></svg>
                     <span class="sidebar-text">In-House BOM</span>
                 </span>
-                <span class="chevron">▼</span>
+                <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
             </button>
             <div class="submenu ml-8 space-y-1 hidden">
                 @if(auth()->user()->canAccessModule('inhouse_bom'))
@@ -336,10 +342,10 @@
         <div>
             <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                 <span class="flex items-center space-x-2">
-                    <span>🏦</span>
+                    <svg class="nav-icon" aria-hidden="true"><use href="#i-landmark"/></svg>
                     <span class="sidebar-text">Treasury</span>
                 </span>
-                <span class="chevron">▼</span>
+                <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
             </button>
             <div class="submenu ml-8 space-y-1 hidden">
                 <!-- @if(auth()->user()->canAccessCollections())
@@ -367,10 +373,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📦</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-package"/></svg>
                         <span class="sidebar-text">Items</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->navAccess('items.create', fn() => auth()->user()->canAddItems()))
@@ -388,14 +394,17 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>🚚</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-truck"/></svg>
                         <span class="sidebar-text">Deliveries</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->navAccess('deliveries.view', fn() => auth()->user()->canCreateDeliveries()))
-                        <a href="{{ route('deliveries.deliveries') }}" class="block hover:underline">View Delivery</a>
+                        {{-- Label only. This route is the workflow that CREATES a
+                             delivery from an existing Sales Order, so "View Delivery"
+                             was misleading. Route, permission key and behaviour unchanged. --}}
+                        <a href="{{ route('deliveries.deliveries') }}" class="block hover:underline">Create Delivery</a>
                     @endif
                     @if(auth()->user()->navAccess('deliveries.list', fn() => true))
                         <a href="{{ route('deliveries.index') }}" class="block hover:underline">Delivery List</a>
@@ -409,10 +418,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>🔄</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-repeat"/></svg>
                         <span class="sidebar-text">Receiving Reports</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     <a href="{{ route('receiving-reports.index') }}" class="block hover:underline">RR List</a>
@@ -435,10 +444,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>💰</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-banknote"/></svg>
                         <span class="sidebar-text">Finance</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->canManagePurchaseRequests())
@@ -485,10 +494,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📅</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-calendar"/></svg>
                         <span class="sidebar-text">Credits & Collection</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->canAccessAgingReports() && auth()->user()->navAccess('aging.view', fn() => true))
@@ -527,10 +536,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📒</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-book"/></svg>
                         <span class="sidebar-text">Accounting</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     @if(auth()->user()->canAccessModule('gl_accounts'))
@@ -563,10 +572,10 @@
             <div>
                 <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
                     <span class="flex items-center space-x-2">
-                        <span>📝</span>
+                        <svg class="nav-icon" aria-hidden="true"><use href="#i-filepen"/></svg>
                         <span class="sidebar-text">Change Log</span>
                     </span>
-                    <span class="chevron">▼</span>
+                    <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
                 </button>
                 <div class="submenu ml-8 space-y-1 hidden">
                     <a href="{{ route('changelog.index') }}" class="block hover:underline">View Changes</a>
@@ -577,7 +586,7 @@
         <!-- =================== SALES ANALYTICS =================== -->
         @if(auth()->user()->canAccessSalesAnalytics())
             <a href="{{ route('sales.dashboard') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-                <span>📈</span>
+                <svg class="nav-icon" aria-hidden="true"><use href="#i-trending"/></svg>
                 <span class="sidebar-text">Sales Analytics</span>
             </a>
         @endif
@@ -585,7 +594,7 @@
         <!-- =================== RECORDS =================== -->
         @if(auth()->user()->canAccessRecords())
             <a href="{{ route('records.index') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-                <span>📁</span>
+                <svg class="nav-icon" aria-hidden="true"><use href="#i-folder"/></svg>
                 <span class="sidebar-text">Records</span>
             </a>
         @endif
@@ -593,7 +602,7 @@
         <!-- =================== EXCEL IMPORT =================== -->
         @if(auth()->user()->canAccessExcelImport())
             <a href="{{ route('excel.import') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-                <span>📊</span>
+                <svg class="nav-icon" aria-hidden="true"><use href="#i-sheet"/></svg>
                 <span class="sidebar-text">Excel Import</span>
             </a>
         @endif
@@ -601,7 +610,7 @@
         <!-- =================== RECORD LOCK =================== -->
         @if(auth()->user()->canAccessModule('record_lock'))
             <a href="{{ route('lock.index') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
-                <span>🔒</span>
+                <svg class="nav-icon" aria-hidden="true"><use href="#i-lock"/></svg>
                 <span class="sidebar-text">Record Lock</span>
             </a>
         @endif
@@ -611,13 +620,24 @@
 </div>
 
 <!-- =================== MAIN CONTENT =================== -->
-<div class="flex-1 min-w-0 min-h-screen bg-gray-700 flex flex-col w-full md:w-auto overflow-hidden">
+<div class="flex-1 min-w-0 min-h-screen bg-gray-900 flex flex-col w-full md:w-auto overflow-hidden">
 
     <!-- Top Bar -->
-    <div class="bg-gray-800 shadow border-b border-gray-700 p-4 flex items-center justify-between text-white">
+    @php
+        // The top bar must always name the current module. Views that omit
+        // @section('title') used to fall back to the literal "Dashboard",
+        // so /deliveries and others reported the wrong page. Derive a
+        // readable name from the route instead.
+        $routeName = Route::currentRouteName();
+        $fallbackTitle = $routeName
+            ? \Illuminate\Support\Str::of(explode('.', $routeName)[0])
+                ->replace(['_', '-'], ' ')->title()->toString()
+            : 'SOPOD';
+    @endphp
+    <div id="topbar" class="bg-gray-800 shadow border-b border-gray-700 p-4 flex items-center justify-between text-white">
         <div class="flex items-center space-x-2 md:space-x-4">
-            <button id="toggle-btn" class="text-gray-300 text-xl">☰</button>
-            <h1 class="text-lg md:text-xl font-semibold truncate">@yield('title', 'Dashboard')</h1>
+            <button id="toggle-btn" class="menu-btn" aria-label="Toggle navigation"><svg class="menu-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+            <h1 class="text-lg md:text-xl font-semibold truncate">@yield('title', $fallbackTitle)</h1>
         </div>
 
         <div class="flex items-center space-x-2 md:space-x-6 relative">
@@ -692,7 +712,7 @@
     </div>
 
     <!-- Page Content -->
-    <div class="bg-gray-900 p-4 md:p-6 flex-1 text-white overflow-x-auto">
+    <div id="pagebody" class="bg-gray-900 p-4 md:p-8 flex-1 text-white overflow-x-auto">
         @yield('content')
     </div>
 </div>
@@ -740,10 +760,27 @@
         }
     });
 
-    // ✅ Dropdown Toggle
+    // ✅ Dropdown Toggle — accordion behaviour
+    // Opening a module group closes the others, so the sidebar never ends up
+    // with many groups expanded at once. The group containing the current page
+    // is never auto-closed (the active-page highlighter re-opens it below).
     submenuButtons.forEach(button => {
         button.addEventListener("click", () => {
             const submenu = button.nextElementSibling;
+            const willOpen = submenu.classList.contains("hidden");
+
+            if (willOpen) {
+                submenuButtons.forEach(other => {
+                    if (other === button) return;
+                    const otherMenu = other.nextElementSibling;
+                    if (!otherMenu || otherMenu.classList.contains("hidden")) return;
+                    // leave the group holding the current page expanded
+                    if (otherMenu.querySelector("a.active")) return;
+                    otherMenu.classList.add("hidden");
+                    other.classList.remove("active");
+                });
+            }
+
             submenu.classList.toggle("hidden");
             button.classList.toggle("active");
         });

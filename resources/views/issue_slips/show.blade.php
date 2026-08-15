@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">ISSUE SLIP</h1>
+            <h1 class="text-2xl font-bold text-white">Issue Slip</h1>
             <div class="flex gap-3">
                 <a href="{{ route('issue_slips.print', $issueSlip->id) }}" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" target="_blank">
                     <i class="fas fa-print mr-1"></i> Print

@@ -6,7 +6,7 @@
 <div class="bg-gray-900 text-gray-100 min-h-screen p-8">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">📜 Sales Order Change Log</h1>
+        <h1 class="text-3xl font-bold">Sales Order Change Log</h1>
         <a href="{{ route('changelog.export', request()->query()) }}" 
            class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg">
             <i class="fas fa-download"></i> Export CSV

@@ -5,7 +5,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold">ASSET CLASSES</h1>
+            <h1 class="text-2xl font-bold">Asset Classes</h1>
             <a href="{{ route('asset_classes.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
                 <i class="fas fa-plus mr-1"></i> Add Asset Class
             </a>

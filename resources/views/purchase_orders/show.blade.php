@@ -7,7 +7,7 @@
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">PURCHASE ORDER</h1>
+            <h1 class="text-2xl font-bold text-white">Purchase Order</h1>
             <div class="flex items-center gap-4">
                 <div class="text-right">
                     <label class="font-semibold text-gray-300">PO NO:</label>
@@ -62,7 +62,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Department Head Approval</span>
                             @if($purchaseOrder->department_head_approved_by && $purchaseOrder->departmentHeadApprover)
-                                <span class="text-green-700">✓ Approved</span>
+                                <span class="text-green-700">Approved</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $purchaseOrder->departmentHeadApprover->name }}
@@ -106,7 +106,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Management Approval (GM)</span>
                             @if($purchaseOrder->management_approved_by && $purchaseOrder->managementApprover)
-                                <span class="text-green-700">✓ Approved</span>
+                                <span class="text-green-700">Approved</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $purchaseOrder->managementApprover->name }}
@@ -152,7 +152,7 @@
                         <p class="text-gray-300">
                             <span class="font-semibold">Executive Approval (President/VP)</span>
                             @if($purchaseOrder->status === 'approved' && $purchaseOrder->approver)
-                                <span class="text-green-700">✓ Approved</span>
+                                <span class="text-green-700">Approved</span>
                                 <br>
                                 <small class="text-gray-300">
                                     {{ $purchaseOrder->approver->name }}

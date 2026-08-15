@@ -32,7 +32,7 @@
                     </form>
                 @endif
                 <a href="{{ route('live_chickens.index') }}" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded text-sm">
-                    ← Back
+                    Back
                 </a>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 @if($record->po_no)
                     @php $poQty = $record->getPoQty(); @endphp
                     <div class="text-xs mt-1 {{ $record->isPoQtyMet() ? 'text-green-400' : 'text-red-400' }}">
-                        PO Qty: {{ number_format($poQty, 2) }} — {{ $record->isPoQtyMet() ? '✓ Met' : '⚠ Not Met' }}
+                        PO Qty: {{ number_format($poQty, 2) }} — {{ $record->isPoQtyMet() ? 'Met' : 'Not Met' }}
                     </div>
                 @endif
             </div>
@@ -188,7 +188,7 @@
                                 <img src="{{ asset('storage/' . $record->receivedBy->esignature) }}"
                                      alt="Signature" class="h-12 mx-auto object-contain">
                             @else
-                                <span class="text-green-400 text-sm font-semibold">✓ Digitally Signed</span>
+                                <span class="text-green-400 text-sm font-semibold">Digitally Signed</span>
                             @endif
                         </div>
                         <div class="font-semibold text-white text-sm">{{ $record->receivedBy->name }}</div>
@@ -217,7 +217,7 @@
                                 <img src="{{ asset('storage/' . $record->grpoApprovedBy->esignature) }}"
                                      alt="Signature" class="h-12 mx-auto object-contain">
                             @else
-                                <span class="text-green-400 text-sm font-semibold">✓ Digitally Signed</span>
+                                <span class="text-green-400 text-sm font-semibold">Digitally Signed</span>
                             @endif
                         </div>
                         <div class="font-semibold text-white text-sm">{{ $record->grpoApprovedBy->name }}</div>

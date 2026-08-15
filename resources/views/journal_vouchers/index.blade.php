@@ -5,7 +5,7 @@
 <div class="container mx-auto">
     <div class="bg-gray-800 text-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-            <h1 class="text-2xl font-bold text-white">JOURNAL VOUCHERS</h1>
+            <h1 class="text-2xl font-bold text-white">Journal Vouchers</h1>
             <a href="{{ route('journal_vouchers.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm">
                 <i class="fas fa-plus mr-1"></i> New Journal Voucher
             </a>

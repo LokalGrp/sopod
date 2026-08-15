@@ -8,7 +8,7 @@
 .b-hd {
     font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em;
     color:#1e3a5f; padding:.6rem 1rem; border-bottom:1px solid #f0f4f8;
-    background:linear-gradient(to right,#f0f7ff,#f8fafc);
+    background:var(--surface);
     border-radius:.5rem .5rem 0 0; display:flex; align-items:center; justify-content:space-between;
 }
 .fi { display:flex; flex-direction:column; gap:.2rem; }
@@ -17,37 +17,37 @@
     padding:.38rem .6rem; border:1px solid #d1d5db; border-radius:.375rem;
     font-size:.83rem; color:#111827; background:#fff; transition:border-color .15s,box-shadow .15s;
 }
-.fi input:focus,.fi select:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.12); }
+.fi input:focus,.fi select:focus { outline:none; border-color:var(--line); box-shadow:0 0 0 3px rgba(59,130,246,.12); }
 .fi input[readonly] { background:#f9fafb; color:#6b7280; cursor:default; }
 
 .kpi { background:#fff; border:1px solid #e5e7eb; border-radius:.45rem; padding:.75rem 1rem; }
-.kpi-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; }
+.kpi-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
 .kpi-val { font-size:1.3rem; font-weight:800; color:#111827; line-height:1.1; margin:.1rem 0; }
-.kpi-sub { font-size:.68rem; color:#d1d5db; }
-.kpi.accent { border-color:#bfdbfe; background:linear-gradient(135deg,#eff6ff,#fff); }
+.kpi-sub { font-size:.68rem; color:var(--body); }
+.kpi.accent { border-color:#bfdbfe; background:var(--surface); }
 .kpi.accent .kpi-val { color:#1d4ed8; }
 
 .htabs { display:flex; gap:.35rem; flex-wrap:wrap; padding:.65rem 1rem; border-bottom:1px solid #f0f4f8; }
 .htab { padding:.28rem .8rem; border-radius:999px; font-size:.75rem; font-weight:600; border:1px solid #e5e7eb; color:#6b7280; background:#fff; cursor:pointer; transition:all .15s; }
 .htab:hover { border-color:#93c5fd; color:#2563eb; }
 .htab.filled { border-color:#86efac; color:#15803d; background:#f0fdf4; }
-.htab.active { background:#1e3a5f !important; color:#fff !important; border-color:#1e3a5f !important; }
+.htab.active { background:#DBEAFE !important; color:#1D4ED8 !important; border-color:var(--line) !important; }
 
 .param-panel { width:255px; min-width:255px; border-right:1px solid #f0f4f8; padding:1rem; display:flex; flex-direction:column; gap:.5rem; }
 .derived-lbl { font-size:.68rem; font-weight:700; color:#93c5fd; text-transform:uppercase; letter-spacing:.04em; }
 
 .bt { width:100%; border-collapse:collapse; font-size:.79rem; }
-.bt thead th { background:#1e3a5f; color:#fff; padding:.48rem .6rem; font-size:.69rem; font-weight:600; text-align:left; white-space:nowrap; }
+.bt thead th { background:#DBEAFE; color:#1D4ED8; padding:.48rem .6rem; font-size:.69rem; font-weight:600; text-align:left; white-space:nowrap; }
 .bt thead th.r { text-align:right; }
 .bt tbody tr { border-bottom:1px solid #f3f4f6; }
 .bt tbody tr:hover { background:#f8fbff; }
-.bt tr.grand-total td { background:#0f2744; color:#fff; font-weight:800; font-size:.82rem; padding:.55rem .6rem; }
-.bt tr.cat-hd td { background:#1e3a5f; color:#e0f2fe; font-weight:700; padding:.42rem .6rem; font-size:.73rem; }
+.bt tr.grand-total td { background:var(--surface); color:var(--body); font-weight:800; font-size:.82rem; padding:.55rem .6rem; }
+.bt tr.cat-hd td { background:#DBEAFE; color:#1D4ED8; font-weight:700; padding:.42rem .6rem; font-size:.73rem; }
 .bt tr.data-row td { padding:.36rem .6rem; color:#374151; }
 .bt td.r { text-align:right; font-variant-numeric:tabular-nums; }
 
 .ci { padding:.2rem .38rem; border:1px solid #e5e7eb; border-radius:.25rem; font-size:.78rem; color:#111827; background:#fff; text-align:right; transition:border-color .12s; }
-.ci:focus { outline:none; border-color:#3b82f6; background:#eff6ff; }
+.ci:focus { outline:none; border-color:var(--line); background:#eff6ff; }
 .ci.nm { text-align:left; }
 
 .add-btn { display:inline-flex; align-items:center; gap:.3rem; font-size:.72rem; font-weight:600; padding:.26rem .6rem; border-radius:.3rem; border:1px dashed; cursor:pointer; transition:all .12s; }
@@ -57,13 +57,13 @@
 .add-btn.indigo:hover { background:#e0e7ff; }
 .add-btn.teal   { border-color:#5eead4; color:#0f766e; background:#f0fdfa; }
 .add-btn.teal:hover   { background:#ccfbf1; }
-.add-btn.amber  { border-color:#fcd34d; color:#92400e; background:#fffbeb; }
+.add-btn.amber  { border-color:var(--body); color:#92400e; background:#fffbeb; }
 .add-btn.amber:hover  { background:#fef3c7; }
-.add-btn.rose   { border-color:#fca5a5; color:#991b1b; background:#fff1f2; }
+.add-btn.rose   { border-color:var(--body); color:#991b1b; background:#fff1f2; }
 .add-btn.rose:hover   { background:#ffe4e6; }
-.del-btn { color:#f87171; cursor:pointer; font-size:.74rem; padding:0 .2rem; opacity:.55; }
+.del-btn { color:var(--body); cursor:pointer; font-size:.74rem; padding:0 .2rem; opacity:.55; }
 .del-btn:hover { opacity:1; }
-.sbadge { width:1.35rem; height:1.35rem; border-radius:50%; background:#1e3a5f; color:#fff; font-size:.63rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sbadge { width:1.35rem; height:1.35rem; border-radius:50%; background:#DBEAFE; color:#1D4ED8; font-size:.63rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
 </style>
 
 <!-- HEADER -->
@@ -492,7 +492,7 @@ function renderTable() {
         const feedBagTot=cat==='feed'?rows.reduce((s,r)=>s+(parseInt(r.qty_bags)||0),0):null;
         const feedKgTot=cat==='feed'?rows.reduce((s,r)=>s+(parseFloat(r.qty_kg)||0),0):null;
         const isCdmSub=CDM_CATS.includes(cat);
-        html+=`<tr class="cat-hd"${isCdmSub?' style="background:#2a4f7a;"':''}>
+        html+=`<tr class="cat-hd"${isCdmSub?' style="background:#FFFFFF;"':''}>
             <td${isCdmSub?' style="padding-left:1.2rem;"':''}>${CAT_LABELS[cat]}</td>
             <td class="r" style="font-size:.6rem;white-space:nowrap;">${cat==='feed'?'Rec. Bags/Hds':cat==='labor'?'Days':''}</td>
             <td class="r" style="font-size:.6rem;white-space:nowrap;">${cat==='feed'?'KG':'QTY'}</td>

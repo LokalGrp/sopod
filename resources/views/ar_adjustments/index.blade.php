@@ -12,11 +12,11 @@
 
             {{-- Action Buttons --}}
             <div class="flex items-center gap-3">
-                <button type="button" id="import_modal_btn" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
+                <button type="button" id="import_modal_btn" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
                     <i class="fas fa-upload"></i>
                     <span>Import Bulk</span>
                 </button>
-                <a href="{{ route('ar_adjustments.create') }}" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
+                <a href="{{ route('ar_adjustments.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium transition flex items-center space-x-2">
                     <i class="fas fa-plus"></i>
                     <span>New Adjustment</span>
                 </a>
@@ -284,7 +284,7 @@
                 </button>
             </div>
 
-            {{-- ✅ NEW: Filter Section for Deliveries --}}
+            {{-- NEW: Filter Section for Deliveries --}}
             <div class="bg-gray-800 rounded-lg p-4 mb-4">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -304,7 +304,7 @@
                         </button>
                     </div>
                 </div>
-                <p class="text-gray-300 text-xs mt-2 px-2">💡 Leave dates empty to show all records, or set specific date range to filter.</p>
+                <p class="text-gray-300 text-xs mt-2 px-2">Leave dates empty to show all records, or set specific date range to filter.</p>
             </div>
 
             {{-- Delivery List Table --}}
@@ -1468,7 +1468,7 @@ function createAdjustmentFromDelivery(drNo, customerCode, customerName) {
 
                 deliveryHTML += `
                     <button class="delivery-select-btn" data-dr-no="${delivery.dr_no}" data-customer-code="${customerCode}" data-customer-name="${customerName}" data-sales-invoice="${delivery.sales_invoice_no || ''}"
-                            style="padding: 12px; background: #374151; border: 1px solid #4B5563; border-radius: 6px; color: #E5E7EB; cursor: pointer; text-align: left; transition: background 0.2s; width: 100%;"
+                            style="padding: 12px; background: #FFFFFF; border: 1px solid #4B5563; border-radius: 6px; color: #374151; cursor: pointer; text-align: left; transition: background 0.2s; width: 100%;"
                             onmouseover="this.style.background='#4B5563'"
                             onmouseout="this.style.background='#374151'">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
