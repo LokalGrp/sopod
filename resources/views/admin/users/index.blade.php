@@ -154,7 +154,7 @@
 
                             {{-- Edit Button --}}
                             <a href="{{ route('admin.users.edit', $user->id) }}" 
-                               class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+                               class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
                                title="Edit User">
                                 <i class="fas fa-edit"></i> Edit
                             </a>

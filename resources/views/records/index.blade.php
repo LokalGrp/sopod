@@ -13,7 +13,7 @@
 
             <!-- Export Excel -->
             <a href="{{ route('records.export.excel', ['type' => $type, 'report' => $report ?? null]) }}"
-                class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-md font-medium shadow">
+                class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md font-medium shadow">
                 Export Excel
             </a>
 

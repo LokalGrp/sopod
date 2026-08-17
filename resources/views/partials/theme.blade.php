@@ -210,12 +210,129 @@
         background-color: var(--sidebar-hover) !important;
         color: #FFFFFF !important;
     }
+    /* Selected page. A solid navy block read as a heavy "dark blue highlight";
+       a soft blue wash plus a 3px accent rail marks the page just as clearly
+       while staying quiet. */
     #sidebar nav a.active,
     #sidebar nav .submenu a.active {
-        background-color: var(--sidebar-active) !important;
+        background-color: rgba(37, 99, 235, .16) !important;
         color: #FFFFFF !important;
         font-weight: 500;
         border-left: none !important;
+        box-shadow: inset 3px 0 0 var(--primary);
+    }
+
+    /* ---- Collapsed sidebar: an icon rail, not an empty strip ----
+       The legacy rules set width:0 and `display:none` on every descendant,
+       so collapsing hid the navigation entirely. Keep the icons, drop the
+       labels, and show the label as a tooltip on hover. */
+    #sidebar.sidebar.collapsed {
+        width: 56px !important;
+        min-width: 56px !important;
+        padding: 0 6px 24px !important;
+        overflow: visible !important;
+    }
+    /* Show the structural wrappers only. A blanket `display: revert` reverts
+       <a> to the UA default `inline`, which made the icons flow side by side
+       and wrap into two columns — the rail must be a single column. */
+    #sidebar.sidebar.collapsed > div,
+    #sidebar.sidebar.collapsed nav,
+    #sidebar.sidebar.collapsed nav > div { display: block !important; }
+    #sidebar.sidebar.collapsed nav { margin-top: 4px !important; }
+
+    #sidebar.sidebar.collapsed nav a,
+    #sidebar.sidebar.collapsed nav button {
+        display: flex !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 10px 0 !important;
+        margin: 2px 0 !important;
+        gap: 0 !important;
+        position: relative;
+        border-radius: 6px;
+    }
+    #sidebar.sidebar.collapsed nav a > span:not(.sidebar-text),
+    #sidebar.sidebar.collapsed nav button > span:not(.sidebar-text) {
+        display: flex !important; align-items: center; justify-content: center;
+    }
+
+    /* Everything that carries a label is hidden in the rail */
+    #sidebar.sidebar.collapsed .sidebar-text,
+    #sidebar.sidebar.collapsed .submenu,
+    #sidebar.sidebar.collapsed .chevron,
+    #sidebar.sidebar.collapsed .sidebar-header h2 { display: none !important; }
+
+    #sidebar.sidebar.collapsed .sidebar-header {
+        display: block !important;
+        padding: 0 !important;
+        height: 12px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    /* The rail previously repeated a menu glyph here, duplicating the working
+       toggle in the top bar — and it was a <span>, so it did nothing when
+       clicked. One toggle, in the top bar. */
+    #sidebar.sidebar.collapsed .collapsed-icon { display: none !important; }
+    #sidebar.sidebar.collapsed .nav-icon {
+        display: block !important; opacity: .85; width: 18px !important; height: 18px !important; margin: 0 !important;
+    }
+    /* The selected page still reads clearly in the rail */
+    #sidebar.sidebar.collapsed nav a.active { box-shadow: inset 3px 0 0 var(--primary); }
+    /* Tooltip — label text is copied into data-tip by the script below */
+    #sidebar.sidebar.collapsed nav a[data-tip]:hover::after,
+    #sidebar.sidebar.collapsed nav button[data-tip]:hover::after {
+        content: attr(data-tip);
+        position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%);
+        background: #111827; color: #fff; font-size: 12px; font-weight: 400;
+        padding: 5px 9px; border-radius: 4px; white-space: nowrap; z-index: 80;
+        box-shadow: 0 4px 12px rgba(0,0,0,.25); pointer-events: none;
+    }
+
+    /* ---- Dashboard navigation tiles ----
+       PO Dashboard's KPI tiles are <a>/<button> elements carrying bg-blue-700 /
+       bg-orange-700 / bg-green-700, so the button rules filled them as solid
+       saturated blocks. A card-shaped link is a card: white surface, semantic
+       rail, dark text. Real buttons are unaffected — this only matches the
+       card-sized padding those tiles use. */
+    a[class*="bg-"][class*="p-6"], button[class*="bg-"][class*="p-6"],
+    a[class*="bg-"][class*="p-5"], button[class*="bg-"][class*="p-5"] {
+        background-color: var(--surface) !important;
+        border: 1px solid var(--line) !important;
+        border-radius: var(--radius-lg) !important;
+        color: var(--body) !important;
+        box-shadow: var(--shadow) !important;
+        padding: 16px 18px !important;
+        position: relative;
+        overflow: hidden;
+    }
+    a[class*="bg-"][class*="p-6"]:hover, button[class*="bg-"][class*="p-6"]:hover {
+        border-color: #C7D2E4 !important; background-color: #F9FAFB !important;
+    }
+    a[class*="bg-"][class*="p-6"]::before, button[class*="bg-"][class*="p-6"]::before,
+    a[class*="bg-"][class*="p-5"]::before, button[class*="bg-"][class*="p-5"]::before {
+        content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--line);
+    }
+    a[class*="bg-blue-"][class*="p-6"]::before, button[class*="bg-blue-"][class*="p-6"]::before   { background: var(--primary); }
+    a[class*="bg-green-"][class*="p-6"]::before, button[class*="bg-green-"][class*="p-6"]::before { background: var(--success); }
+    a[class*="bg-orange-"][class*="p-6"]::before, button[class*="bg-orange-"][class*="p-6"]::before,
+    a[class*="bg-amber-"][class*="p-6"]::before, button[class*="bg-amber-"][class*="p-6"]::before { background: var(--warning); }
+    a[class*="bg-red-"][class*="p-6"]::before, button[class*="bg-red-"][class*="p-6"]::before     { background: var(--danger); }
+    a[class*="bg-"][class*="p-6"] *, button[class*="bg-"][class*="p-6"] * { color: inherit !important; }
+    a[class*="bg-"][class*="p-6"] .text-3xl, a[class*="bg-"][class*="p-6"] .text-4xl,
+    button[class*="bg-"][class*="p-6"] .text-3xl {
+        color: var(--heading) !important; font-size: 26px !important; font-weight: 600 !important;
+    }
+
+    /* ---- Small KPI tiles: one neutral border, no rainbow of hues ----
+       Fixed Asset Capitalization renders seven tiles, each with its own
+       coloured border. The tint layer already lightened their fills; this
+       stops the borders competing. */
+    div[class*="bg-blue-9"][class*="border-blue"], div[class*="bg-green-9"][class*="border-green"],
+    div[class*="bg-red-9"][class*="border-red"], div[class*="bg-purple-9"][class*="border-purple"],
+    div[class*="bg-yellow-9"][class*="border-yellow"], div[class*="bg-amber-9"][class*="border-amber"],
+    div[class*="bg-teal-9"][class*="border-teal"], div[class*="bg-indigo-9"][class*="border-indigo"] {
+        border-color: var(--line) !important;
     }
     #sidebar nav button.parent-active { background-color: var(--sidebar-hover) !important; color:#fff !important; }
 
@@ -598,6 +715,24 @@
     }
     div[class*="bg-purple-9"], div[class*="bg-violet-9"], div[class*="bg-purple-8"] {
         background-color: #F5F3FF !important; border-color: #DDD6FE !important;
+    }
+    /* orange and teal were missing from this list, so those tiles stayed dark
+       and their labels were unreadable */
+    div[class*="bg-orange-9"], div[class*="bg-orange-8"] {
+        background-color: #FFF7ED !important; border-color: #FED7AA !important;
+    }
+    div[class*="bg-teal-9"], div[class*="bg-teal-8"], div[class*="bg-cyan-9"] {
+        background-color: #F0FDFA !important; border-color: #99F6E4 !important;
+    }
+    p[class*="text-orange-4"], span[class*="text-orange-4"] { color: var(--warning) !important; }
+    p[class*="text-teal-4"], span[class*="text-teal-4"], p[class*="text-cyan-4"] { color: #0F766E !important; }
+
+    /* A row of small KPI tiles should read as one set, not seven colours.
+       Neutral surface; the meaning stays in the label and value. */
+    div[class*="bg-"][class*="-900/40"][class*="p-3"],
+    div[class*="bg-"][class*="-900/40"][class*="p-4"][class*="text-center"] {
+        background-color: var(--surface) !important;
+        border-color: var(--line) !important;
     }
     div[class*="bg-gray-9"][class*="/"], div[class*="bg-slate-9"] {
         background-color: #F9FAFB !important;
@@ -1080,6 +1215,104 @@
         *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; }
     }
 
+    /* ==========================================================
+       25. RESPONSIVE — below laptop widths
+       Desktop (>=1025px) behaviour is untouched. Below that the
+       sidebar becomes an off-canvas drawer, multi-column grids
+       collapse, filters wrap instead of shrinking, and wide tables
+       scroll inside their own container rather than the page.
+       ========================================================== */
+    @media (max-width: 1024px) {
+        /* Sidebar becomes a drawer so it never eats the workspace */
+        #sidebar.sidebar {
+            position: fixed !important;
+            top: 0; left: -280px;
+            height: 100vh; z-index: 1000;
+            transition: left .22s ease;
+            overflow-y: auto;
+        }
+        #sidebar.sidebar.mobile-open { left: 0 !important; }
+        #sidebar.sidebar.collapsed { left: -280px !important; width: 256px !important; min-width: 256px !important; }
+        #sidebar.sidebar.collapsed.mobile-open { left: 0 !important; }
+        /* Collapsed icon-rail styling must not apply in drawer mode */
+        #sidebar.sidebar.collapsed .sidebar-text,
+        #sidebar.sidebar.collapsed .submenu { display: revert !important; }
+        #sidebar.sidebar.collapsed nav a,
+        #sidebar.sidebar.collapsed nav button { justify-content: flex-start !important; padding: 7px 10px !important; gap: 10px !important; }
+
+        body.sidebar-overlay::before {
+            content: ''; position: fixed; inset: 0;
+            background: rgba(17,24,39,.45); z-index: 999;
+        }
+
+        #pagebody { padding: 16px !important; }
+        #topbar.bg-gray-800 { padding: 0 16px !important; }
+
+        /* Grids reflow to fewer columns */
+        .grid[class*="grid-cols-4"], .grid[class*="md:grid-cols-4"],
+        .grid[class*="grid-cols-5"], .grid[class*="lg:grid-cols-5"] {
+            grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+        }
+        .metrics-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+        .two-column-grid { grid-template-columns: 1fr !important; }
+
+        /* Filters wrap; controls keep a usable minimum width */
+        .filter-grid, .filter-form { grid-template-columns: repeat(auto-fit, minmax(180px,1fr)) !important; }
+        .filter-form { flex-wrap: wrap !important; }
+
+        /* Wide tables scroll inside themselves, never the page */
+        .table-wrap, .overflow-x-auto, .table-container, .table-scroll { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+        table { min-width: max-content; }
+    }
+
+    @media (max-width: 768px) {
+        #pagebody { padding: 12px !important; }
+
+        /* Every multi-column grid becomes one column */
+        .grid[class*="grid-cols-"], .metrics-grid, .stats, .form-grid { grid-template-columns: 1fr !important; }
+        .form-grid > * { grid-column: 1 / -1 !important; }
+
+        /* Two-column forms stack */
+        .grid.grid-cols-2, .grid[class*="md:grid-cols-2"], .grid[class*="sm:grid-cols-2"] {
+            grid-template-columns: 1fr !important;
+        }
+
+        /* Page header stacks, primary action stays visible */
+        .page-header, .dashboard-header {
+            flex-direction: column !important; align-items: stretch !important; gap: 12px !important;
+        }
+        .page-actions { flex-wrap: wrap; }
+
+        /* Field width caps must not fight a narrow screen */
+        input[type="date"], input[type="time"], input[type="number"], select:not([multiple]) { max-width: 100% !important; }
+
+        /* Toolbars wrap rather than clip */
+        .filter-actions, .row, .flex.gap-3, .flex.gap-2 { flex-wrap: wrap !important; }
+
+        /* Modals fit the viewport */
+        .modal-panel, .fixed .bg-gray-800, .fixed .bg-white {
+            max-width: calc(100vw - 24px) !important;
+            max-height: calc(100vh - 24px) !important;
+            overflow-y: auto !important;
+        }
+
+        /* Tabs and import pills scroll instead of wrapping into a wall */
+        .tabs, .imp-cats, .tab-navigation { overflow-x: auto; flex-wrap: nowrap; }
+        .imp-sub { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+    }
+
+    @media (max-width: 480px) {
+        #pagebody { padding: 10px !important; }
+        /* Type stays readable — never shrink below this to fix overflow */
+        body { font-size: 14px; }
+        table { font-size: 13px; }
+        .page-title, h1, .text-3xl { font-size: 20px !important; }
+        .stat-value, .metric-value, .kpi-value { font-size: 22px !important; }
+        .btn-primary, .btn-secondary, button, a[class*="bg-"] { min-height: 36px; }
+        #topbar.bg-gray-800 { padding: 0 12px !important; }
+        #topbar h1 { font-size: 14px !important; }
+    }
+
     @media print {
         #sidebar, #topbar { display:none !important; }
         body { background:#fff !important; }
@@ -1137,6 +1370,22 @@
         document.querySelectorAll('table').forEach(function (t) {
             if (t.tHead && t.tBodies.length) fill(t);
         });
+    }
+
+    /* Copy each sidebar item's label into data-tip so the collapsed icon
+       rail can show it as a tooltip. Presentation only. */
+    function labelSidebar() {
+        document.querySelectorAll('#sidebar nav a, #sidebar nav button').forEach(function (el) {
+            if (el.dataset.tip) return;
+            var t = el.querySelector('.sidebar-text');
+            var txt = (t ? t.textContent : el.textContent || '').trim();
+            if (txt) el.dataset.tip = txt;
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', labelSidebar);
+    } else {
+        labelSidebar();
     }
 
     if (document.readyState === 'loading') {

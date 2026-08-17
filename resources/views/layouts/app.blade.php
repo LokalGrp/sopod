@@ -91,8 +91,12 @@
             padding: 0;
         }
 
-        /* Ensure everything inside is hidden when collapsed */
-        .sidebar.collapsed * {
+        /* The collapsed state is defined in partials/theme.blade.php, which
+           renders an icon rail with tooltips. A blanket `* { display:none }`
+           here also hid the <use> elements inside the SVG icons, leaving an
+           empty strip, so only the label-bearing elements are hidden now. */
+        .sidebar.collapsed .sidebar-text,
+        .sidebar.collapsed .submenu {
             display: none !important;
         }
 

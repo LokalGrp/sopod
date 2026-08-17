@@ -79,7 +79,12 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('soSearchInput');
-    const rows = document.querySelectorAll('#salesOrdersTable tbody tr');
+    // Count data rows only. This previously selected every <tr>, including the
+    // "No accepted sales orders found." placeholder, so an empty table reported
+    // "Showing 1 sales order". Placeholder/empty-state rows always span the
+    // table with colspan; real data rows never do.
+    const rows = Array.from(document.querySelectorAll('#salesOrdersTable tbody tr'))
+        .filter(r => !r.querySelector('td[colspan]'));
     const countDisplay = document.getElementById('soCount');
 
     function updateVisibleCount() {

@@ -53,7 +53,7 @@
                 @if($category)<input type="hidden" name="category" value="{{ $category }}">@endif
                 <input type="text" name="search" value="{{ $search }}" placeholder="Search vendor code or name..."
                        class="flex-1 bg-gray-700 text-white border border-gray-600 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition text-sm">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm">
                     <i class="fas fa-search mr-1"></i> Search
                 </button>
                 @if($search || $category)
