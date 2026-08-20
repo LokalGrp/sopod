@@ -43,7 +43,11 @@ class Handler extends ExceptionHandler
         }
 
         // Only customize 500-level errors for HTML requests
-        if ($request->expectsHtml()) {
+        // Illuminate\Http\Request has no expectsHtml(); calling it threw a
+        // BadMethodCallException inside the handler, so Laravel handled that
+        // second exception and rendered the error page a second time. That is
+        // why 500s appeared twice and the underlying error was never shown.
+        if (! $request->expectsJson()) {
             $user = auth()->user();
 
             // IT/Admin users see detailed debug page
