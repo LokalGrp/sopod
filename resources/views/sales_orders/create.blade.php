@@ -235,8 +235,8 @@
                                                     <div class="font-semibold text-base mb-1">{{ $item->item_description ?? '' }}</div>
                                                     <div class="text-sm text-gray-300 flex items-center gap-3">
                                                         <span class="bg-gray-700 px-2 py-0.5 rounded text-xs">{{ $item->brand ?? '' }}</span>
-                                                        ${1}300${2}{{ $item->item_category ?? '' }}</span>
-                                                        ${1}300${2}Code: {{ $item->item_code ?? '' }}</span>
+                                                        <span class="text-gray-300">{{ $item->item_category ?? '' }}</span>
+                                                        <span class="text-gray-300">Code: {{ $item->item_code ?? '' }}</span>
                                                     </div>
                                                 </div>
                                             @endif
@@ -844,8 +844,8 @@ window.validateForm = function() {
                         <div class="font-semibold text-base mb-1">${item.description}</div>
                         <div class="text-sm text-gray-300 flex items-center gap-3">
                             <span class="bg-gray-700 px-2 py-0.5 rounded text-xs">${item.brand}</span>
-                            ${1}300${2}${item.category}</span>
-                            ${1}300${2}Code: ${item.code}</span>
+                            <span class="text-gray-300">${item.category}</span>
+                            <span class="text-gray-300">Code: ${item.code}</span>
                         </div>
                     </div>
                 `;
