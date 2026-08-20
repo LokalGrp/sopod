@@ -1650,6 +1650,19 @@
         #itemsTable tbody td { grid-column: span 1 !important; }
     }
 
+
+    /* Per-card Remove on Sales Order item cards */
+    #itemsTable .item-remove-cell { grid-column: 1 / -1; display:flex; justify-content:flex-end; }
+    #itemsTable .item-remove-cell::before { content:none !important; }
+    #itemsTable .item-remove {
+        display:inline-flex; align-items:center; gap:6px;
+        background:transparent !important; border:1px solid #FECACA !important;
+        color: var(--danger) !important; font-size:12px; font-weight:500;
+        padding:5px 11px !important; border-radius:var(--radius); cursor:pointer;
+    }
+    #itemsTable .item-remove:hover { background:#FEF2F2 !important; border-color:#FCA5A5 !important; }
+    #itemsTable .item-remove .ico { width:13px; height:13px; }
+
     /* ==========================================================
        25. RESPONSIVE — below laptop widths
        Desktop (>=1025px) behaviour is untouched. Below that the

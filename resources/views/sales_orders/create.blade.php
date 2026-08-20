@@ -951,4 +951,68 @@ window.validateForm = function() {
         });
     });
     </script>
+
+<script>
+/* ================= PER-CARD REMOVE =================
+   Each item card gets its own Remove control, and removing deletes the
+   clicked card rather than the last one. Field names are reindexed so
+   items[i][...] stays contiguous and the controller sees the same request
+   structure. Additive only: the add-item handler, autocomplete,
+   calculations, PCS toggle and validation are untouched. */
+(function () {
+    var table = document.querySelector('#itemsTable tbody');
+    if (!table) return;
+
+    function rows() { return table.querySelectorAll('tr'); }
+
+    function addRemoveControls() {
+        rows().forEach(function (tr) {
+            if (tr.querySelector('.item-remove')) return;
+            var td = document.createElement('td');
+            td.className = 'item-remove-cell';
+            td.innerHTML =
+                '<button type="button" class="item-remove" aria-label="Remove this item">' +
+                '<svg class="ico" aria-hidden="true"><use href="#i-x"/></svg> Remove</button>';
+            tr.appendChild(td);
+        });
+    }
+
+    /* Keep items[i][...] contiguous after a deletion. */
+    function reindex() {
+        rows().forEach(function (tr, i) {
+            tr.querySelectorAll('[name^="items["]').forEach(function (el) {
+                el.name = el.name.replace(/^items\[\d+\]/, 'items[' + i + ']');
+            });
+        });
+    }
+
+    table.addEventListener('click', function (e) {
+        var btn = e.target.closest('.item-remove');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (rows().length <= 1) {
+            if (window.Swal) {
+                Swal.fire({ icon: 'warning', title: 'Cannot Remove',
+                            text: 'You must keep at least one item row.' });
+            }
+            return;
+        }
+        btn.closest('tr').remove();
+        reindex();
+    });
+
+    /* Rows are created by the existing add handler, so re-decorate on change. */
+    new MutationObserver(function () { addRemoveControls(); reindex(); })
+        .observe(table, { childList: true });
+
+    addRemoveControls();
+    reindex();
+
+    /* The old global Remove deleted the last row; per-card Remove replaces it. */
+    var globalRemove = document.getElementById('RemoveRowBtn');
+    if (globalRemove) globalRemove.style.display = 'none';
+})();
+</script>
 @endsection
