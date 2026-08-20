@@ -26,7 +26,7 @@
         </div>
 
         <h1 class="login-title">Sign in to NOMSUITE</h1>
-        <p class="login-subtitle">Use your account to continue.</p>
+        <p class="login-subtitle">Enter your credentials to continue.</p>
 
         <form method="POST" action="{{ route('login.submit') }}" class="login-form">
             @csrf
@@ -43,7 +43,17 @@
                     <input type="password" id="password" name="password" placeholder="Enter your password"
                            autocomplete="current-password" required>
                     <button type="button" class="login-reveal" data-target="password"
-                            aria-label="Show password">Show</button>
+                            aria-label="Show password" title="Show password">
+                        <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                            <path d="M10.6 6.2A9.9 9.9 0 0 1 12 6c6.4 0 10 7 10 7a17 17 0 0 1-2.7 3.6M6.6 6.6A17 17 0 0 0 2 13s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/>
+                            <path d="m2 2 20 20"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -94,10 +104,10 @@
         padding: 36px 36px 30px;
     }
     .login-brand {
-        display: flex; flex-direction: column; align-items: center; gap: 10px;
-        margin-bottom: 22px;
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+        margin-bottom: 16px;
     }
-    .login-brand img { width: 64px; height: 64px; object-fit: contain; display: block; }
+    .login-brand img { width: 48px; height: 48px; object-fit: contain; display: block; }
     .login-wordmark {
         font-size: 13px; font-weight: 600; letter-spacing: .16em;
         color: var(--heading, #111827); text-transform: uppercase;
@@ -131,14 +141,27 @@
         border-color: var(--primary, #2563EB) !important;
         box-shadow: 0 0 0 3px rgba(37,99,235,.12) !important;
     }
+    /* Chrome paints saved credentials with its own pale blue background.
+       Repaint it white so the blue stays reserved for focus and actions. */
+    .login-field input:-webkit-autofill,
+    .login-field input:-webkit-autofill:hover,
+    .login-field input:-webkit-autofill:focus {
+        -webkit-text-fill-color: var(--body, #374151);
+        -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
+        box-shadow: 0 0 0 1000px #FFFFFF inset;
+        transition: background-color 9999s ease-in-out 0s;
+    }
+
     .login-password { position: relative; display: flex; }
-    .login-password input { padding-right: 64px !important; }
+    .login-password input { padding-right: 46px !important; }
     .login-reveal {
         position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
         background: transparent; border: none; cursor: pointer;
-        font-size: 12px; font-weight: 500; color: var(--muted, #6B7280);
-        padding: 6px 8px; border-radius: 6px;
+        display: flex; align-items: center; justify-content: center;
+        width: 32px; height: 32px; color: #9CA3AF;
+        padding: 0; border-radius: 6px;
     }
+    .login-reveal svg { width: 17px; height: 17px; }
     .login-reveal:hover { color: var(--primary, #2563EB); background: #F3F4F6; }
     .login-alert {
         font-size: 13px; line-height: 1.45;
@@ -167,7 +190,7 @@
     @media (max-width: 480px) {
         .login-page { padding: 16px; align-items: flex-start; padding-top: 40px; }
         .login-card { padding: 26px 20px 22px; border-radius: 12px; }
-        .login-brand img { width: 56px; height: 56px; }
+        .login-brand img { width: 42px; height: 42px; }
         .login-title { font-size: 18px; }
     }
 </style>
@@ -181,8 +204,11 @@ document.querySelectorAll('.login-reveal').forEach(function (btn) {
         if (!input) return;
         var shown = input.type === 'text';
         input.type = shown ? 'password' : 'text';
-        btn.textContent = shown ? 'Show' : 'Hide';
-        btn.setAttribute('aria-label', shown ? 'Show password' : 'Hide password');
+        btn.querySelector('.eye-open').style.display = shown ? '' : 'none';
+        btn.querySelector('.eye-off').style.display = shown ? 'none' : '';
+        var label = shown ? 'Show password' : 'Hide password';
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title', label);
     });
 });
 
