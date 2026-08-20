@@ -82,7 +82,7 @@
 <div class="page">
     <!-- Header: logo left, company centered -->
     <div class="top-header">
-        <img src="{{ asset('images/sopod-logo.PNG') }}" class="logo" alt="Logo">
+        <img src="{{ asset('images/sopod-logo.png') }}" class="logo" alt="Logo">
         <div class="company-block">
             <div class="company-name">Meatplus Trading Corp</div>
             <div class="company-addr">

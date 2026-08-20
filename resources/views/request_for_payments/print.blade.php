@@ -377,7 +377,7 @@
                 <div class="company-name">Meatplus Trading Corp.</div>
             </div>
             <div class="logo-section">
-                <img src="{{ asset('images/sopod-logo.PNG') }}" class="logo" alt="Logo">
+                <img src="{{ asset('images/sopod-logo.png') }}" class="logo" alt="Logo">
                 <div class="header-info-right">
                     <div><strong>Date:</strong> {{ $rfp->date ? $rfp->date->format('F j, Y') : '' }}</div>
                     <div><strong>Due Date:</strong> {{ $rfp->due_date ? $rfp->due_date->format('F j, Y') : '' }}</div>
