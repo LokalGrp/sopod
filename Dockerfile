@@ -26,7 +26,7 @@ RUN composer dump-autoload --optimize --no-dev
 # not create empty directories, so these were missing from the image and
 # Laravel could not write compiled views, sessions or the cache. Recreate
 # them and make them writable.
-RUN mkdir -p storage/framework/views storage/framework/cache/data \n             storage/framework/sessions storage/logs bootstrap/cache \n    && chmod -R 775 storage bootstrap/cache
+RUN mkdir -p storage/framework/views storage/framework/cache/data storage/framework/sessions storage/logs bootstrap/cache && chmod -R 775 storage bootstrap/cache
 
 # Migrations and caching run at start, not build: they need APP_KEY and the
 # database, and neither exists during the image build.
