@@ -142,7 +142,11 @@
 <div id="sidebar" class="sidebar bg-gray-800 text-gray-200 w-64 flex-shrink-0 min-h-screen border-r border-gray-700 transition-all duration-300 ease-in-out md:relative">
     <div class="flex items-center justify-center p-4 sidebar-header">
         <h2 class="text-lg font-bold sidebar-text">NOMSUITE</h2>
-        <span class="text-2xl hidden collapsed-icon"><svg class="nav-icon" aria-hidden="true"><use href="#i-menu"/></svg></span>
+        {{-- The navigation toggle lives in the sidebar header. Same id and the
+             same handler as before — only its position moved out of the top bar. --}}
+        <button id="toggle-btn" class="menu-btn sidebar-toggle" aria-label="Toggle navigation">
+            <svg class="menu-icon" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
     </div>
 
     <nav class="mt-4 space-y-2">
@@ -152,6 +156,8 @@
             <span class="sidebar-text">Dashboard</span>
         </a>
 
+        {{-- Visual grouping label only: not a link, route, accordion parent or permission group --}}
+        <div class="nav-section">OVERVIEW</div>
         <!-- PO Dashboard -->
         @if(auth()->user()->navAccess('po_dashboard', fn() => auth()->user()->canAccessModule('po_dashboard')))
         <a href="{{ route('po_dashboard') }}" class="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700">
@@ -178,6 +184,8 @@
         <!-- =================== RESTRICTED: Hide everything below for President/VP =================== -->
         @if(!auth()->user()->isPresidentOrVicePresident())
 
+        {{-- Visual grouping label only: not a link, route, accordion parent or permission group --}}
+        <div class="nav-section">OPERATIONS</div>
         <!-- =================== PO CREATOR ROLE (LIMITED ACCESS) =================== -->
         @if(auth()->user()->isPOCreatorRole())
             <div>
@@ -341,36 +349,6 @@
         </div>
         @endif
 
-        <!-- =================== BANKING =================== -->
-        @if(auth()->user()->canAccessModule('treasury') || auth()->user()->canAccessModule('cv') || auth()->user()->canAccessCollections() || auth()->user()->canAccessModule('loans'))
-        <div>
-            <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
-                <span class="flex items-center space-x-2">
-                    <svg class="nav-icon" aria-hidden="true"><use href="#i-landmark"/></svg>
-                    <span class="sidebar-text">Treasury</span>
-                </span>
-                <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
-            </button>
-            <div class="submenu ml-8 space-y-1 hidden">
-                <!-- @if(auth()->user()->canAccessCollections())
-                    <a href="{{ route('payments.entry') }}" class="block hover:underline">Cash Receipts</a>
-                @endif -->
-                @if(auth()->user()->canAccessModule('cv'))
-                    <a href="{{ route('check_vouchers.index') }}" class="block hover:underline">Cash Disbursements</a>
-                @endif
-                @if(auth()->user()->canAccessModule('loans'))
-                    <a href="{{ route('loans.index') }}" class="block hover:underline">Loans</a>
-                @endif
-                @if(auth()->user()->canAccessModule('treasury'))
-                    <a href="{{ route('treasury.confirmation') }}" class="block hover:underline">Cash Receipts</a>
-                    <a href="{{ route('treasury.summary') }}" class="block hover:underline">Bank</a>
-                    <!-- <a href="{{ route('treasury.banks', 'peso') }}" class="block hover:underline">Peso Accounts</a>
-                    <a href="{{ route('treasury.banks', 'dollar') }}" class="block hover:underline">Dollar Accounts</a> -->
-                    <a href="{{ route('treasury.bank-accounts') }}" class="block hover:underline">Bank Accounts</a>
-                @endif
-            </div>
-        </div>
-        @endif
 
         <!-- =================== ITEMS =================== -->
         @if(auth()->user()->canManageItems())
@@ -433,6 +411,38 @@
             </div>
         @endif
 
+        {{-- Visual grouping label only: not a link, route, accordion parent or permission group --}}
+        <div class="nav-section">FINANCE</div>
+        <!-- =================== BANKING =================== -->
+        @if(auth()->user()->canAccessModule('treasury') || auth()->user()->canAccessModule('cv') || auth()->user()->canAccessCollections() || auth()->user()->canAccessModule('loans'))
+        <div>
+            <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-700">
+                <span class="flex items-center space-x-2">
+                    <svg class="nav-icon" aria-hidden="true"><use href="#i-landmark"/></svg>
+                    <span class="sidebar-text">Treasury</span>
+                </span>
+                <svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </button>
+            <div class="submenu ml-8 space-y-1 hidden">
+                <!-- @if(auth()->user()->canAccessCollections())
+                    <a href="{{ route('payments.entry') }}" class="block hover:underline">Cash Receipts</a>
+                @endif -->
+                @if(auth()->user()->canAccessModule('cv'))
+                    <a href="{{ route('check_vouchers.index') }}" class="block hover:underline">Cash Disbursements</a>
+                @endif
+                @if(auth()->user()->canAccessModule('loans'))
+                    <a href="{{ route('loans.index') }}" class="block hover:underline">Loans</a>
+                @endif
+                @if(auth()->user()->canAccessModule('treasury'))
+                    <a href="{{ route('treasury.confirmation') }}" class="block hover:underline">Cash Receipts</a>
+                    <a href="{{ route('treasury.summary') }}" class="block hover:underline">Bank</a>
+                    <!-- <a href="{{ route('treasury.banks', 'peso') }}" class="block hover:underline">Peso Accounts</a>
+                    <a href="{{ route('treasury.banks', 'dollar') }}" class="block hover:underline">Dollar Accounts</a> -->
+                    <a href="{{ route('treasury.bank-accounts') }}" class="block hover:underline">Bank Accounts</a>
+                @endif
+            </div>
+        </div>
+        @endif
         <!-- =================== PURCHASE ORDER =================== -->
         @php
             $fu = auth()->user();
@@ -571,6 +581,8 @@
             </div>
         @endif
 
+        {{-- Visual grouping label only: not a link, route, accordion parent or permission group --}}
+        <div class="nav-section">REPORTING &amp; CONTROL</div>
         <!-- =================== CHANGE LOG =================== -->
         @if(auth()->user()->canAccessChangelog())
             <div>
@@ -640,7 +652,10 @@
     @endphp
     <div id="topbar" class="bg-gray-800 shadow border-b border-gray-700 p-4 flex items-center justify-between text-white">
         <div class="flex items-center space-x-2 md:space-x-4">
-            <button id="toggle-btn" class="menu-btn" aria-label="Toggle navigation"><svg class="menu-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+            {{-- Toggle moved into the sidebar header. This button remains for
+                 narrow screens, where the sidebar is an off-canvas drawer and
+                 its own header is not reachable while closed. --}}
+            <button id="drawer-btn" class="menu-btn drawer-toggle" aria-label="Open navigation"><svg class="menu-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
             <h1 class="text-lg md:text-xl font-semibold truncate">@yield('title', $fallbackTitle)</h1>
         </div>
 
@@ -733,9 +748,22 @@
 <script>
     const toggleBtn = document.getElementById("toggle-btn");
     const sidebar = document.getElementById("sidebar");
-    const submenuButtons = document.querySelectorAll("#sidebar button");
+    // Scoped to nav: the collapse toggle now lives in the sidebar header, and
+    // must not be treated as an accordion parent.
+    const submenuButtons = document.querySelectorAll("#sidebar nav button");
     const sidebarTexts = document.querySelectorAll(".sidebar-text");
     const currentUrl = window.location.pathname;
+
+    // Top-bar button: opens the off-canvas drawer on narrow screens, where the
+    // sidebar's own header is unreachable while it is closed.
+    const drawerBtn = document.getElementById("drawer-btn");
+    if (drawerBtn) {
+        drawerBtn.addEventListener("click", () => {
+            sidebar.classList.remove("collapsed");
+            sidebar.classList.toggle("mobile-open");
+            document.body.classList.toggle("sidebar-overlay");
+        });
+    }
 
     // ✅ Sidebar Open / Close Toggle with Mobile Support
     toggleBtn.addEventListener("click", () => {

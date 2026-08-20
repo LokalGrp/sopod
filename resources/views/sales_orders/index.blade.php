@@ -180,7 +180,7 @@
         @if(auth()->user()->canCreateSalesOrders())
             <a href="{{ route('sales_orders.create') }}" 
             class="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white px-4 py-2 rounded transition whitespace-nowrap">
-                Create Sales Order
+                Create SO
             </a>
         @endif
     </div>

@@ -3,8 +3,17 @@
 @section('title', 'Edit User')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-gray-800 text-white p-8 rounded-lg mt-8 shadow-md">
-    <h2 class="text-2xl font-bold mb-6">Edit User</h2>
+{{-- Layout only. The page title used to sit inside the form's card, so the
+     screen read as page -> box -> content. The header now sits on the page
+     and the card holds just the form. Fields and behaviour are unchanged. --}}
+<div class="page-narrow">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Edit User</h1>
+            <p class="page-subtitle">Update account details, role and module access.</p>
+        </div>
+    </div>
+    <div class="card" style="padding:24px">
 
     @if ($errors->any())
         <div class="bg-red-600 text-white p-3 rounded mb-4">
@@ -66,7 +75,8 @@
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Update User</button>
         </div>
     </form>
-</div>
+    </div>{{-- /card --}}
+</div>{{-- /page-narrow --}}
 
 {{-- Module Access Overrides Panel --}}
 @php

@@ -107,7 +107,16 @@
        1. BASE — compact, not spacious. This is software people
           keep open for eight hours.
        ========================================================== */
+    /* Kill the elastic overscroll. Scrolling hard past the top or bottom made
+       the whole page rubber-band, which detached the pinned sidebar from the
+       viewport edge and flashed the background above it. */
+    html {
+        overscroll-behavior-y: none;
+        background-color: var(--canvas);
+    }
+
     body {
+        overscroll-behavior-y: none;
         background-color: var(--canvas) !important;
         color: var(--body);
         font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -190,6 +199,104 @@
     }
     #sidebar nav { margin-top: 4px !important; }
     #sidebar nav > * + * { margin-top: 1px !important; }
+
+    /* Section labels. Visual grouping only — not links, routes, accordion
+       parents or permission groups. Quieter than any navigation row. */
+    #sidebar .nav-section {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+        color: #7C8AA5;
+        padding: 0 10px;
+        margin: 18px 0 4px !important;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+    }
+    #sidebar nav > .nav-section:first-child { margin-top: 6px !important; }
+    /* Collapsed rail: the label text can't fit, but the grouping still should.
+       Each section label becomes a hairline divider so OVERVIEW / OPERATIONS /
+       FINANCE / REPORTING remain scannable instead of collapsing into one
+       undifferentiated column of icons. */
+    #sidebar.sidebar.collapsed .nav-section {
+        display: block !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        height: 1px;
+        padding: 0 !important;
+        margin: 10px 8px !important;
+        background: rgba(255,255,255,.10);
+        overflow: hidden;
+    }
+    /* Slightly roomier icons now that the rail is the only affordance */
+    #sidebar.sidebar.collapsed nav a,
+    #sidebar.sidebar.collapsed nav button { min-height: 40px; margin: 1px 0 !important; }
+    #sidebar.sidebar.collapsed .nav-icon { width: 19px !important; height: 19px !important; opacity: .78; }
+    #sidebar.sidebar.collapsed nav a:hover .nav-icon,
+    #sidebar.sidebar.collapsed nav a.active .nav-icon { opacity: 1; }
+    /* Active item reads as a filled tile rather than a faint box */
+    #sidebar.sidebar.collapsed nav a.active {
+        background-color: rgba(37, 99, 235, .22) !important;
+        box-shadow: inset 3px 0 0 var(--primary);
+        border-radius: 6px;
+    }
+
+    /* Compact but comfortable rows */
+    #sidebar nav a, #sidebar nav button { min-height: 38px; font-size: 14px !important; }
+    #sidebar .submenu a { min-height: 32px; font-size: 13px !important; }
+    #sidebar .nav-icon { width: 17px; height: 17px; }
+
+    /* The sidebar is pinned to the viewport: scrolling the page must not move
+       it. It sticks at the top, fills the viewport height, and only its own
+       nav scrolls — and only when the pointer is over the nav.
+       `sticky` keeps it in the flex flow, so the content column needs no
+       offset. The <=1024px block below overrides this with `fixed` for the
+       off-canvas drawer. */
+    #sidebar.sidebar {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        max-height: 100vh;
+        align-self: flex-start;
+    }
+    /* Keep a wheel over the nav from chaining to the page once it bottoms out */
+    #sidebar nav { overscroll-behavior: contain; }
+    #sidebar .sidebar-header {
+        flex: none;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between !important;
+        padding: 14px 10px 12px !important;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    /* Collapse toggle, now inside the sidebar header */
+    #sidebar .sidebar-toggle {
+        flex: none; width: 30px; height: 30px;
+        color: #8FA0BC; background: transparent; border: none; border-radius: 6px;
+    }
+    #sidebar .sidebar-toggle:hover { background: var(--sidebar-hover) !important; color: #FFFFFF; }
+    /* When collapsed the header holds only the toggle, centred */
+    #sidebar.sidebar.collapsed .sidebar-header {
+        justify-content: center !important; padding: 14px 0 12px !important; height: auto;
+    }
+    #sidebar.sidebar.collapsed .sidebar-toggle { display: inline-flex !important; }
+
+    /* The top-bar button is only for the off-canvas drawer, so it is hidden
+       on desktop where the sidebar header is always reachable. */
+    #topbar .drawer-toggle { display: none; }
+    @media (max-width: 1024px) { #topbar .drawer-toggle { display: inline-flex; } }
+    #sidebar nav {
+        flex: 1 1 auto; overflow-y: auto; overflow-x: hidden;
+        scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent;
+    }
+    #sidebar nav::-webkit-scrollbar { width: 6px; }
+    #sidebar nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); border-radius: 3px; }
+    #sidebar nav::-webkit-scrollbar-track { background: transparent; }
+    #sidebar .sidebar-text { overflow: hidden; text-overflow: ellipsis; }
 
     #sidebar nav a,
     #sidebar nav button {
@@ -428,8 +535,24 @@
         padding-top: 0 !important;
         padding-bottom: 0 !important;
     }
-    /* A card sitting directly in the page keeps its own padding */
-    #pagebody > .bg-gray-800 { padding: var(--sp-6) !important; max-width: 1600px; margin-inline: auto; }
+    /* A page's OUTERMOST card is not a card — it is the page.
+       67 views wrap the whole screen (title + content) in a bg-gray-800
+       block, which drew a border around everything and produced the
+       page -> box -> content look. Keep the white ground and padding, drop
+       the border and shadow, so only genuinely nested cards show an edge. */
+    #pagebody > .bg-gray-800,
+    #pagebody > div > .bg-gray-800:only-child {
+        padding: var(--sp-6) !important;
+        max-width: 1600px;
+        margin-inline: auto;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    /* Cards nested inside it still read as cards */
+    #pagebody > .bg-gray-800 .bg-gray-800,
+    #pagebody > .bg-gray-800 .card {
+        border: 1px solid var(--line) !important;
+    }
 
     /* Uniform vertical rhythm between a page's top-level blocks */
     #pagebody > * > * + * { margin-top: var(--sp-4); }
@@ -529,6 +652,37 @@
         border-top: 1px solid var(--line);
     }
 
+    /* A filter toolbar must wrap, not squeeze. Search was collapsing to "Sea"
+       and the trailing action was being clipped off the card edge. */
+    form.flex, .filter-bar, #pagebody form[method="GET"] { flex-wrap: wrap !important; }
+    input[type="search"], input[name="search"], input[name="q"] {
+        min-width: 200px; flex: 1 1 200px;
+    }
+    /* Action buttons in a table cell stay on one line. They are often wrapped
+       in <form class="inline"> for POST actions, so the cell itself lays them
+       out rather than relying on a shared container class. */
+    table tbody td:last-child {
+        white-space: nowrap;
+        display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    }
+    table tbody td:last-child > a,
+    table tbody td:last-child > button,
+    table tbody td:last-child > form,
+    table tbody td:last-child > form > a,
+    table tbody td:last-child > form > button {
+        display: inline-flex; align-items: center;
+        margin: 0 !important; float: none !important; vertical-align: middle;
+    }
+    table td .flex, table td .space-x-1, table td .space-x-2 {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    }
+    table td a[class*="bg-"], table td button[class*="bg-"] {
+        padding: 4px 10px !important; font-size: 12px !important;
+        white-space: nowrap; display: inline-flex; align-items: center;
+    }
+    /* Status pills wrap as a unit rather than breaking mid-phrase */
+    table td span[class*="rounded"] { white-space: nowrap; display: inline-block; }
+
     /* ==========================================================
        9. TABLES — dense, horizontal dividers only
        ========================================================== */
@@ -605,6 +759,44 @@
     button, a.inline-flex, .btn, input[type="submit"] { border-radius: var(--radius); }
     button[class*="px-6"], a[class*="px-6"] { padding-left: 13px !important; padding-right: 13px !important; }
     button[class*="py-2.5"], a[class*="py-2.5"] { padding-top: 7px !important; padding-bottom: 7px !important; }
+
+    /* ---- Hover states on remapped greys ----
+       The palette remap changed what these classes mean: gray-600 now
+       resolves to #374151 and gray-500 to #6B7280, so any element using
+       hover:bg-gray-600/500 turned DARK on hover, and hover:bg-gray-800
+       (now #FFFFFF) produced no visible change at all. Normalise every grey
+       hover outside the sidebar to one subtle state. The sidebar keeps its
+       own dark hover via #sidebar rules, which outrank these. */
+    body :not(#sidebar):not(#sidebar *).hover\:bg-gray-500:hover,
+    body :not(#sidebar):not(#sidebar *).hover\:bg-gray-600:hover,
+    body :not(#sidebar):not(#sidebar *).hover\:bg-gray-700:hover,
+    body :not(#sidebar):not(#sidebar *).hover\:bg-gray-800:hover,
+    body :not(#sidebar):not(#sidebar *).hover\:bg-gray-900:hover {
+        background-color: #F3F4F6 !important;
+        color: var(--body) !important;
+    }
+    /* Filled action buttons keep their own semantic hover and white label */
+    button[class*="bg-blue-"]:hover, a[class*="bg-blue-"]:hover,
+    button[class*="bg-green-"]:hover, a[class*="bg-green-"]:hover,
+    button[class*="bg-red-"]:hover, a[class*="bg-red-"]:hover,
+    button[class*="bg-amber-"]:hover, a[class*="bg-amber-"]:hover,
+    button[class*="bg-gradient"]:hover, a[class*="bg-gradient"]:hover {
+        color: #FFFFFF !important;
+    }
+    /* Secondary buttons: a hint, never a colour flip */
+    button[class*="bg-gray-6"]:hover, a[class*="bg-gray-6"]:hover,
+    button[class*="bg-gray-5"]:hover, a[class*="bg-gray-5"]:hover {
+        background-color: #F9FAFB !important;
+        border-color: #D1D5DB !important;
+        color: var(--body) !important;
+    }
+    /* Text-colour hovers that inverted on light ground */
+    .hover\:text-gray-100:hover, .hover\:text-gray-200:hover,
+    .hover\:text-gray-300:hover { color: var(--heading) !important; }
+    #sidebar .hover\:text-gray-100:hover, #sidebar .hover\:text-gray-200:hover,
+    #sidebar .hover\:text-gray-300:hover { color: #FFFFFF !important; }
+    /* Table rows and links keep their own defined hover */
+    table tbody tr:hover { background-color: #F9FAFB !important; }
 
     :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
@@ -1216,6 +1408,249 @@
     }
 
     /* ==========================================================
+       24b. COLLAPSED RAIL — final pass
+       Overrides the earlier collapsed rules (later in the sheet wins).
+       Desktop only; the <=1024px block turns the sidebar into a drawer.
+       ========================================================== */
+    #sidebar.sidebar.collapsed {
+        width: 68px !important;
+        min-width: 68px !important;
+        padding: 0 !important;
+    }
+
+    /* Top control: same icon size as the rail, but visually quieter */
+    #sidebar.sidebar.collapsed .sidebar-header {
+        justify-content: center !important;
+        padding: 12px 0 !important;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    #sidebar.sidebar.collapsed .sidebar-toggle { color: #6E7E99; width: 34px; height: 34px; }
+    #sidebar.sidebar.collapsed .sidebar-toggle:hover { color: #C3CBD9; background: rgba(255,255,255,.06) !important; }
+
+    #sidebar.sidebar.collapsed nav { padding: 6px 10px 16px !important; }
+
+    /* One rhythm for every row: 46px target, centred, evenly spaced */
+    #sidebar.sidebar.collapsed nav a,
+    #sidebar.sidebar.collapsed nav button {
+        min-height: 46px !important;
+        height: 46px;
+        margin: 3px 0 !important;
+        padding: 0 !important;
+        border-radius: 8px;
+        justify-content: center !important;
+    }
+    #sidebar.sidebar.collapsed .nav-icon {
+        width: 19px !important; height: 19px !important;
+        opacity: .62; stroke: #98A6BF;
+    }
+    #sidebar.sidebar.collapsed nav a:hover,
+    #sidebar.sidebar.collapsed nav button:hover { background: rgba(255,255,255,.06) !important; }
+    #sidebar.sidebar.collapsed nav a:hover .nav-icon,
+    #sidebar.sidebar.collapsed nav button:hover .nav-icon { opacity: 1; stroke: #FFFFFF; }
+
+    /* Active page: soft rounded tint + 3px edge marker, not a dark card */
+    #sidebar.sidebar.collapsed nav a.active {
+        background: rgba(37,99,235,.20) !important;
+        box-shadow: inset 3px 0 0 var(--primary);
+        border-radius: 8px;
+    }
+    #sidebar.sidebar.collapsed nav a.active .nav-icon { opacity: 1; stroke: #FFFFFF; }
+    /* Parent holding the current page: quieter marker, no chevron */
+    #sidebar.sidebar.collapsed nav button.parent-active {
+        background: rgba(255,255,255,.05) !important;
+        box-shadow: inset 3px 0 0 rgba(37,99,235,.55);
+    }
+    #sidebar.sidebar.collapsed nav button.parent-active .nav-icon { opacity: .95; stroke: #DCE3EE; }
+    #sidebar.sidebar.collapsed .chevron { display: none !important; }
+
+    /* Section breaks: presence without a visible line */
+    #sidebar.sidebar.collapsed .nav-section {
+        display: block !important;
+        font-size: 0 !important; line-height: 0 !important;
+        height: 1px; padding: 0 !important;
+        margin: 8px 12px !important;
+        background: rgba(255,255,255,.05);
+    }
+
+    /* Scrollbar: thin, muted, no track */
+    #sidebar.sidebar.collapsed nav { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,.28) transparent; }
+    #sidebar.sidebar.collapsed nav::-webkit-scrollbar { width: 4px; }
+    #sidebar.sidebar.collapsed nav::-webkit-scrollbar-track { background: transparent; }
+    #sidebar.sidebar.collapsed nav::-webkit-scrollbar-thumb { background: rgba(148,163,184,.28); border-radius: 2px; }
+    #sidebar.sidebar.collapsed nav:hover::-webkit-scrollbar-thumb { background: rgba(148,163,184,.45); }
+
+    /* Keyboard focus stays visible on icon-only controls */
+    #sidebar.sidebar.collapsed nav a:focus-visible,
+    #sidebar.sidebar.collapsed nav button:focus-visible,
+    #sidebar.sidebar.collapsed .sidebar-toggle:focus-visible {
+        outline: 2px solid var(--primary); outline-offset: -2px;
+    }
+
+    /* Submenu as a floating flyout beside the rail */
+    #sidebar.sidebar.collapsed .submenu.as-flyout {
+        display: block !important;
+        position: fixed;
+        left: 72px;
+        width: 216px;
+        margin: 0 !important;
+        padding: 6px !important;
+        background: #1B2740;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.35);
+        z-index: 1200;
+    }
+    #sidebar.sidebar.collapsed .submenu.as-flyout .flyout-title {
+        display: block; font-size: 11px; font-weight: 600; letter-spacing: .06em;
+        text-transform: uppercase; color: #7C8AA5; padding: 4px 8px 6px;
+    }
+    #sidebar.sidebar.collapsed .submenu.as-flyout a {
+        display: block !important; padding: 7px 9px !important;
+        font-size: 13px !important; color: #C3CBD9 !important; border-radius: 6px;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    #sidebar.sidebar.collapsed .submenu.as-flyout a:hover { background: var(--sidebar-hover) !important; color: #fff !important; }
+    #sidebar.sidebar.collapsed .submenu.as-flyout a.active { background: var(--sidebar-active) !important; color: #fff !important; }
+
+    /* ==========================================================
+       24c. ITEM-ENTRY FIXES (Sales Order / PR / PO item rows)
+       Presentation only. No field names, values, calculations or
+       add/remove logic are touched.
+       ========================================================== */
+    /* The magnifier sat on top of the typed text */
+    #itemsTable input[type="text"],
+    input.item-search, input[id^="item_search"] { padding-right: 30px !important; }
+    /* Only the search glyph ignores clicks. `.absolute` here is the results
+       dropdown — making it pointer-events:none stopped every option from
+       being selectable. */
+    #itemsTable .relative > svg { pointer-events: none; opacity: .55; }
+
+    /* Autocomplete list: a readable white popover, above the action buttons */
+    .item-option, .customer-option {
+        display: block;
+        background: #FFFFFF !important;
+        color: var(--body) !important;
+        padding: 8px 10px !important;
+        border-radius: 6px;
+        cursor: pointer;
+        white-space: normal;
+        line-height: 1.35;
+    }
+    .item-option *, .customer-option * { color: inherit !important; }
+    .item-option:hover, .customer-option:hover,
+    .item-option.is-active, .customer-option.is-active {
+        background: #EFF6FF !important;
+        color: var(--heading) !important;
+    }
+    /* NOTE: I previously forced background / border / z-index onto
+       `#itemsTable .absolute` and added stacking rules for the open row.
+       That changed the dropdown's layering and left the options unclickable
+       (a FORM ancestor ended up painting over them). Reverted — the dropdown
+       keeps its original positioning and stacking. Only the option colours
+       above are restyled, which is safe because they set no position/z-index. */
+
+    /* Amount reads as a calculated value, not an editable box */
+    .item-amount {
+        background: #F9FAFB !important;
+        border-color: var(--line) !important;
+        color: var(--heading) !important;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+        font-weight: 500;
+    }
+
+    /* Action buttons under the table were colliding */
+    #itemsTable + div, .item-actions {
+        display: flex !important; flex-wrap: wrap; align-items: center;
+        gap: var(--sp-2) !important; margin-top: var(--sp-3) !important;
+    }
+    #itemsTable + div > button, #itemsTable + div > a { margin: 0 !important; float: none !important; }
+
+    /* ---- Item rows rendered as cards ----
+       Same <table>/<tr>/<td>, same names, same JS hooks — only `display`
+       changes, so #itemsTable tbody tr still matches and add/remove and the
+       calculations are untouched. Each cell's label comes from its column
+       header, copied into data-label by the script below. */
+    #itemsTable { min-width: 0 !important; width: 100%; border-collapse: separate; }
+    #itemsTable thead { display: none !important; }
+    #itemsTable, #itemsTable tbody { display: block !important; }
+    #itemsTable tbody tr {
+        display: grid !important;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 12px 16px;
+        background: var(--surface) !important;
+        border: 1px solid var(--line) !important;
+        border-radius: var(--radius-lg);
+        padding: 16px 18px 18px !important;
+        margin-bottom: 12px;
+        position: relative;
+        counter-increment: sopod-item;
+    }
+    #itemsTable tbody tr:hover { background: var(--surface) !important; }
+    /* "Item #1" heading on each card */
+    #itemsTable tbody tr::before {
+        content: 'Item #' counter(sopod-item);
+        grid-column: 1 / -1;
+        font-size: 12px; font-weight: 600; letter-spacing: .04em;
+        text-transform: uppercase; color: var(--muted);
+        padding-bottom: 8px; margin-bottom: 2px;
+        border-bottom: 1px solid var(--line);
+    }
+    #itemsTable tbody { counter-reset: sopod-item; }
+
+    #itemsTable tbody td {
+        display: block !important;
+        border: none !important;
+        padding: 0 !important;
+        min-width: 0;
+        grid-column: span 3;
+    }
+    /* The label, taken from the column header */
+    #itemsTable tbody td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 12px; font-weight: 500;
+        color: var(--muted);
+        margin-bottom: 5px;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    #itemsTable input, #itemsTable select, #itemsTable textarea {
+        min-width: 0; width: 100% !important; max-width: none !important;
+    }
+
+    /* Field widths — description leads, note spans the card */
+    #itemsTable tbody td:nth-child(1) { grid-column: span 6; }   /* Item Description */
+    #itemsTable tbody td:nth-child(2) { grid-column: span 3; }   /* Item Code */
+    #itemsTable tbody td:nth-child(3) { grid-column: span 3; }   /* Item Category */
+    #itemsTable tbody td:nth-child(4) { grid-column: span 4; }   /* Brand */
+    #itemsTable tbody td:nth-child(5) { grid-column: span 2; }   /* PCS? */
+    #itemsTable tbody td:nth-child(6) { grid-column: span 3; }   /* Quantity */
+    #itemsTable tbody td:nth-child(7) { grid-column: span 3; }   /* UOM */
+    #itemsTable tbody td:nth-child(8) { grid-column: span 4; }   /* Unit Selling Price */
+    #itemsTable tbody td:nth-child(9) { grid-column: span 4; }   /* Amount */
+    #itemsTable tbody td:nth-child(10){ grid-column: span 12; }  /* Note */
+
+    /* The PCS checkbox sits on the baseline like a normal control */
+    #itemsTable tbody td:nth-child(5) input[type="checkbox"] { margin-top: 7px; }
+
+    @media (max-width: 1280px) {
+        #itemsTable tbody td:nth-child(1) { grid-column: span 12; }
+        #itemsTable tbody td:nth-child(2),
+        #itemsTable tbody td:nth-child(3),
+        #itemsTable tbody td:nth-child(4) { grid-column: span 4; }
+    }
+    @media (max-width: 900px) {
+        #itemsTable tbody tr { grid-template-columns: repeat(6, minmax(0,1fr)); }
+        #itemsTable tbody td { grid-column: span 3 !important; }
+        #itemsTable tbody td:nth-child(1),
+        #itemsTable tbody td:nth-child(10) { grid-column: span 6 !important; }
+    }
+    @media (max-width: 640px) {
+        #itemsTable tbody tr { grid-template-columns: 1fr; }
+        #itemsTable tbody td { grid-column: span 1 !important; }
+    }
+
+    /* ==========================================================
        25. RESPONSIVE — below laptop widths
        Desktop (>=1025px) behaviour is untouched. Below that the
        sidebar becomes an off-canvas drawer, multi-column grids
@@ -1372,6 +1807,30 @@
         });
     }
 
+    /* Item rows render as cards, so each cell needs its own label. Copy the
+       column header text onto every cell as data-label; CSS prints it.
+       Presentation only — no markup, names or handlers are altered. Runs
+       again after rows are added, since rows are created by page JS. */
+    function labelItemCells() {
+        var t = document.getElementById('itemsTable');
+        if (!t || !t.tHead || !t.tHead.rows[0]) return;
+        var heads = Array.prototype.map.call(t.tHead.rows[0].cells, function (th) {
+            return th.textContent.trim();
+        });
+        Array.prototype.forEach.call(t.tBodies, function (tb) {
+            tb.querySelectorAll('tr').forEach(function (tr) {
+                Array.prototype.forEach.call(tr.cells, function (td, i) {
+                    if (heads[i] && !td.dataset.label) td.dataset.label = heads[i];
+                });
+            });
+            if (!tb.dataset.sopodLabelWatch) {
+                tb.dataset.sopodLabelWatch = '1';
+                new MutationObserver(function () { labelItemCells(); })
+                    .observe(tb, { childList: true });
+            }
+        });
+    }
+
     /* Copy each sidebar item's label into data-tip so the collapsed icon
        rail can show it as a tooltip. Presentation only. */
     function labelSidebar() {
@@ -1382,15 +1841,78 @@
             if (txt) el.dataset.tip = txt;
         });
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', labelSidebar);
-    } else {
-        labelSidebar();
+    /* Accessible names for icon-only controls, plus the collapsed flyout.
+       Presentation only — no route, permission or submenu change. */
+    function sidebarA11yAndFlyout() {
+        var sb = document.getElementById('sidebar');
+        if (!sb) return;
+
+        sb.querySelectorAll('nav a, nav button').forEach(function (el) {
+            var name = el.dataset.tip;
+            if (name && !el.getAttribute('aria-label')) el.setAttribute('aria-label', name);
+            if (name && !el.getAttribute('title')) el.setAttribute('title', name);
+        });
+
+        function closeFlyouts(except) {
+            sb.querySelectorAll('.submenu.as-flyout').forEach(function (m) {
+                if (m === except) return;
+                m.classList.remove('as-flyout');
+                m.classList.add('hidden');
+                m.style.top = '';
+                var t = m.querySelector('.flyout-title');
+                if (t) t.remove();
+            });
+        }
+
+        // Capture phase so this runs before the accordion handler.
+        sb.addEventListener('click', function (e) {
+            var btn = e.target.closest('#sidebar nav button');
+            if (!btn || !sb.classList.contains('collapsed')) { return; }
+            var menu = btn.nextElementSibling;
+            if (!menu || !menu.classList.contains('submenu')) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            var open = menu.classList.contains('as-flyout');
+            closeFlyouts();
+            if (open) return;
+
+            if (!menu.querySelector('.flyout-title')) {
+                var h = document.createElement('span');
+                h.className = 'flyout-title';
+                h.textContent = btn.dataset.tip || '';
+                menu.insertBefore(h, menu.firstChild);
+            }
+            menu.classList.remove('hidden');
+            menu.classList.add('as-flyout');
+            var r = btn.getBoundingClientRect();
+            var top = Math.min(r.top, window.innerHeight - menu.offsetHeight - 12);
+            menu.style.top = Math.max(8, top) + 'px';
+        }, true);
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#sidebar')) closeFlyouts();
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeFlyouts(); });
+        // Leaving the rail collapses any open flyout
+        sb.addEventListener('mouseleave', function () { closeFlyouts(); });
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { setTimeout(scan, 350); });
+        document.addEventListener('DOMContentLoaded', function () { labelSidebar(); sidebarA11yAndFlyout(); });
     } else {
+        labelSidebar();
+        sidebarA11yAndFlyout();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            labelItemCells();
+            setTimeout(scan, 350);
+        });
+    } else {
+        labelItemCells();
         setTimeout(scan, 350);
     }
 })();

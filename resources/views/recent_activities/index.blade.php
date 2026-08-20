@@ -1,19 +1,35 @@
 @extends('layouts.app')
 @section('title', $pageTitle ?? 'All Recent Activities')
 @section('content')
-<div class="max-w-7xl mx-auto bg-gray-800 p-8 rounded-lg shadow-md mt-8">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-white">{{ $pageTitle ?? 'All Recent Activities' }}</h1>
-        <a href="{{ $backRoute ?? route('dashboard') }}"
-           class="bg-gray-600 hover:bg-gray-600 text-white text-sm px-4 py-2 rounded-lg">
-            Back to Dashboard
-        </a>
+{{-- Layout only. The page was wrapped in a single card holding both the
+     header and the table, which produced a page-inside-a-box. The header now
+     sits on the page itself and only the table gets a card, matching the
+     other modules. Data, routes and pagination are unchanged. --}}
+<div class="page-wide">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">{{ $pageTitle ?? 'All Recent Activities' }}</h1>
+            <p class="page-subtitle">Activity recorded across this module.</p>
+        </div>
+        <div class="page-actions">
+            <a href="{{ $backRoute ?? route('dashboard') }}" class="btn-secondary">
+                Back to Dashboard
+            </a>
+        </div>
     </div>
+
     @if($recentActivities->isEmpty())
-        <p class="text-gray-300">No recent activities found </p>
+        <div class="card">
+            <div class="empty-state">
+                <svg class="ico" style="width:22px;height:22px;color:#D1D5DB;margin-bottom:6px" aria-hidden="true"><use href="#i-repeat"/></svg>
+                <div class="empty-state-title">No recent activity</div>
+                <div class="empty-note">Activity for this module will appear here.</div>
+            </div>
+        </div>
     @else
-        <div class="overflow-x-auto">
-            <table class="min-w-full border border-gray-700 text-sm text-left text-white">
+        <div class="card card-table">
+        <div class="table-wrap">
+            <table class="min-w-full text-sm text-left">
                 <thead class="bg-gray-700 text-xs uppercase text-gray-200">
                     <tr>
                         <th class="px-4 py-3 border-b border-gray-600">Date</th>
@@ -53,7 +69,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="mt-8 flex justify-center pr-2">
+        </div>
+        <div class="mt-4 flex justify-center pr-2">
             {{ $recentActivities->onEachSide(1)->links('vendor.pagination.elegant') }}
         </div>
     @endif

@@ -736,7 +736,10 @@ window.validateForm = function() {
                 row.querySelector('.item-price').value = price;
 
                 const qty = parseFloat(row.querySelector('.item-quantity').value) || 0;
-                row.querySelector('.item-amount').value = (qty * parseFloat(price)).toFixed(2);
+                // parseFloat("") is NaN, which surfaced as "NaN" in the Amount box
+        // whenever price was still empty. Coerce at the boundary only —
+        // the calculation (qty x price) is unchanged.
+        row.querySelector('.item-amount').value = (qty * (parseFloat(price) || 0)).toFixed(2);
 
                 dropdown.classList.add('hidden');
             }
