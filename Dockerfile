@@ -13,6 +13,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 ENV COMPOSER_ALLOW_SUPERUSER=1
+# Containers have no persistent disk, so file logging hides every error.
+# Default to stderr so exceptions reach the platform log stream. A
+# LOG_CHANNEL set in the environment still overrides this.
+ENV LOG_CHANNEL=stderr
 
 # Dependencies first so this layer caches across code-only changes.
 COPY composer.json composer.lock ./
