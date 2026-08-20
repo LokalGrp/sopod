@@ -1,0 +1,18 @@
+# PHP 8.3 with the extensions this app actually uses:
+# pdo_mysql (database), gd + zip (maatwebsite/excel, dompdf),
+# bcmath (currency maths), mbstring, xml, curl, fileinfo.
+[phases.setup]
+nixPkgs = ["php83", "php83Packages.composer", "nodejs_20"]
+
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"]
+
+[phases.build]
+cmds = [
+  "php artisan config:clear",
+  "php artisan route:clear",
+  "php artisan view:clear"
+]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
